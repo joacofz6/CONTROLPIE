@@ -248,6 +248,7 @@ function sendKeepAlive() {
 
 function setRadioWithCurrentPreset(value) {
   console.log(value);
+  presetSelected = value;
   $('input[id="option'+value+'"]').parent().addClass('active');
 };
 
@@ -347,10 +348,10 @@ $('#btnBank1').click(function(){
   $('#editBtns').prop('disabled',false);
 
   $('#bankInfo').text("EDITING BANK 1");
-  currentBank=1;
+  currentBank=0; // para bank 1
   //BF	1C	07 para bank 1
   //BF	1C	08 para bank 1
-  var msg1 = [0xBF, 0x1C, 6+currentBank]; //BF	1C	07 para bank 1
+  var msg1 = [0xBF, 0x1C, 6+1]; //BF	1C	07 para bank 1
   output.send(msg1);
 });
 
@@ -361,12 +362,35 @@ $('#btnBank2').click(function(){
   $('#btnBank1').removeClass("btn-success");
   $('#bankInfo').text("EDITING BANK 2");
   $('#editBtns').prop('disabled',false);
-  currentBank=2;
+  currentBank=240; //240 para bank 2
   //BF	1C	07 para bank 1
   //BF	1C	08 para bank 1
-  var msg1 = [0xBF, 0x1C, 6+currentBank]; //BF	1C	07 para bank 1
+  var msg1 = [0xBF, 0x1C, 6+2]; //BF	1C	08 para bank 2
   output.send(msg1);
 });
+
+$("[id^=btnInfo]").click(function(){
+
+   showbtnInfo(($(this).prop('id')).slice(-1));
+  // alert(($(this).prop('id')).slice(-1));
+  // allConfigData[]
+
+});
+
+
+function showbtnInfo(btnNumber){
+//(modo - 1) * 30 + ((btnNumber - 1) * 6) + 1 + bank
+console.log("PRESET: "+presetSelected);
+console.log("boton: "+btnNumber);
+console.log("Bank: "+currentBank);
+console.log("EEPROM ADDRES: "+((presetSelected-1)*30+((btnNumber-1)*6)+1+currentBank));
+  if(btnNumber<=5){
+    setRadioWithCurrentPreset
+  $('#bankInfo').text("EDITING BANK "+currentBank+" BUTTON "+btnNumber);
+}else{
+  $('#bankInfo').text("EDITING BANK "+currentBank+" BUTTON EXTERNO");
+}
+};
 
 if(!isMobile){
   $('#midiLearnDiv').removeClass("invisible");

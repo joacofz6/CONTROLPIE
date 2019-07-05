@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- <script type="text/javascript" src="./jquery-3.4.1.min.js"></script> -->
+  <meta charset="utf-8" />
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="scripts.js"></script>
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
+
+  <title>TEST MIDI App</title>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="style.css">
+  <link href='https://fonts.googleapis.com/css?family=Lato:300,400,400italic,700,700italic' rel='stylesheet'>
+  <!-- <link rel="stylesheet" media="all" href="https://static.codepen.io/assets/global/global-c06c9ade2eac3f3842bb17c39f85cfd4cff0059953fdbc708b16b7dfb8971197.css" /> -->
+
+  <!-- <script src="scripts.js"></script> -->
+
+
+</head>
+
+<body>
+  <div id="screen-spacer">
+
+  </div>
+
+  <div id="screen-wrapper">
+
+
+
+    <p>DEVICES LIST:</p>
+    <table>
+      <!-- here goes our data! -->
+    </table>
+
+    <div id="alertConnect">
+      <label id="btnAlertConnect" class="btn btn-warning invisible">CONECTE SU CONTROL PIE</label>
+    </div>
+
+
+
+    <div id="lowPanel" class="invisible">
+
+      <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#collapseMIDIIN" aria-expanded="false" aria-controls="collapseMIDIIN" data-toggle="tooltip" data-placement="top" title="muestra dispositivos midi">
+        SHOW MIDI input
+      </button>
+      <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#collapsePresets" aria-expanded="false" aria-controls="collapsePresets" data-toggle="tooltip" data-placement="top" title="Elige el preset">
+        Select Working PRESET
+      </button>
+      <div class="collapse" id="collapseMIDIIN">
+
+        <div id=screen class="card card-body">
+          <h2>Presione cualquier tecla de su dispositivo MIDI</h2>
+          <td>
+            <h4 id="channel">Waiting...</h4>
+          </td>
+          <td>
+            <h4 id="notePressed">Waiting...</h4>
+          </td>
+          <td>
+            <h4 id="noteVelocity">Waiting...</h4>
+          </td>
+        </div>
+      </div>
+
+
+
+
+      <div class="collapse" id="collapsePresets">
+
+        <div id=screen class="card card-body">
+          <div id="presets" class="btn-group btn-group-toggle" data-toggle="buttons">
+
+            <label class="btn btn-secondary">
+              <input type="radio" name="preset1" id="option1" value=1 autocomplete="off"> Preset 1
+            </label>
+            <label class="btn btn-secondary">
+              <input type="radio" name="preset2" id="option2" value=2 autocomplete="off"> Preset 2
+            </label>
+            <label class="btn btn-secondary">
+              <input type="radio" name="preset3" id="option3" value=3 autocomplete="off"> Preset 3
+            </label>
+            <label class="btn btn-secondary">
+              <input type="radio" name="preset4" id="option4" value=4 autocomplete="off"> Preset 4
+            </label>
+            <label class="btn btn-secondary">
+              <input type="radio" name="preset5" id="option5" value=5 autocomplete="off"> Preset 5
+            </label>
+            <label class="btn btn-secondary">
+              <input type="radio" name="preset6" id="option6" value=6 autocomplete="off"> Preset 6
+            </label>
+
+          </div>
+        </div>
+      </div>
+
+
+
+
+      <p id="btnRead" class="btnRead">PRESIONE UN BOTON DE SU CONTROL PIE</p>
+      <button id="getConfig" type="button">Get All Config</button>
+      <button id="getActivePreset" type="button">Get Active Preset</button>
+
+<!-- Button trigger modal -->
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+        Restore to factory default
+      </button>
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">This will restore CONTROL PIE to factory defaults</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div id="modalbody" class="modal-body">
+          confirm?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button id="restoreToFactory" type="button" class="btn btn-primary">Yes</button>
+          <!-- <button id="restoreToFactory"data-dismiss="modal" type="button" style="background-color:red">Restore to factory defaults</button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+    </div>
+
+
+  </div>
+
+</body>
+
+</html>
