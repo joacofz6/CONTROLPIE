@@ -463,7 +463,9 @@ var keys = {"4":"KEY A","5":"KEY B","6":"KEY C","7":"KEY D","8":"KEY E","9":"KEY
   }
 
   if (!isMobile) {
-    // $('#midiLearnDiv').removeClass("invisible");
+    $('#midiLearnDiv').removeClass("invisible");
+  }else{
+    $('#midiLearnDiv').removeClass("invisible"); // NOTE: REMOVE THIS!
   }
 
 }); // END DOCUMENT READY
