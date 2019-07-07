@@ -33,7 +33,7 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-12">
-    <p style="color: antiquewhite" ;>CONTROL PIE button configurator</p>
+      <p style="color: antiquewhite" ;>CONTROL PIE button configurator</p>
     </div>
   </div>
   <div class="row">
@@ -65,30 +65,31 @@
           <h3>Select the Preset you want to modify</h3>
           <div class="btn-group" role="group">
             <div class="btn-group btn-group-toggle" role="group" aria-label="Button group with nested dropdown">
-            <button id="btnGroupDrop1" type="button" class="btn btn-md btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              choose preset..
-            </button>
-            <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-              <a class="dropdown-item" href="#" id="preset1">Preset 1</a>
-              <a class="dropdown-item" href="#" id="preset2">Preset 2</a>
-              <a class="dropdown-item" href="#" id="preset3">Preset 3</a>
-              <a class="dropdown-item" href="#" id="preset4">Preset 4</a>
-              <a class="dropdown-item" href="#" id="preset5">Preset 5</a>
-              <a class="dropdown-item" href="#" id="preset6">Preset 6</a>
+              <button id="btnGroupDrop1" type="button" class="btn btn-md btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                choose preset..
+              </button>
+              <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                <a class="dropdown-item" href="#" id="preset1">Preset 1</a>
+                <a class="dropdown-item" href="#" id="preset2">Preset 2</a>
+                <a class="dropdown-item" href="#" id="preset3">Preset 3</a>
+                <a class="dropdown-item" href="#" id="preset4">Preset 4</a>
+                <a class="dropdown-item" href="#" id="preset5">Preset 5</a>
+                <a class="dropdown-item" href="#" id="preset6">Preset 6</a>
+              </div>
             </div>
           </div>
-        </div>
           <button id="btnBank1" class="btn btn-dark" type="button" aria-expanded="false" data-placement="top" title="Choose Bank 1" disabled="disabled">
             Select BANK 1
           </button>
           <button id="btnBank2" class="btn btn-dark" type="button" aria-expanded="false" data-placement="top" title="Choose Bank 2" disabled="disabled">
             Select BANK 2
           </button>
-          <button id="editBtns" class="btn btn-dark" type="button" data-toggle="collapse" data-target="#collapsePresets" aria-expanded="false" aria-controls="collapsePresets" data-toggle="tooltip" data-placement="top" title="Elige el preset" disabled>
+          <button id="editBtns" class="btn btn-dark" type="button" data-toggle="collapse" data-target="#collapsePresets" aria-expanded="false" aria-controls="collapsePresets" data-toggle="tooltip" data-placement="top" title="Elige el preset"
+            disabled>
             EDIT BUTTON's ACTIONS
           </button>
         </div>
-        <div id="midiLearnDiv"class="col-md-3 invisible">
+        <div id="midiLearnDiv" class="col-md-3 invisible">
           <h3>Use MIDI learn!</h3>
           <div class="setRadioWithCurrentPreset">
 
@@ -116,39 +117,132 @@
 
             <div id=screen class="card card-body" style="height:40vh;background: linear-gradient(#05021f, #d5d4ff);">
               <div class="row">
-
-
-                  <div class="col-md-12">
-                    <h3 id="bankInfo"></h3>
-                  <button id="btnInfo1" type="button" class="btn btn-secondary btn-sm">Button 1</button>
-                  <button id="btnInfo2" type="button" class="btn btn-secondary btn-sm">Button 2</button>
-                  <button id="btnInfo3" type="button" class="btn btn-secondary btn-sm">Button 3</button>
-                  <button id="btnInfo4" type="button" class="btn btn-secondary btn-sm">Button 4</button>
-                  <button id="btnInfo5" type="button" class="btn btn-secondary btn-sm">Button 5</button>
-                  <button id="btnInfo6" type="button" class="btn btn-secondary btn-sm">Button External</button>
-
+                <div class="col-md-12">
+                  <h3 id="bankInfo"></h3>
                 </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-2">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <label id="btnType1"></label>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <label id="btnValue1" class="kbd"></label>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <button id="btnInfo1" type="button" class="btn btn-secondary btn-md">Button 1</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <label id="btnType2"></label>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <label id="btnValue2" class="kbd"></label>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <button id="btnInfo2" type="button" class="btn btn-secondary btn-md">Button 2</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <label id="btnType3"></label>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <label id="btnValue3" class="kbd"></label>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <button id="btnInfo3" type="button" class="btn btn-secondary btn-md">Button 3</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <label id="btnType4"></label>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <label id="btnValue4" class="kbd"></label>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <button id="btnInfo4" type="button" class="btn btn-secondary btn-md">Button 4</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <label id="btnType5"></label>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <label id="btnValue5" class="kbd"></label>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <button id="btnInfo5" type="button" class="btn btn-secondary btn-md">Button 5</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <label id="btnType6"></label>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <label id="btnValue6" class="kbd"></label>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <button id="btnInfo6" type="button" class="btn btn-secondary btn-md">External</button>
+                    </div>
+                  </div>
+                </div>
+
+
+
+
+
+
+              </div>
+              <div class="row">
+
+
               </div>
             </div>
           </div>
         </div>
-        <div class="col-md-3">
-          <div class="collapse" id="collapseMIDIIN">
 
-            <div id=screen class="card card-body">
-              <h6>Presione cualquier tecla de su dispositivo MIDI</h6>
-              <td>
-                <h6 id="channel">Waiting...</h6>
-              </td>
-              <td>
-                <h4 id="notePressed">Waiting...</h4>
-              </td>
-              <td>
-                <h4 id="noteVelocity">Waiting...</h4>
-              </td>
-            </div>
-          </div>
-        </div>
       </div>
       <div class="row">
         <div class="col-md-9">
@@ -159,6 +253,24 @@
       </div>
     </div>
     <div class="col-md-3">
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="collapse" id="collapseMIDIIN">
+
+      <div id=screen class="card card-body">
+        <h6>Presione cualquier tecla de su dispositivo MIDI</h6>
+        <td>
+          <h6 id="channel">Waiting...</h6>
+        </td>
+        <td>
+          <h4 id="notePressed">Waiting...</h4>
+        </td>
+        <td>
+          <h4 id="noteVelocity">Waiting...</h4>
+        </td>
+      </div>
     </div>
   </div>
 
