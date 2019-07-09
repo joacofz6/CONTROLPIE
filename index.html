@@ -3,21 +3,21 @@
 
 <head>
   <meta charset="utf-8">
-
-
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   <script type="text/javascript" src="scripts.js"></script>
-  <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
-
-  <title>CONTROL PIE CONFIG APP</title>
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link rel="stylesheet" href="style.css">
   <link href='https://fonts.googleapis.com/css?family=Lato:300,400,400italic,700,700italic' rel='stylesheet'>
+
+
+
+  <title>CONTROL PIE CONFIG APP</title>
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -30,286 +30,89 @@
     <link href="css/style.css" rel="stylesheet"> -->
 
 </head>
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-md-12">
-      <p style="color: antiquewhite" ;>CONTROL PIE button configurator</p>
-    </div>
+
+<body>
+  <div style="background:transparent !important" class="text-center">
+    <h3 style="color: antiquewhite" ;>CONTROL PIE CONFIGURATOR</h3>
+    <img alt="CONTROL PIE" src="pedal.jpg" class="rounded img-fluid" ;>
   </div>
-  <div class="row">
-    <div class="col-md-12">
-      <img alt="CONTROL PIE" src="pedal.jpg" class="img-fluid" ;>
+  <!-- NOTE: IMAGEN Y TITULO -->
+
+
+  <div class="container">
+
+    <div class="text-center">
+      <div id="alertConnect">
+        <h4>Please connect your CONTROL PIE to USB PORT.</h4>
+      </div>
+      <label id="btnAlertConnect" class="btn btn-warning invisible blink">THEN CLICK HERE</label>
+
     </div>
 
-  </div>
-  <div class="row">
-    <!-- <div class="col-md-3">
-    </div> -->
-    <div class="col-md-12">
-      <div class="row">
-        <div class="col-md-12">
-          <div id="alertConnect">
-            <h3>
-              Please connect your CONTROL PIE to USB PORT.
-            </h3>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-12">
-          <label id="btnAlertConnect" class="btn btn-warning invisible blink">THEN CLICK HERE</label>
-        </div>
-      </div>
-      <div id="lowPanel" class="row invisible">
-        <div class="col-md-9">
-          <h3>Select the Preset you want to modify</h3>
-          <div class="btn-group" role="group">
-            <div class="btn-group btn-group-toggle" role="group" aria-label="Button group with nested dropdown">
-              <button id="btnGroupDrop1" type="button" class="btn btn-md btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                choose preset..
+    <div class="card">
+      <div class="card-header bg-info text-white">
+        <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+          <div class="btn-group mr-4" role="group" aria-label="First group">
+            <div class="btn-group btn-group-justified">
+              <div class="btn-group" role="group">
+                <div class="btn-group btn-group-toggle" role="group" aria-label="Button group with nested dropdown">
+                  <button id="btnGroupDrop1" type="button" class="btn btn-sm btn-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    choose preset..
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                    <a class="dropdown-item" href="#" id="preset1">Preset 1</a>
+                    <a class="dropdown-item" href="#" id="preset2">Preset 2</a>
+                    <a class="dropdown-item" href="#" id="preset3">Preset 3</a>
+                    <a class="dropdown-item" href="#" id="preset4">Preset 4</a>
+                    <a class="dropdown-item" href="#" id="preset5">Preset 5</a>
+                    <a class="dropdown-item" href="#" id="preset6">Preset 6</a>
+                  </div>
+                </div>
+              </div>
+              <button id="btnBank1" class="btn btn-dark btn-sm" type="button" aria-expanded="false" data-placement="top" title="Choose Bank 1" disabled="disabled">
+                Select BANK 1
               </button>
-              <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                <a class="dropdown-item" href="#" id="preset1">Preset 1</a>
-                <a class="dropdown-item" href="#" id="preset2">Preset 2</a>
-                <a class="dropdown-item" href="#" id="preset3">Preset 3</a>
-                <a class="dropdown-item" href="#" id="preset4">Preset 4</a>
-                <a class="dropdown-item" href="#" id="preset5">Preset 5</a>
-                <a class="dropdown-item" href="#" id="preset6">Preset 6</a>
-              </div>
+              <button id="btnBank2" class="btn btn-dark btn-sm" type="button" aria-expanded="false" data-placement="top" title="Choose Bank 2" disabled="disabled">
+                Select BANK 2
+              </button>
+              <button id="editBtns" class="btn btn-dark btn-sm" type="button" data-toggle="collapse" data-target="#collapsePresets" aria-expanded="false" aria-controls="collapsePresets" data-toggle="tooltip" data-placement="top"
+                title="Elige el preset" disabled>
+                EDIT BUTTON's ACTIONS
+              </button>
             </div>
           </div>
-          <button id="btnBank1" class="btn btn-dark" type="button" aria-expanded="false" data-placement="top" title="Choose Bank 1" disabled="disabled">
-            Select BANK 1
-          </button>
-          <button id="btnBank2" class="btn btn-dark" type="button" aria-expanded="false" data-placement="top" title="Choose Bank 2" disabled="disabled">
-            Select BANK 2
-          </button>
-          <button id="editBtns" class="btn btn-dark" type="button" data-toggle="collapse" data-target="#collapsePresets" aria-expanded="false" aria-controls="collapsePresets" data-toggle="tooltip" data-placement="top" title="Elige el preset"
-            disabled>
-            EDIT BUTTON's ACTIONS
-          </button>
-        </div>
-        <div id="midiLearnDiv" class="col-md-3 invisible">
-          <h3>Use MIDI learn!</h3>
-          <div class="setRadioWithCurrentPreset">
-
-            <div class="col-md-12">
-              <div class="dropdown">
-                <button class="btn btn-dark" type="button" data-toggle="collapse" data-target="#collapseMIDIIN" aria-expanded="false" aria-controls="collapseMIDIIN" data-toggle="tooltip" data-placement="top" title="muestra dispositivos midi">
-                  SHOW MIDI input
-                </button>
-                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown">
-                  MIDI LEARN
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item disabled" href="#">Copy this</a> <a class="dropdown-item" href="#">Clear</a> <a class="dropdown-item" href="#">Something else here</a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-9">
-          <div class="collapse" id="collapsePresets">
-
-            <div id=screen class="card card-body" style="height:40vh;background: linear-gradient(#05021f, #d5d4ff);">
-              <div class="row">
-                <div class="col-md-12">
-                  <h3 id="bankInfo"></h3>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-12">
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-2">
-                  <div class="row">
-                    <div class="col-md-12">
-                      <label id="btnType1"></label>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-12">
-                      <label id="btnValue1" class="kbd"></label>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-12">
-                      <button id="btnInfo1" type="button" class="btn btn-secondary btn-md">Button 1</button>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-2">
-                  <div class="row">
-                    <div class="col-md-12">
-                      <label id="btnType2"></label>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-12">
-                      <label id="btnValue2" class="kbd"></label>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-12">
-                      <button id="btnInfo2" type="button" class="btn btn-secondary btn-md">Button 2</button>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-2">
-                  <div class="row">
-                    <div class="col-md-12">
-                      <label id="btnType3"></label>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-12">
-                      <label id="btnValue3" class="kbd"></label>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-12">
-                      <button id="btnInfo3" type="button" class="btn btn-secondary btn-md">Button 3</button>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-2">
-                  <div class="row">
-                    <div class="col-md-12">
-                      <label id="btnType4"></label>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-12">
-                      <label id="btnValue4" class="kbd"></label>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-12">
-                      <button id="btnInfo4" type="button" class="btn btn-secondary btn-md">Button 4</button>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-2">
-                  <div class="row">
-                    <div class="col-md-12">
-                      <label id="btnType5"></label>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-12">
-                      <label id="btnValue5" class="kbd"></label>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-12">
-                      <button id="btnInfo5" type="button" class="btn btn-secondary btn-md">Button 5</button>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-2">
-                  <div class="row">
-                    <div class="col-md-12">
-                      <label id="btnType6"></label>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-12">
-                      <label id="btnValue6" class="kbd"></label>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-12">
-                      <button id="btnInfo6" type="button" class="btn btn-secondary btn-md">External</button>
-                    </div>
-                  </div>
-                </div>
-
-
-
-
-
-
-              </div>
-              <div class="row">
-
-
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-      <div class="row">
-        <div class="col-md-9">
-        </div>
-        <div class="col-md-3">
-
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3">
-    </div>
-  </div>
-
-  <div class="col-md-3">
-    <div class="collapse" id="collapseMIDIIN">
-
-      <div id=screen class="card card-body">
-        <h6>Presione cualquier tecla de su dispositivo MIDI</h6>
-        <td>
-          <h6 id="channel">Waiting...</h6>
-        </td>
-        <td>
-          <h4 id="notePressed">Waiting...</h4>
-        </td>
-        <td>
-          <h4 id="noteVelocity">Waiting...</h4>
-        </td>
-      </div>
-    </div>
-  </div>
-
-</div>
-<div class="row">
-  <div class="col-md-3">
-  </div>
-  <div class="col-md-6">
-    <a id="modal-621757" href="#modal-container-621757" role="button" class="btn" data-toggle="modal">Launch demo modal</a>
-
-    <div class="modal fade" id="modal-container-621757" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="myModalLabel">
-              Modal title
-            </h5>
-            <button type="button" class="close" data-dismiss="modal">
-              <span aria-hidden="true">×</span>
+          <div class="btn-group" role="group" aria-label="First group">
+            <button class="btn btn-dark btn-sm" type="button" title="muestra dispositivos midi">
+              MIDI Learn..
             </button>
           </div>
-          <div class="modal-body">
-            ...
-          </div>
-          <div class="modal-footer">
 
-            <button type="button" class="btn btn-primary">
-              Save changes
-            </button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">
-              Close
-            </button>
+        </div> <!-- NOTE:  PRESET Y BANK SELECTOR-->
+      </div>
+
+
+      <div class="card-body collapse" id="collapsePresets">
+        <div class="card" style="width:33vw">
+
+          <img alt="CONTROL PIE" src="pedal_btns.jpg" class="card-img-top rounded" style="width:100%">
+          <div class="card-body">
+            <button type="button" class="btn btn-outline-primary">1</button>
+            <button type="button" class="btn btn-outline-primary">2</button>
+            <button type="button" class="btn btn-outline-primary">3</button>
+            <button type="button" class="btn btn-outline-primary">4</button>
+            <button type="button" class="btn btn-outline-primary">5</button>
+            <button type="button" class="btn btn-outline-primary">External</button>
+
           </div>
         </div>
 
-      </div>
 
+      </div>
     </div>
-  </div>
-  <!-- <div class="col-md-3">
-    </div> -->
-</div>
+
+
+
+  </div> <!-- NOTE: END OF MAIN CONTAINER -->
+
+
+</body>
