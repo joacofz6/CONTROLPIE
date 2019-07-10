@@ -12,7 +12,7 @@ if (navigator.requestMIDIAccess) {
   console.log('This browser supports WebMIDI!');
 
   if (document.querySelector('body')) {
-    document.querySelector('body').innerHTML = 'MIDI DEVICES FOUND';
+    // document.querySelector('body').innerHTML = 'MIDI DEVICES FOUND';
   }
   // navigator.requestMIDIAccess({ sysex: true } ).then(onMIDISuccess, onMIDIFailure);
   navigator.requestMIDIAccess().then(onMIDISuccess, onMIDIFailure);
