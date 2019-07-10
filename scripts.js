@@ -54,16 +54,16 @@ function onMIDISuccess(midiAccess) {
       sendInitMsg();
       showCtrlPieConnected();
       sendKeepAlive();
-      $('#alertConnect').hide(4000);
-      $('#btnAlertConnect').removeClass("invisible");
-      $('#btnAlertConnect').removeClass("btn-warning");
-      $('#btnAlertConnect').addClass("btn-info-sm");
+      $('#alertConnect').hide();
+      // $('#btnAlertConnect').removeClass("invisible");
+      // $('#btnAlertConnect').removeClass("btn btn-warning");
+      // $('#btnAlertConnect').addClass("btn btn-block bg-light");
       // $('#btnAlertConnect').addClass("btn-info");
-      $('#btnAlertConnect').text("CONTROL PIE CONECTADO!");
+
       // $('#alertConnect').hide();
 
     } else {
-      $('#btnAlertConnect').removeClass("invisible");
+      // $('#btnAlertConnect').removeClass("invisible");
       // $('#btnAlertConnect').addClass("btn-warning");
 
       // no hay attach de eventos para otros outputs
@@ -78,7 +78,7 @@ function onMIDISuccess(midiAccess) {
 function showCtrlPieConnected() {
 
   $("#lowPanel").removeClass("invisible");
-
+$('#infoAlertConnect').show();
 
 }
 
@@ -292,7 +292,7 @@ $(document).ready(function() { // ESTO PREVIENE QUE SE EJECUTEN ESTOS JQUERY ANT
 
   function updatePresetBtn(preset) {
     $('#btnGroupDrop1').text("Preset " + preset);
-    $('#btnGroupDrop1').removeClass("btn-dark");
+    $('#btnGroupDrop1').removeClass("btn-warning");
     $('#btnGroupDrop1').addClass("btn-success");
     $('#btnBank1').prop('disabled', false);
     $('#btnBank2').prop('disabled', false);
@@ -312,9 +312,13 @@ $(document).ready(function() { // ESTO PREVIENE QUE SE EJECUTEN ESTOS JQUERY ANT
     var msg1 = [0xBF, 0x1C, presetSelected]; //BF	1C	06
     output.send(msg1);
     updatePresetBtn(presetSelected);
+    updatePresetCardTitle()
+
     showAllPresetData();
     console.log(presetSelected);
   });
+
+
 
 
   $('#btnBank1').click(function() {
@@ -325,8 +329,10 @@ $(document).ready(function() { // ESTO PREVIENE QUE SE EJECUTEN ESTOS JQUERY ANT
     $('#btnBank2').removeClass("btn-success");
     $('#editBtns').prop('disabled', false);
     $('#bankInfo').text("EDITING BANK 1");
+    $('#collapsePresets').addClass("show");
     currentBank = 0; // para bank 1
     showAllPresetData();
+    updatePresetCardTitle();
     //BF	1C	07 para bank 1
     //BF	1C	08 para bank 1
     var msg1 = [0xBF, 0x1C, 6 + 1]; //BF	1C	07 para bank 1
@@ -340,21 +346,32 @@ $(document).ready(function() { // ESTO PREVIENE QUE SE EJECUTEN ESTOS JQUERY ANT
     $('#btnBank1').removeClass("btn-success");
     $('#bankInfo').text("EDITING BANK 2");
     $('#editBtns').prop('disabled', false);
+    $('#collapsePresets').addClass("show");
     currentBank = 240; //240 para bank 2
     showAllPresetData();
+    updatePresetCardTitle();
     //BF	1C	07 para bank 1
     //BF	1C	08 para bank 1
     var msg1 = [0xBF, 0x1C, 6 + 2]; //BF	1C	08 para bank 2
     output.send(msg1);
   });
 
+  function updatePresetCardTitle() {
+    if (currentBank == 0) {
+      $('#overallPresetInfo').text("PRESET " + presetSelected + " BANK 1 CURRENT CONFIG");
+    }
+    if (currentBank == 240) {
+      $('#overallPresetInfo').text("PRESET " + presetSelected + " BANK 2 CURRENT CONFIG");
+    }
+  }
+
   function showAllPresetData() {
     if (currentBank == 0 || currentBank == 240) {
       var step;
       for (let step = 1; step < 6; step++) {
         var eepromAddress = (presetSelected - 1) * 30 + ((step - 1) * 6) + 1 + currentBank;
-$('#btnType'+step).text(getType(eepromAddress));
-$('#btnValue'+step).text(getValue(eepromAddress));
+        $('#btnType' + step).text(getType(eepromAddress));
+        $('#btnValue' + step).text(getValue(eepromAddress));
 
         // console.log("BTN " + step +" BANK "+currentBank+ " is TYPE: " +getType(eepromAddress) +" EP. ADD:  "+eepromAddress+2);
       }
@@ -400,9 +417,9 @@ $('#btnValue'+step).text(getValue(eepromAddress));
     getType(eepromAddress);
   };
 
-var xtraBtnOptions =  ["EXTRA BUTTON", "ALT + TAB", "MEDIA VOLUME", "MIDI VOL", "PRESET CHANGE", "MIDI PROG CHG", "MIDI SUSTAIN", "MIDI PITCH BEND", "CHANGE BANK", "METRONOME"];
+  var xtraBtnOptions = ["EXTRA BUTTON", "ALT + TAB", "MEDIA VOLUME", "MIDI VOL", "PRESET CHANGE", "MIDI PROG CHG", "MIDI SUSTAIN", "MIDI PITCH BEND", "CHANGE BANK", "METRONOME"];
 
-  function showConfigExternal(){
+  function showConfigExternal() {
     var modeExt = allConfigData[externalBtn];
 
     return xtraBtnOptions[modeExt];
@@ -432,7 +449,7 @@ var xtraBtnOptions =  ["EXTRA BUTTON", "ALT + TAB", "MEDIA VOLUME", "MIDI VOL", 
     }
   };
 
-  function getValue(eepromAddress){
+  function getValue(eepromAddress) {
     var type = allConfigData[eepromAddress + 2];
     switch (type) {
       case 1:
@@ -455,8 +472,115 @@ var xtraBtnOptions =  ["EXTRA BUTTON", "ALT + TAB", "MEDIA VOLUME", "MIDI VOL", 
 
     }
   }
-var keys = {"4":"KEY A","5":"KEY B","6":"KEY C","7":"KEY D","8":"KEY E","9":"KEY F","10":"KEY G","11":"KEY H","12":"KEY I","13":"KEY J","14":"KEY K","15":"KEY L","16":"KEY M","17":"KEY N","18":"KEY O","19":"KEY P","20":"KEY Q","21":"KEY R","22":"KEY S","23":"KEY T","24":"KEY U","25":"KEY V","26":"KEY W","27":"KEY X","28":"KEY Y","29":"KEY Z","30":"KEY 1","31":"KEY 2","32":"KEY 3","33":"KEY 4","34":"KEY 5","35":"KEY 6","36":"KEY 7","37":"KEY 8","38":"KEY 9","39":"KEY 0","40":"KEY ENTER","40":"KEY RETURN","41":"KEY ESC","42":"KEY BACKSPACE","43":"KEY TAB","44":"KEY SPACE","45":"KEY MINUS","46":"KEY EQUAL","47":"KEY LEFT BRACE","48":"KEY RIGHT BRACE","49":"KEY BACKSLASH","50":"KEY NON US NUM","51":"KEY SEMICOLON","52":"KEY QUOTE","53":"KEY TILDE","54":"KEY COMMA","55":"KEY PERIOD","56":"KEY SLASH","57":"KEY CAPS LOCK","58":"KEY F1","59":"KEY F2","60":"KEY F3","61":"KEY F4","62":"KEY F5","63":"KEY F6","64":"KEY F7","65":"KEY F8","66":"KEY F9","67":"KEY F10","68":"KEY F11","69":"KEY F12","70":"KEY PRINT","70":"KEY PRINTSCREEN","71":"KEY SCROLL LOCK","72":"KEY PAUSE","73":"KEY INSERT","74":"KEY HOME","75":"KEY PAGE UP","76":"KEY DELETE","77":"KEY END","78":"KEY PAGE DOWN","79":"KEY RIGHT ARROW","80":"KEY LEFT ARROW","81":"KEY DOWN ARROW","82":"KEY UP ARROW","79":"KEY RIGHT","80":"KEY LEFT","81":"KEY DOWN","82":"KEY UP","83":"KEY NUM LOCK","84":"KEYPAD DIVIDE","85":"KEYPAD MULTIPLY","86":"KEYPAD SUBTRACT","87":"KEYPAD ADD","88":"KEYPAD ENTER","89":"KEYPAD 1","90":"KEYPAD 2","91":"KEYPAD 3","92":"KEYPAD 4","93":"KEYPAD 5","94":"KEYPAD 6","95":"KEYPAD 7","96":"KEYPAD 8","97":"KEYPAD 9","98":"KEYPAD 0","99":"KEYPAD DOT","100":"KEY NON US","101":"KEY APPLICATION","101":"KEY MENU"}
-  function getKeyboardValue(eepromAddress){
+  var keys = {
+    "4": "KEY A",
+    "5": "KEY B",
+    "6": "KEY C",
+    "7": "KEY D",
+    "8": "KEY E",
+    "9": "KEY F",
+    "10": "KEY G",
+    "11": "KEY H",
+    "12": "KEY I",
+    "13": "KEY J",
+    "14": "KEY K",
+    "15": "KEY L",
+    "16": "KEY M",
+    "17": "KEY N",
+    "18": "KEY O",
+    "19": "KEY P",
+    "20": "KEY Q",
+    "21": "KEY R",
+    "22": "KEY S",
+    "23": "KEY T",
+    "24": "KEY U",
+    "25": "KEY V",
+    "26": "KEY W",
+    "27": "KEY X",
+    "28": "KEY Y",
+    "29": "KEY Z",
+    "30": "KEY 1",
+    "31": "KEY 2",
+    "32": "KEY 3",
+    "33": "KEY 4",
+    "34": "KEY 5",
+    "35": "KEY 6",
+    "36": "KEY 7",
+    "37": "KEY 8",
+    "38": "KEY 9",
+    "39": "KEY 0",
+    "40": "KEY ENTER",
+    "40": "KEY RETURN",
+    "41": "KEY ESC",
+    "42": "KEY BACKSPACE",
+    "43": "KEY TAB",
+    "44": "KEY SPACE",
+    "45": "KEY MINUS",
+    "46": "KEY EQUAL",
+    "47": "KEY LEFT BRACE",
+    "48": "KEY RIGHT BRACE",
+    "49": "KEY BACKSLASH",
+    "50": "KEY NON US NUM",
+    "51": "KEY SEMICOLON",
+    "52": "KEY QUOTE",
+    "53": "KEY TILDE",
+    "54": "KEY COMMA",
+    "55": "KEY PERIOD",
+    "56": "KEY SLASH",
+    "57": "KEY CAPS LOCK",
+    "58": "KEY F1",
+    "59": "KEY F2",
+    "60": "KEY F3",
+    "61": "KEY F4",
+    "62": "KEY F5",
+    "63": "KEY F6",
+    "64": "KEY F7",
+    "65": "KEY F8",
+    "66": "KEY F9",
+    "67": "KEY F10",
+    "68": "KEY F11",
+    "69": "KEY F12",
+    "70": "KEY PRINT",
+    "70": "KEY PRINTSCREEN",
+    "71": "KEY SCROLL LOCK",
+    "72": "KEY PAUSE",
+    "73": "KEY INSERT",
+    "74": "KEY HOME",
+    "75": "KEY PAGE UP",
+    "76": "KEY DELETE",
+    "77": "KEY END",
+    "78": "KEY PAGE DOWN",
+    "79": "KEY RIGHT ARROW",
+    "80": "KEY LEFT ARROW",
+    "81": "KEY DOWN ARROW",
+    "82": "KEY UP ARROW",
+    "79": "KEY RIGHT",
+    "80": "KEY LEFT",
+    "81": "KEY DOWN",
+    "82": "KEY UP",
+    "83": "KEY NUM LOCK",
+    "84": "KEYPAD DIVIDE",
+    "85": "KEYPAD MULTIPLY",
+    "86": "KEYPAD SUBTRACT",
+    "87": "KEYPAD ADD",
+    "88": "KEYPAD ENTER",
+    "89": "KEYPAD 1",
+    "90": "KEYPAD 2",
+    "91": "KEYPAD 3",
+    "92": "KEYPAD 4",
+    "93": "KEYPAD 5",
+    "94": "KEYPAD 6",
+    "95": "KEYPAD 7",
+    "96": "KEYPAD 8",
+    "97": "KEYPAD 9",
+    "98": "KEYPAD 0",
+    "99": "KEYPAD DOT",
+    "100": "KEY NON US",
+    "101": "KEY APPLICATION",
+    "101": "KEY MENU"
+  }
+
+  function getKeyboardValue(eepromAddress) {
     var data = allConfigData[eepromAddress + 1];
     console.log(keys[data]);
     return keys[data];
@@ -464,7 +588,7 @@ var keys = {"4":"KEY A","5":"KEY B","6":"KEY C","7":"KEY D","8":"KEY E","9":"KEY
 
   if (!isMobile) {
     $('#midiLearnDiv').removeClass("invisible");
-  }else{
+  } else {
 
   }
 
