@@ -256,9 +256,9 @@ function setRadioWithCurrentPreset(value) {
 
 $(document).ready(function() { // ESTO PREVIENE QUE SE EJECUTEN ESTOS JQUERY ANTES DE QUE CARGUE LA PAGINA
 
-  $('#btnAlertConnect').click(function() {
+  $('#infoAlertConnect').click(function() {
     if (isConnected) {
-      alert("already connected");
+      alert("SERIAL NUMBER IS: xxxxx");
     } else {
       navigator.requestMIDIAccess().then(onMIDISuccess, onMIDIFailure);
     }
