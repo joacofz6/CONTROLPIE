@@ -83,28 +83,6 @@ $('#infoAlertConnect').show();
 }
 
 
-function generateTableHead(table, data) {
-  let thead = table.createTHead();
-  let row = thead.insertRow();
-  for (let key of data) {
-    let th = document.createElement("th");
-    let text = document.createTextNode(key);
-    th.appendChild(text);
-    row.appendChild(th);
-  }
-}
-
-function generateTable(table, data) {
-  for (let element of data) {
-    let row = table.insertRow();
-    for (key in element) {
-      let cell = row.insertCell();
-      let text = document.createTextNode(element[key]);
-      cell.appendChild(text);
-    }
-  }
-}
-
 
 
 function onMIDIFailure() {
@@ -140,7 +118,7 @@ var connectionStep = 0;
 var dataCount = 0;
 var allConfigData = new Array(493);
 var presetSelected;
-var currentBank;
+var currentBank=-1;
 var externalBtn = 483;
 
 function getCTRLPIEmsg(message) {
@@ -169,8 +147,7 @@ function getCTRLPIEmsg(message) {
 
       dataCount++;
       allConfigData[dataCount] = (((leftHalf & 0x0f) << 4) | (rightHalf & 0x0f)); //Stores read data
-      console.log("data: " + pad(dataCount, 3) + " " + decimalToHex(header, 2) + " " + decimalToHex(leftHalf, 2) + " " + decimalToHex(rightHalf, 2) +
-        " dec value: " + (((leftHalf & 0x0f) << 4) | (rightHalf & 0x0f)));
+      // console.log("data: " + pad(dataCount, 3) + " " + decimalToHex(header, 2) + " " + decimalToHex(leftHalf, 2) + " " + decimalToHex(rightHalf, 2) + " dec value: " + (((leftHalf & 0x0f) << 4) | (rightHalf & 0x0f)));
 
 
       if (dataCount == 493) {
@@ -254,11 +231,44 @@ function setRadioWithCurrentPreset(value) {
   $('input[id="option' + value + '"]').parent().addClass('active');
 };
 
+function noteToNoteName(note){
+  // var notes = "C C#D D#E F F#G G#A A#B ";
+  // var octv;
+  // var nt;
+  // for (noteNum = 0; noteNum < 128; noteNum++) {
+  //   octv = noteNum / 12 - 1;
+  //   nt = notes.substring((noteNum % 12) * 2, (noteNum % 12) * 2 + 2);
+  //   console.log("Note # " + noteNum + " = octave " + octv + ", note " + nt);
+  //   // System.out.println("Note # " + noteNum + " = octave " + octv + ", note " + nt);
+  // }
+  note -= 21; // see the explanation below.
+     var notes =["A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#"];
+     var octave = parseInt(note / 12) + 1;
+     // var name = notes[note % 12];
+     var name = notes[((note % 12)+12)%12];
+     return (name + octave);
+
+
+}
+
+Number.prototype.mod = function(n){
+  return ((this%n)+n)%n;
+}
+
 $(document).ready(function() { // ESTO PREVIENE QUE SE EJECUTEN ESTOS JQUERY ANTES DE QUE CARGUE LA PAGINA
 
   $('#infoAlertConnect').click(function() {
     if (isConnected) {
       alert("SERIAL NUMBER IS: xxxxx");
+    } else {
+
+    }
+
+  });
+
+  $('#btnAlertConnect').click(function() {
+    if (isConnected) {
+
     } else {
       navigator.requestMIDIAccess().then(onMIDISuccess, onMIDIFailure);
     }
@@ -296,6 +306,9 @@ $(document).ready(function() { // ESTO PREVIENE QUE SE EJECUTEN ESTOS JQUERY ANT
     $('#btnGroupDrop1').addClass("btn-success");
     $('#btnBank1').prop('disabled', false);
     $('#btnBank2').prop('disabled', false);
+if (currentBank == 0 || currentBank == 240) {
+    populateDashboard(preset,currentBank);
+  }
   }
 
   $("[id^=preset]").click(function() {
@@ -329,8 +342,9 @@ $(document).ready(function() { // ESTO PREVIENE QUE SE EJECUTEN ESTOS JQUERY ANT
     $('#btnBank2').removeClass("btn-success");
     $('#editBtns').prop('disabled', false);
     $('#bankInfo').text("EDITING BANK 1");
-    $('#collapsePresets').addClass("show");
     currentBank = 0; // para bank 1
+    populateDashboard(presetSelected,currentBank);
+    $('#collapsePresets').addClass("show");
     showAllPresetData();
     updatePresetCardTitle();
     //BF	1C	07 para bank 1
@@ -346,8 +360,9 @@ $(document).ready(function() { // ESTO PREVIENE QUE SE EJECUTEN ESTOS JQUERY ANT
     $('#btnBank1').removeClass("btn-success");
     $('#bankInfo').text("EDITING BANK 2");
     $('#editBtns').prop('disabled', false);
-    $('#collapsePresets').addClass("show");
     currentBank = 240; //240 para bank 2
+    populateDashboard(presetSelected,currentBank);
+    $('#collapsePresets').addClass("show");
     showAllPresetData();
     updatePresetCardTitle();
     //BF	1C	07 para bank 1
@@ -425,8 +440,33 @@ $(document).ready(function() { // ESTO PREVIENE QUE SE EJECUTEN ESTOS JQUERY ANT
     return xtraBtnOptions[modeExt];
   }
 
-  function getType(eepromAddress) { //con un eepromaddress inicial te devuele el type (+2)
-    var data = allConfigData[eepromAddress + 2];
+  function getModifierName(data){
+    switch (data) {
+      case 0:
+        return "N/A"
+        break;
+        case 1:
+          return "MODIFIER"
+          break;
+          case 2:
+            return "MODIFIER"
+            break;
+            case 3:
+              return "CHANNEL"
+              break;
+              case 4:
+                return "CHANNEL"
+                break;
+                case 5:
+                  return "CHANNEL"
+                  break;
+
+
+    }
+  }
+
+  function getType(data) { //con un eepromaddress inicial te devuele el type (+2)
+    // var data = allConfigData[eepromAddress + 2];
     console.log("TYPE: " + data);
     switch (data) {
       case 1:
@@ -449,25 +489,27 @@ $(document).ready(function() { // ESTO PREVIENE QUE SE EJECUTEN ESTOS JQUERY ANT
     }
   };
 
-  function getValue(eepromAddress) {
-    var type = allConfigData[eepromAddress + 2];
+
+
+  function getValue(type,data) {
+    // var type = allConfigData[eepromAddress + 2];
     switch (type) {
       case 1:
-        return getKeyboardValue(eepromAddress);
-
+        // return getKeyboardValue(eepromAddress);
+        return keys[data];
         break;
       case 2:
         // return "MULTIMEDIA KEYBOARD stroke";
         return "Hard coded MM"
         break;
       case 3:
-        return "MIDI NOTE"
+        return data + ' ' + noteToNoteName(data);
         break;
       case 4:
-        // return "MIDI CONTROL CHANGE type";
+        return data;
         break;
       case 5:
-        // return "MIDI PROGRAM CHANGE type";
+        return data;
         break;
 
     }
@@ -589,6 +631,33 @@ $(document).ready(function() { // ESTO PREVIENE QUE SE EJECUTEN ESTOS JQUERY ANT
   if (!isMobile) {
     $('#midiLearnDiv').removeClass("invisible");
   } else {
+
+  }
+
+  function populateDashboard(preset,bank){ // NOTE: BANK EITHER 0 or 240
+    var address =0;
+    var behave = 0;
+    for(btnNumber=1;btnNumber<=5;btnNumber++){
+      address = ((preset - 1) * 30) + ((btnNumber - 1) * 6) + 1 + bank;
+      behave =  ((preset - 1) * 10) + ((btnNumber - 1) * 2) + 181 + bank
+      var modifierPress = allConfigData[address];
+      var valuePress = allConfigData[address+1];
+      var typePress = allConfigData[address+2];
+      var behaveShort = allConfigData[behave];
+
+      $('#btn'+btnNumber+'PressModifier').html(getModifierName(typePress)+'<span id ="btn1PressModVal" class="badge badge-primary badge-pill">CTRL-ALT</span>');
+      $('#btn'+btnNumber+'PressTypeVal').text(getType(typePress));
+      $('#btn'+btnNumber+'PressValueVal').text(getValue(typePress,valuePress));
+
+      var modifierHold = allConfigData[address+3];
+      var valueHold = allConfigData[address+4];
+      var typeHold = allConfigData[address+5];
+      var behaveHold = allConfigData[behave+1];
+
+      $('#btn'+btnNumber+'HoldModifier').html(getModifierName(typeHold)+'<span id ="btn1HoldModVal" class="badge badge-primary badge-pill">CTRL-ALT</span>');
+      $('#btn'+btnNumber+'HoldTypeVal').text(getType(typeHold));
+      $('#btn'+btnNumber+'HoldValueVal').text(getValue(typeHold,valueHold));
+    }
 
   }
 
