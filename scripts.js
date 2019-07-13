@@ -337,7 +337,8 @@ $(document).ready(function() { // ESTO PREVIENE QUE SE EJECUTEN ESTOS JQUERY ANT
     $("#restoreToFactory").addClass("disabled")
     $("#restoreToFactory").prop('disabled', true);
     $("#restoreBtn").prop('disabled', true);
-    $("#restoreHeading").removeClass("bg-warning")
+    $("#restoreTitle").text("OPERATION SUCCESSFUL");
+    $("#restoreHeading").removeClass("bg-danger")
         $("#restoreHeading").addClass("bg-success")
     // alert("Control Pie restored to factory default values");
   });

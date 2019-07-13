@@ -299,16 +299,15 @@ Hold
             <p class="card-text">You can quickly load presets configurations using files.</p>
             <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
               <div class="btn-group mr-2" role="group" aria-label="First group">
-                <button type="button" class="btn btn-info">1</button>
-                <button type="button" class="btn btn-info">2</button>
-                <button type="button" class="btn btn-info">3</button>
-                <button type="button" class="btn btn-info">4</button>
+                <button type="button" class="btn btn-info"> User Manual</button>
+                <button type="button" class="btn btn-info">Demo Videos</button>
+                <button type="button" class="btn btn-info">Tutorial</button>
               </div>
               <div class="btn-group mr-2" role="group" aria-label="Second group">
-                <button type="button" class="btn btn-info">LOAD ALL PRESET DATA FROM FILE</button>
+                <button type="button" class="btn btn-info">LOAD ALL PRESETS FROM FILE</button>
               </div>
               <div class="btn-group mr-2" role="group" aria-label="Third group">
-                <button type="button" class="btn btn-info">SAVE CURRENT SETUP TO FILE</button>
+                <button type="button" class="btn btn-info">SAVE ALL PRESETS TO FILE</button>
               </div>
               <div class="btn-group" role="group" aria-label="Third group">
                 <button id="restoreBtn" type="button" class="btn btn-warning"  data-toggle="modal" data-target="#restoreModal">RESTORE TO FACTORY</button>
@@ -341,8 +340,8 @@ Hold
 <div class="modal fade" id="restoreModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
-        <div id="restoreHeading" class="modal-header bg-warning">
-          <h5 class="modal-title" id="exampleModalLongTitle">This will restore CONTROL PIE to factory defaults</h5>
+        <div id="restoreHeading" class="modal-header bg-danger">
+          <h5 class="modal-title" id="restoreTitle">This will restore CONTROL PIE to factory defaults</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
