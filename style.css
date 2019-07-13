@@ -144,8 +144,100 @@ button {
 .infoTabla{
     position: relative;
     display: block;
-    padding: 0.1rem 0.5rem; 
+    padding: 0.1rem 0.5rem;
     margin-bottom: -1px;
     background-color: #fff;
     border: 1px solid rgba(100,100,100);
+}
+
+.overlay {
+  position: absolute;
+  bottom: 25%;
+  left: 8%;
+  background: #17a2b8d4
+  color: #f1f1f1;
+  width: 83%;
+  height: 40%;
+  transition: .7s ease;
+  opacity: 0;
+  font-size: 24px;
+  padding: 20px;
+  text-align: center;
+
+}
+
+/* When you mouse over the container, fade in the overlay title */
+.container:hover .overlay {
+  opacity: 1;
+}
+* {box-sizing: border-box}
+
+/* Container needed to position the overlay. Adjust the width as needed */
+.container {
+  position: relative;
+  /* width: 50%; */
+  /* max-width: 300px; */
+}
+
+/* Make the image to responsive */
+.image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.headerRow{
+  background-color: #3f7479;
+}
+.rowInfo{
+  background-color: #181b1f;
+}
+
+.infoType{
+  background-color: #1f6d49;
+}
+
+.btnPress{
+  background: #17a2b8d4;
+  opacity: 1;
+}
+
+.btnHold{
+  background: #fec108d4;
+  opacity: 1;
+}
+
+.dataType{
+  background-color: #1f456d;
+}
+
+.btn-ripple {
+	display: inline-block;
+	position: relative;
+	overflow: hidden;
+	transition: all ease-in-out .5s;
+}
+
+.btn-ripple::after {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 25%;
+	height: 100%;
+	width: 50%;
+	background-color: #000;
+	border-radius: 50%;
+	opacity: 0;
+	pointer-events: none;
+	transition: all ease-in-out 1s;
+	transform: scale(5, 5);
+}
+
+.btn-ripple:active::after {
+	padding: 0;
+	margin: 0;
+	opacity: .2;
+	transition: 0s;
+	transform: scale(0, 0);
 }

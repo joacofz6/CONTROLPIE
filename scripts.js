@@ -52,7 +52,7 @@ function onMIDISuccess(midiAccess) {
       output = out;
       isConnected = true;
       sendInitMsg();
-      showCtrlPieConnected();
+
       sendKeepAlive();
       $('#alertConnect').hide();
       // $('#btnAlertConnect').removeClass("invisible");
@@ -78,7 +78,8 @@ function onMIDISuccess(midiAccess) {
 function showCtrlPieConnected() {
 
   $("#lowPanel").removeClass("invisible");
-$('#infoAlertConnect').show();
+  $('#infoAlertConnect').show();
+  $('#infoSelPreset').collapse('show');
 
 }
 
@@ -118,14 +119,15 @@ var connectionStep = 0;
 var dataCount = 0;
 var allConfigData = new Array(493);
 var presetSelected;
-var currentBank=-1;
+var currentBank = -1;
 var externalBtn = 483;
+var serialNumber = 0;
 
 function getCTRLPIEmsg(message) {
   var header = message.data[0];
   var leftHalf = message.data[1];
   var rightHalf = (message.data.length > 2) ? message.data[2] : 0; // a rightHalf value might not be included with a leftHalfOff command
-
+  var decValue = (((leftHalf & 0x0f) << 4) | (rightHalf & 0x0f));
 
   switch (connectionStep) {
     case 0: //CTRL pie is connecting
@@ -142,12 +144,9 @@ function getCTRLPIEmsg(message) {
       }
       break;
     case 2: //receiving inital data config
-      // console.log("data: "+dataCount + " " +header.toString(16) + " " + leftHalf.toString(16) + " " + rightHalf.toString(16));
-
-
       dataCount++;
       allConfigData[dataCount] = (((leftHalf & 0x0f) << 4) | (rightHalf & 0x0f)); //Stores read data
-      // console.log("data: " + pad(dataCount, 3) + " " + decimalToHex(header, 2) + " " + decimalToHex(leftHalf, 2) + " " + decimalToHex(rightHalf, 2) + " dec value: " + (((leftHalf & 0x0f) << 4) | (rightHalf & 0x0f)));
+      console.log("data: " + pad(dataCount, 3) + " " + decimalToHex(header, 2) + " " + decimalToHex(leftHalf, 2) + " " + decimalToHex(rightHalf, 2) + " dec value: " + decValue);
 
 
       if (dataCount == 493) {
@@ -158,37 +157,77 @@ function getCTRLPIEmsg(message) {
         connectionStep++; // Handle timeout or any possible error.
       }
       break;
-    case 3: //connected to Ctrol PIE
-      // dataCount++;
-      // console.log("data: " + pad(dataCount, 3) + " " + decimalToHex(header, 2) + " " + decimalToHex(leftHalf, 2) + " " + decimalToHex(rightHalf, 2) +        " dec value: " + (((leftHalf & 0x0f) << 4) | (rightHalf & 0x0f)));
+    case 3: // NOTE: PROCESSING SERIAL NUMBER BYTES
+      dataCount++;
+
+      console.log("data: " + pad(dataCount, 3) + " " + decimalToHex(header, 2) + " " + (leftHalf).toString(2) + " " + (rightHalf).toString(2) + " dec value: " + decValue);
+      switch (dataCount) {
+        case 1:
+          serialNumber = decValue;
+          break;
+        case 2:
+          serialNumber = ((decValue << 8) | serialNumber);
+          break;
+        case 3:
+          serialNumber = ((decValue << 16) | serialNumber);
+          break;
+        case 4:
+          serialNumber = ((decValue << 24) | serialNumber);
+          break;
+
+      }
+      if (dataCount == 4) {
+        console.log("SERIAL NUM RECEIVED OK");
+        console.log("Serial number is: " + serialNumber);
+        dataCount = 0;
+        connectionStep++;
+        showCtrlPieConnected();
+      }
+      break;
+    case 4: //connected to Ctrol PIE
+      console.log("data: " + pad(dataCount, 3) + " " + decimalToHex(header, 2) + " " + decimalToHex(leftHalf, 2) + " " + decimalToHex(rightHalf, 2) + " dec value: " + decValue);
+
+
+      if (header == 187 && rightHalf == 0) {
+        var tx = "Button " + leftHalf + " pressed.";
+        $("#btnPressed").text(tx)
+        $("#btnPressed").removeClass("btnHold");
+        $("#btnPressed").addClass("btnPress");
+        $("#btnPressed").css({"opacity": "1"});
+        window.clearTimeout(timer);
+        timer = window.setTimeout(hideOverlay, 3000);
+        console.log(tx);
+        showBtnConfig(leftHalf);
+      }
+      if (header == 187 && rightHalf == 1) {
+        var tx = "Button " + leftHalf + " long press.";
+        $("#btnPressed").text(tx);
+        $("#btnPressed").removeClass("btnPress");
+        $("#btnPressed").addClass("btnHold");
+        $("#btnPressed").css({"opacity": "1"});
+        window.clearTimeout(timer);
+        timer = window.setTimeout(hideOverlay, 3000);
+        console.log(tx);
+        showBtnConfig(leftHalf);
+      }
+
+
+
+
       break;
 
   }
 
-
-
-  if (header == 187 && rightHalf == 0) {
-    var tx = "Boton " + leftHalf + " apretado momentaneamente.";
-    document.querySelector('#btnRead').innerHTML = tx;
-    console.log(tx);
-  }
-  if (header == 187 && rightHalf == 1) {
-    var tx = "Boton " + leftHalf + " pulsado largo.";
-    document.querySelector('#btnRead').innerHTML = tx;
-    console.log(tx);
-  }
-
-
-
-  // if(command==187 && rightHalf == 2){
-  // 	var tx = "Boton "+leftHalf+" soltado.";
-  // 	document.querySelector('#btnRead').innerHTML = tx;
-  // 	console.log(tx);
-  // }
-
-
 }
 
+var timer = setTimeout(hideOverlay, 3000);
+
+function hideOverlay() {
+  $('#btnPressed').css({
+    "opacity": "0"
+  });
+
+}
 
 function noteOffCallback(note) {
   // alert("not off"+note);
@@ -231,7 +270,7 @@ function setRadioWithCurrentPreset(value) {
   $('input[id="option' + value + '"]').parent().addClass('active');
 };
 
-function noteToNoteName(note){
+function noteToNoteName(note) {
   // var notes = "C C#D D#E F F#G G#A A#B ";
   // var octv;
   // var nt;
@@ -242,24 +281,30 @@ function noteToNoteName(note){
   //   // System.out.println("Note # " + noteNum + " = octave " + octv + ", note " + nt);
   // }
   note -= 21; // see the explanation below.
-     var notes =["A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#"];
-     var octave = parseInt(note / 12) + 1;
-     // var name = notes[note % 12];
-     var name = notes[((note % 12)+12)%12];
-     return (name + octave);
+  var notes = ["A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#"];
+  var octave = parseInt(note / 12) + 1;
+  // var name = notes[note % 12];
+  var name = notes[((note % 12) + 12) % 12];
+  return (name + octave);
 
 
 }
 
-Number.prototype.mod = function(n){
-  return ((this%n)+n)%n;
+Number.prototype.mod = function(n) {
+  return ((this % n) + n) % n;
 }
 
 $(document).ready(function() { // ESTO PREVIENE QUE SE EJECUTEN ESTOS JQUERY ANTES DE QUE CARGUE LA PAGINA
 
+
+
+
   $('#infoAlertConnect').click(function() {
     if (isConnected) {
-      alert("SERIAL NUMBER IS: xxxxx");
+      // alert("SERIAL NUMBER IS: xxxxx");
+      $('#serialNumber').text("Your CONTROL PIE serial number is: " + serialNumber);
+      $("#serialModal").modal();
+
     } else {
 
     }
@@ -291,8 +336,13 @@ $(document).ready(function() { // ESTO PREVIENE QUE SE EJECUTEN ESTOS JQUERY ANT
     $("#modalbody").text("Default values restored.");
     $("#restoreToFactory").addClass("disabled")
     $("#restoreToFactory").prop('disabled', true);
+    $("#restoreBtn").prop('disabled', true);
+    $("#restoreHeading").removeClass("bg-warning")
+        $("#restoreHeading").addClass("bg-success")
     // alert("Control Pie restored to factory default values");
   });
+
+
 
   $("#restoreBtn").click(function() {
     console.log("sdsd");
@@ -306,22 +356,34 @@ $(document).ready(function() { // ESTO PREVIENE QUE SE EJECUTEN ESTOS JQUERY ANT
     $('#btnGroupDrop1').addClass("btn-success");
     $('#btnBank1').prop('disabled', false);
     $('#btnBank2').prop('disabled', false);
-if (currentBank == 0 || currentBank == 240) {
-    populateDashboard(preset,currentBank);
+    if (currentBank == 0 || currentBank == 240) {
+      populateDashboard(preset, currentBank);
+    }
+    $("#imgPresets").attr("src","leds-presets-"+preset+".png");
   }
-  }
+
+
+
+
+  $('[id^="showBtn"]').click(function() {
+    var buttonPressed = (($(this).prop('id')).slice(-1));
+    $('#specificButtonInfo').text("BUTTON " + buttonPressed + " CURRENT SETUP");
+      showBtnConfig(buttonPressed);
+
+  });
+
+$("#showAll").click(function(){
+  $('#allPresetsInfo').show();
+  $('#buttonInfo').hide();
+});
+
+  $("#external").click(function(){
+    $('#specificButtonInfo').text("EXTERNAL BUTTON CURRENT SETUP");
+    showBtnConfig("7");
+  });
 
   $("[id^=preset]").click(function() {
     presetSelected = (($(this).prop('id')).slice(-1));
-    // $('#btnBank1').removeClass("btn-success");
-    // $('#btnBank2').removeClass("btn-success");
-    // $('#btnBank1').addClass("btn-dark");
-    // $('#btnBank2').addClass("btn-dark");
-    // $('#editBtns').prop('disabled', true);
-    //
-    // $('#collapsePresets').removeClass("collapse show")
-    // $('#collapsePresets').addClass("collapse")
-
     var msg1 = [0xBF, 0x1C, presetSelected]; //BF	1C	06
     output.send(msg1);
     updatePresetBtn(presetSelected);
@@ -340,11 +402,12 @@ if (currentBank == 0 || currentBank == 240) {
     $('#btnBank1').addClass("btn-success");
     $('#btnBank2').addClass("btn-dark");
     $('#btnBank2').removeClass("btn-success");
-    $('#editBtns').prop('disabled', false);
+
     $('#bankInfo').text("EDITING BANK 1");
     currentBank = 0; // para bank 1
-    populateDashboard(presetSelected,currentBank);
+    populateDashboard(presetSelected, currentBank);
     $('#collapsePresets').addClass("show");
+    $('#infoSelPreset').collapse('hide');
     showAllPresetData();
     updatePresetCardTitle();
     //BF	1C	07 para bank 1
@@ -359,9 +422,8 @@ if (currentBank == 0 || currentBank == 240) {
     $('#btnBank1').addClass("btn-dark");
     $('#btnBank1').removeClass("btn-success");
     $('#bankInfo').text("EDITING BANK 2");
-    $('#editBtns').prop('disabled', false);
     currentBank = 240; //240 para bank 2
-    populateDashboard(presetSelected,currentBank);
+    populateDashboard(presetSelected, currentBank);
     $('#collapsePresets').addClass("show");
     showAllPresetData();
     updatePresetCardTitle();
@@ -396,13 +458,6 @@ if (currentBank == 0 || currentBank == 240) {
     };
   };
 
-  $("[id^=btnInfo]").click(function() {
-
-    showbtnInfo(($(this).prop('id')).slice(-1));
-    // alert(($(this).prop('id')).slice(-1));
-    // allConfigData[]
-
-  });
 
 
   function showbtnInfo(btnNumber) {
@@ -440,26 +495,26 @@ if (currentBank == 0 || currentBank == 240) {
     return xtraBtnOptions[modeExt];
   }
 
-  function getModifierName(data){
+  function getModifierName(data) {
     switch (data) {
       case 0:
         return "N/A"
         break;
-        case 1:
-          return "MODIFIER"
-          break;
-          case 2:
-            return "MODIFIER"
-            break;
-            case 3:
-              return "CHANNEL"
-              break;
-              case 4:
-                return "CHANNEL"
-                break;
-                case 5:
-                  return "CHANNEL"
-                  break;
+      case 1:
+        return "MODIFIER"
+        break;
+      case 2:
+        return "MODIFIER"
+        break;
+      case 3:
+        return "CHANNEL"
+        break;
+      case 4:
+        return "CHANNEL"
+        break;
+      case 5:
+        return "CHANNEL"
+        break;
 
 
     }
@@ -491,7 +546,7 @@ if (currentBank == 0 || currentBank == 240) {
 
 
 
-  function getValue(type,data) {
+  function getValue(type, data) {
     // var type = allConfigData[eepromAddress + 2];
     switch (type) {
       case 1:
@@ -634,35 +689,111 @@ if (currentBank == 0 || currentBank == 240) {
 
   }
 
-  function populateDashboard(preset,bank){ // NOTE: BANK EITHER 0 or 240
-    var address =0;
+  function populateDashboard(preset, bank) { // NOTE: BANK EITHER 0 or 240
+    var address = 0;
     var behave = 0;
-    for(btnNumber=1;btnNumber<=5;btnNumber++){
+    for (btnNumber = 1; btnNumber <= 5; btnNumber++) {
       address = ((preset - 1) * 30) + ((btnNumber - 1) * 6) + 1 + bank;
-      behave =  ((preset - 1) * 10) + ((btnNumber - 1) * 2) + 181 + bank
+      behave = ((preset - 1) * 10) + ((btnNumber - 1) * 2) + 181 + bank
       var modifierPress = allConfigData[address];
-      var valuePress = allConfigData[address+1];
-      var typePress = allConfigData[address+2];
+      var valuePress = allConfigData[address + 1];
+      var typePress = allConfigData[address + 2];
       var behaveShort = allConfigData[behave];
 
-      $('#btn'+btnNumber+'PressModifier').html(getModifierName(typePress)+'<span id ="btn1PressModVal" class="badge badge-primary badge-pill">CTRL-ALT</span>');
-      $('#btn'+btnNumber+'PressTypeVal').text(getType(typePress));
-      $('#btn'+btnNumber+'PressValueVal').text(getValue(typePress,valuePress));
+      $('#btn' + btnNumber + 'PressModifier').html(getModifierName(typePress) + '<span id ="btn1PressModVal" class="badge dataType badge-pill">CTRL-ALT</span>');
+      switch (typePress) {
+        case 1:
+          $('#btn' + btnNumber + 'PressTypeVal').css({
+            "background-color": "#1f6d49"
+          });
+          break;
+        case 2:
+          $('#btn' + btnNumber + 'PressTypeVal').css({
+            "background-color": "#6d431f"
+          });
+          break;
+        case 3:
+          $('#btn' + btnNumber + 'PressTypeVal').css({
+            "background-color": "#7e3ab2"
+          });
+          break;
+        case 4:
+          $('#btn' + btnNumber + 'PressTypeVal').css({
+            "background-color": "#7e3ab2"
+          });
+          break;
+        case 5:
+          $('#btn' + btnNumber + 'PressTypeVal').css({
+            "background-color": "#7e3ab2"
+          });
+          break;
 
-      var modifierHold = allConfigData[address+3];
-      var valueHold = allConfigData[address+4];
-      var typeHold = allConfigData[address+5];
-      var behaveHold = allConfigData[behave+1];
+      }
+      $('#btn' + btnNumber + 'PressTypeVal').text(getType(typePress));
+      $('#btn' + btnNumber + 'PressValueVal').text(getValue(typePress, valuePress));
 
-      $('#btn'+btnNumber+'HoldModifier').html(getModifierName(typeHold)+'<span id ="btn1HoldModVal" class="badge badge-primary badge-pill">CTRL-ALT</span>');
-      $('#btn'+btnNumber+'HoldTypeVal').text(getType(typeHold));
-      $('#btn'+btnNumber+'HoldValueVal').text(getValue(typeHold,valueHold));
+      var modifierHold = allConfigData[address + 3];
+      var valueHold = allConfigData[address + 4];
+      var typeHold = allConfigData[address + 5];
+      var behaveHold = allConfigData[behave + 1];
+
+      $('#btn' + btnNumber + 'HoldModifier').html(getModifierName(typeHold) + '<span id ="btn1HoldModVal" class="badge dataType badge-pill">CTRL-ALT</span>');
+      switch (typeHold) {
+        case 1: //KEYBOARD
+          $('#btn' + btnNumber + 'HoldTypeVal').css({
+            "background-color": "#1f6d49"
+          });
+          break;
+        case 2: // MULTIMEDIA
+          $('#btn' + btnNumber + 'HoldTypeVal').css({
+            "background-color": "#6d431f"
+          });
+          break;
+        case 3: //MIDI NOTE
+          $('#btn' + btnNumber + 'HoldTypeVal').css({
+            "background-color": "#7e3ab2"
+          });
+          break;
+        case 4: //MIDI PROG
+          $('#btn' + btnNumber + 'HoldTypeVal').css({
+            "background-color": "#7e3ab2"
+          });
+          break;
+        case 5: //MIDI CC
+          $('#btn' + btnNumber + 'HoldTypeVal').css({
+            "background-color": "#7e3ab2"
+          });
+          break;
+      }
+
+
+      $('#btn' + btnNumber + 'HoldTypeVal').text(getType(typeHold));
+      $('#btn' + btnNumber + 'HoldValueVal').text(getValue(typeHold, valueHold));
     }
+
+    $('#allPresetsInfo').show();
+    $('#buttonInfo').hide();
 
   }
 
+
 }); // END DOCUMENT READY
 
+function showBtnConfig(buttonPressed){
+  $('#allPresetsInfo').hide();
+  $('#buttonInfo').show();
+  // specificButtonInfo
+  $('[id^="showBtn"]').each(function(){$(this).removeClass("btn-dark")})
+  $('[id^="showBtn"]').each(function(){$(this).addClass("btn-light")})
+
+
+
+    $('#showBtn'+buttonPressed).removeClass("btn-light")
+    $('#showBtn'+buttonPressed).addClass("btn-dark")
+
+
+
+}
 
 function decimalToHex(d, padding) {
   var hex = Number(d).toString(16);
@@ -680,6 +811,8 @@ function pad(n, width, z) {
   n = n + '';
   return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
 }
+
+
 
 
 
