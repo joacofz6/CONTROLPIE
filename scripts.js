@@ -25,6 +25,7 @@ var midi = null;
 var output = null;
 var isConnected = false;
 
+
 function onMIDISuccess(midiAccess) {
 
   // document.querySelector('body').innerHTML = 'Press any note to begin...';
@@ -34,7 +35,7 @@ function onMIDISuccess(midiAccess) {
   var outputs = midiAccess.outputs;
   var lista = [];
   var devicesMap = new Map();
-  let table = document.querySelector("table");
+
 
   for (var input of midiAccess.inputs.values()) {
     lista.push(input.name);
@@ -94,11 +95,13 @@ function getMIDIMessage(message) {
   var command = message.data[0];
   var note = message.data[1];
   var velocity = (message.data.length > 2) ? message.data[2] : null; // a velocity value might not be included with a noteOff command
-
+console.log(command + " " + note + " " + velocity);
 
   switch (true) { //un switch especial!!!
     case ((command >= 144) && (command <= 159)): // noteOn
       if (velocity > 0) {
+        midiLearnCommand="NOTE";
+        midiLearnNote=velocity;
         noteOnListener(command & 0xf, note, velocity);
       } else {
         noteOffListener(note);
@@ -109,7 +112,7 @@ function getMIDIMessage(message) {
       noteOffCallback(note);
       break;
     default:
-      console.log(command + " " + note + " " + velocity);
+
       break;
       // we could easily expand this switch statement to cover other types of commands such as controllers or sysex
   }
@@ -122,6 +125,8 @@ var presetSelected;
 var currentBank = -1;
 var externalBtn = 483;
 var serialNumber = 0;
+var midiLearnCommand  =0;
+var midiLearnNote = 0;
 
 function getCTRLPIEmsg(message) {
   var header = message.data[0];
@@ -193,7 +198,9 @@ function getCTRLPIEmsg(message) {
         $("#btnPressed").text(tx)
         $("#btnPressed").removeClass("btnHold");
         $("#btnPressed").addClass("btnPress");
-        $("#btnPressed").css({"opacity": "1"});
+        $("#btnPressed").css({
+          "opacity": "1"
+        });
         window.clearTimeout(timer);
         timer = window.setTimeout(hideOverlay, 3000);
         console.log(tx);
@@ -204,7 +211,9 @@ function getCTRLPIEmsg(message) {
         $("#btnPressed").text(tx);
         $("#btnPressed").removeClass("btnPress");
         $("#btnPressed").addClass("btnHold");
-        $("#btnPressed").css({"opacity": "1"});
+        $("#btnPressed").css({
+          "opacity": "1"
+        });
         window.clearTimeout(timer);
         timer = window.setTimeout(hideOverlay, 3000);
         console.log(tx);
@@ -235,9 +244,9 @@ function noteOffCallback(note) {
 }
 
 function noteOnListener(channel, note, velocity) {
-  $('#channel').html("Channel: " + channel);
-  $('#notePressed').html("Note Pressed: " + note);
-  $('#noteVelocity').html("Velocity: " + velocity);
+  // $('#channel').html("Channel: " + channel);
+  // $('#notePressed').html("Note Pressed: " + note);
+  // $('#noteVelocity').html("Velocity: " + velocity);
 }
 
 function noteOffListener(note) {
@@ -295,8 +304,21 @@ Number.prototype.mod = function(n) {
 }
 
 $(document).ready(function() { // ESTO PREVIENE QUE SE EJECUTEN ESTOS JQUERY ANTES DE QUE CARGUE LA PAGINA
+  $('#btnsCarousel').carousel('pause');
+
+  $("#backToAll").click(function() {
+    populateDashboard(presetSelected, currentBank);
+    $('#btnsCarousel').carousel(6);
+    $('#btnsCarousel').carousel('pause');
+  });
 
 
+  $('[id^="btnInfo"]').click(function() {
+    var buttonPressed = (($(this).prop('id')).slice(-1));
+    $('#specificButtonInfo').text("BUTTON " + buttonPressed + " CURRENT SETUP");
+    showBtnConfig(buttonPressed);
+
+  });
 
 
   $('#infoAlertConnect').click(function() {
@@ -339,7 +361,7 @@ $(document).ready(function() { // ESTO PREVIENE QUE SE EJECUTEN ESTOS JQUERY ANT
     $("#restoreBtn").prop('disabled', true);
     $("#restoreTitle").text("OPERATION SUCCESSFUL");
     $("#restoreHeading").removeClass("bg-danger")
-        $("#restoreHeading").addClass("bg-success")
+    $("#restoreHeading").addClass("bg-success")
     // alert("Control Pie restored to factory default values");
   });
 
@@ -360,7 +382,7 @@ $(document).ready(function() { // ESTO PREVIENE QUE SE EJECUTEN ESTOS JQUERY ANT
     if (currentBank == 0 || currentBank == 240) {
       populateDashboard(preset, currentBank);
     }
-    $("#imgPresets").attr("src","leds-presets-"+preset+".png");
+    $("#imgPresets").attr("src", "leds-presets-" + preset + ".png");
   }
 
 
@@ -369,18 +391,24 @@ $(document).ready(function() { // ESTO PREVIENE QUE SE EJECUTEN ESTOS JQUERY ANT
   $('[id^="showBtn"]').click(function() {
     var buttonPressed = (($(this).prop('id')).slice(-1));
     $('#specificButtonInfo').text("BUTTON " + buttonPressed + " CURRENT SETUP");
-      showBtnConfig(buttonPressed);
+    $('#specificButtonInfo').addClass("bg-info");
+    $('#specificButtonInfo').removeClass("bg-warning");
+    showBtnConfig(buttonPressed);
 
   });
 
-$("#showAll").click(function(){
-  $('#allPresetsInfo').show();
-  $('#buttonInfo').hide();
-});
+  $("#showAll").click(function() {
+    $('#allPresetsInfo').show();
+    $('#buttonInfo').hide();
+    $("#btnsCarousel").carousel(6);
+    $('#btnsCarousel').carousel('pause');
+  });
 
-  $("#external").click(function(){
+  $("#external").click(function() {
     $('#specificButtonInfo').text("EXTERNAL BUTTON CURRENT SETUP");
-    showBtnConfig("7");
+    $('#specificButtonInfo').removeClass("bg-info");
+    $('#specificButtonInfo').addClass("bg-warning");
+    showBtnConfig("6");
   });
 
   $("[id^=preset]").click(function() {
@@ -453,7 +481,7 @@ $("#showAll").click(function(){
 
         // console.log("BTN " + step +" BANK "+currentBank+ " is TYPE: " +getType(eepromAddress) +" EP. ADD:  "+eepromAddress+2);
       }
-      $('#btnType6').text(showConfigExternal());
+      // $('#btnType6').text(showConfigExternal());
 
 
     };
@@ -780,17 +808,22 @@ $("#showAll").click(function(){
 
 }); // END DOCUMENT READY
 
-function showBtnConfig(buttonPressed){
+function showBtnConfig(buttonPressed) {
   $('#allPresetsInfo').hide();
   $('#buttonInfo').show();
   // specificButtonInfo
-  $('[id^="showBtn"]').each(function(){$(this).removeClass("btn-dark")})
-  $('[id^="showBtn"]').each(function(){$(this).addClass("btn-light")})
+  $('[id^="showBtn"]').each(function() {
+    $(this).removeClass("btn-dark")
+  })
+  $('[id^="showBtn"]').each(function() {
+    $(this).addClass("btn-light")
+  })
 
+  $('#showBtn' + buttonPressed).removeClass("btn-light")
+  $('#showBtn' + buttonPressed).addClass("btn-dark")
 
-
-    $('#showBtn'+buttonPressed).removeClass("btn-light")
-    $('#showBtn'+buttonPressed).addClass("btn-dark")
+  $("#btnsCarousel").carousel(parseInt(buttonPressed, 10) - 1);
+  $('#btnsCarousel').carousel('pause');
 
 
 

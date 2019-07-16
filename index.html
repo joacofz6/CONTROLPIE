@@ -35,9 +35,41 @@
   <div style="background:transparent !important" class="text-center">
     <!-- <h3 style="color: antiquewhite" ;>CONTROL PIE CONFIGURATOR</h3> -->
     <img alt="CONTROL PIE" src="TITLE.png" class="img-fluid" ;>
-    <img alt="CONTROL PIE" src="pedal.jpg" class="rounded img-fluid" ;>
+    <!-- <img alt="CONTROL PIE" src="pedal.jpg" class="rounded img-fluid" ;> -->
   </div>
   <!-- NOTE: IMAGEN Y TITULO -->
+
+
+
+<div id="demo" class="carousel slide" data-ride="carousel">
+
+  <!-- Indicators -->
+
+
+  <!-- The slideshow -->
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="img/fnd1.jpg" alt="1">
+    </div>
+    <div class="carousel-item">
+      <img src="img/fnd2.jpg" alt="2">
+    </div>
+    <div class="carousel-item">
+      <img src="img/fnd3.jpg" alt="3">
+    </div>
+    <div class="carousel-item">
+      <img src="img/fnd4.jpg" alt="4">
+    </div>
+    <div class="carousel-item">
+      <img src="img/fnd5.jpg" alt="5">
+    </div>
+  </div>
+
+  <!-- Left and right controls -->
+
+
+</div>
+  <!-- NOTE: END CAROUSEL -->
 
 
   <div class="container-fluid">
@@ -59,8 +91,8 @@
         </div>
 
         <div class="row rounded">
-          <div class="col rounded bg-secondary">
-          <div class="card-header text-white card-header text-white border-0">
+          <div class="col bg-secondary">
+          <div class="card-header bg-secondary text-white card-header text-white border-0">
             <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
               <div class="btn-group mr-4" role="group" aria-label="First group">
                 <div class="btn-group btn-group-justified">
@@ -103,7 +135,7 @@
             </div> <!-- NOTE:  PRESET Y BANK SELECTOR-->
           </div>
         </div>
-        <div class="col bg-secondary rounded">
+        <div class="col bg-secondary">
 <img id="imgPresets" alt="CONTROL PIE" src="leds-presets-none.png" class="img-fluid">
         </div>
         </div>
@@ -120,18 +152,64 @@
               <!-- NOTE: content of button picker starts here -->
               <h5 class="card-title bg-info rounded">CHOOSE BUTTON TO EDIT</h5>
               <div class="container">
-                <img alt="CONTROL PIE" src="pedal_btns.jpg" class="card-img-top rounded">
+                <!-- <img alt="CONTROL PIE" src="pedal_btns.jpg" class="card-img-top rounded"> -->
+                <!-- <div id="btnsCarousel" class="carousel slide" data-ride="carousel"> -->
+                  <div id="btnsCarousel" class="carousel slide" >
+
+                  <!-- Indicators -->
+                  <!-- <ul class="carousel-indicators">
+                    <li data-target="#btnsCarousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#btnsCarousel" data-slide-to="1"></li>
+                    <li data-target="#btnsCarousel" data-slide-to="2"></li>
+                    <li data-target="#btnsCarousel" data-slide-to="3"></li>
+                    <li data-target="#btnsCarousel" data-slide-to="4"></li>
+                  </ul> -->
+
+                  <!-- The slideshow -->
+                  <div class="carousel-inner">
+                    <div class="carousel-item">
+                      <img src="img/btn1.jpg" alt="1">
+                    </div>
+                    <div class="carousel-item">
+                      <img src="img/btn2.jpg" alt="2">
+                    </div>
+                    <div class="carousel-item">
+                      <img src="img/btn3.jpg" alt="3">
+                    </div>
+                    <div class="carousel-item">
+                      <img src="img/btn4.jpg" alt="4">
+                    </div>
+                    <div class="carousel-item">
+                      <img src="img/btn5.jpg" alt="5">
+                    </div>
+                    <div class="carousel-item ">
+                      <img src="img/btnext.jpg" alt="6">
+                    </div>
+                    <div class="carousel-item active">
+                      <img src="img/nobutton.jpg" alt="7">
+                    </div>
+                  </div>
+
+                  <!-- Left and right controls -->
+                  <!-- <a class="carousel-control-prev" href="#btnsCarousel" data-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                  </a>
+                  <a class="carousel-control-next" href="#btnsCarousel" data-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                  </a> -->
+
+                </div>
 
   <div id="btnPressed"class="overlay text-dark align-middle"></div>
 </div>
               <div class="btn-group flex-wrap btn-group-justified">
-                <a class="btn btn-light btn-ripple btn-xs" href="#" id="showBtn1">Button 1</a>
-                <a class="btn btn-light btn-ripple btn-xs" href="#" id="showBtn2">Button 2</a>
-                <a class="btn btn-light btn-ripple btn-xs" href="#" id="showBtn3">Button 3</a>
-                <a class="btn btn-light btn-ripple btn-xs" href="#" id="showBtn4">Button 4</a>
-                <a class="btn btn-light btn-ripple btn-xs" href="#" id="showBtn5">Button 5</a>
-                <a class="btn btn-warning btn-ripple btn-xs" href="#" id="external">External</a>
-                <a class="btn btn-primary btn-ripple btn-xs" href="#" id="showAll">ShowAll</a>
+                <a class="btn btn-light btn-ripple btn-xs zoom" href="#" id="showBtn1">Button 1</a>
+                <a class="btn btn-light btn-ripple btn-xs zoom" href="#" id="showBtn2">Button 2</a>
+                <a class="btn btn-light btn-ripple btn-xs zoom" href="#" id="showBtn3">Button 3</a>
+                <a class="btn btn-light btn-ripple btn-xs zoom" href="#" id="showBtn4">Button 4</a>
+                <a class="btn btn-light btn-ripple btn-xs zoom" href="#" id="showBtn5">Button 5</a>
+                <a class="btn btn-warning btn-ripple btn-xs zoom" href="#" id="external">External</a>
+                <a class="btn btn-primary btn-ripple btn-xs zoom" href="#" id="showAll">ShowAll</a>
                 <!-- <button id="showBtn1" type="button" class="btn btn-light btn-xs">Button 1</button> -->
                 <!-- <button id="showBtn2" type="button" class="btn btn-light btn-xs">Button 2</button> -->
 
@@ -149,8 +227,8 @@
               <div class="card-block">
                 <div class="row">
                   <div class="col">
-                    <ul class="list-unstyled">
-                      <li class="infoTabla headerRow rounded  text-light">1 PRESS</li>
+                    <ul id="btnInfo1"class="list-unstyled zoom">
+                      <li  class="infoTabla headerRow rounded  text-light">1 PRESS</li>
                       <li id="btn1PressType" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light" style="line-height: 0.1 !IMPORTANT;">TYPE: <span id ="btn1PressTypeVal" class="badge infoType badge-pill">Keyboard</span></li>
                       <li id="btn1PressModifier" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light" style="line-height: 0.1 !IMPORTANT;">MODIFIER: <span id ="btn1PressModVal" class="badge dataType badge-pill">CTRL-ALT</span></li>
                       <li id="btn1PressValue" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light" style="line-height: 0.1 !IMPORTANT;">VALUE: <span id ="btn1PressValueVal" class="badge dataType badge-pill">P</span></li>
@@ -161,7 +239,7 @@
                     </ul>
                   </div> <!-- NOTE: end of COLUMN in card block -->
                   <div class="col">
-                    <ul class="list-unstyled">
+                    <ul id="btnInfo2" class="list-unstyled zoom">
                       <li class="infoTabla headerRow rounded  text-light">2 PRESS</li>
                       <li id="btn2PressType" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light" style="line-height: 0.1 !IMPORTANT;">TYPE: <span id ="btn2PressTypeVal" class="badge infoType badge-pill">Keyboard</span></li>
                       <li id="btn2PressModifier" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light" style="line-height: 0.1 !IMPORTANT;">MODIFIER: <span id ="btn2PressModVal" class="badge dataType badge-pill">CTRL-ALT</span></li>
@@ -173,7 +251,7 @@
                     </ul>
                   </div> <!-- NOTE: end of COLUMN in card block -->
                   <div class="col">
-                    <ul class="list-unstyled">
+                    <ul id="btnInfo3" class="list-unstyled zoom">
                       <li class="infoTabla headerRow rounded  text-light">3 PRESS</li>
                       <li id="btn3PressType" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light" style="line-height: 0.1 !IMPORTANT;">TYPE: <span id ="btn3PressTypeVal" class="badge infoType badge-pill">Keyboard</span></li>
                       <li id="btn3PressModifier" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light" style="line-height: 0.1 !IMPORTANT;">MODIFIER: <span id ="btn3PressModVal" class="badge dataType badge-pill">CTRL-ALT</span></li>
@@ -187,10 +265,13 @@
 
 
                 </div>
+                <div class="row">
+                  <br>
+                </div>
 
                 <div class="row">
                   <div class="col">
-                    <ul class="list-unstyled">
+                    <ul id="btnInfo4"class="list-unstyled zoom">
                       <li class="infoTabla headerRow rounded  text-light">4 PRESS</li>
                       <li id="btn4PressType" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light" style="line-height: 0.1 !IMPORTANT;">TYPE: <span id ="btn4PressTypeVal" class="badge infoType badge-pill">Keyboard</span></li>
                       <li id="btn4PressModifier" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light" style="line-height: 0.1 !IMPORTANT;">MODIFIER: <span id ="btn4PressModVal" class="badge dataType badge-pill">CTRL-ALT</span></li>
@@ -202,7 +283,7 @@
                     </ul>
                   </div> <!-- NOTE: end of COLUMN in card block -->
                   <div class="col">
-                    <ul class="list-unstyled">
+                    <ul id="btnInfo5" class="list-unstyled zoom">
                       <li class="infoTabla headerRow rounded  text-light">5 PRESS</li>
                       <li id="btn5PressType" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light" style="line-height: 0.1 !IMPORTANT;">TYPE: <span id ="btn5PressTypeVal" class="badge infoType badge-pill">Keyboard</span></li>
                       <li id="btn5PressModifier" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light" style="line-height: 0.1 !IMPORTANT;">MODIFIER: <span id ="btn5PressModVal" class="badge dataType badge-pill">CTRL-ALT</span></li>
@@ -214,7 +295,7 @@
                     </ul>
                   </div>
                   <div class="col">
-                    <div class="list-group">
+                    <div class="list-unstyled group">
   <a href="#" class="list-group-item list-group-item-action">SAVE AND LOAD PRESETS</a>
   <a href="#" class="list-group-item list-group-item-action list-group-item-success">SAVE CURRENT</a>
   <a href="#" class="list-group-item list-group-item-action list-group-item-secondary">COPY CURRENT</a>
@@ -274,10 +355,10 @@
 
                   <div class="col">
                     <div class="list-group">
-          <a href="#" class="list-group-item list-group-item-action">SAVE AND LOAD PRESETS</a>
-          <a href="#" class="list-group-item list-group-item-action list-group-item-success">SAVE CURRENT</a>
-          <a href="#" class="list-group-item list-group-item-action list-group-item-secondary">COPY CURRENT</a>
-          <a href="#" class="list-group-item list-group-item-action list-group-item-info">RESTORE CURRENT</a>
+          <a id="backToAll" href="#" class="list-group-item list-group-item-action">CANCEL</a>
+          <a href="#" class="list-group-item list-group-item-action list-group-item-success">SAVE THIS BUTTON CONFIG</a>
+          <a href="#" class="list-group-item list-group-item-action list-group-item-secondary">COPY CURRENT BUTTON CONFIG</a>
+          <a href="#" class="list-group-item list-group-item-action list-group-item-info">RESTORE CURRENT BUTTON CONFIG</a>
 
           </div>
                   </div>
