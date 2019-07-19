@@ -254,7 +254,7 @@ function noteOffListener(note) {
   // document.querySelector('#noteReleased').innerHTML = note;
 }
 
-var CtrlPieIsConnected = false;
+// var CtrlPieIsConnected = false;
 
 function sendInitMsg() {
   var msg1 = [0xBE, 0x1A, 0x70]; // BE	1A	70
@@ -306,8 +306,8 @@ Number.prototype.mod = function(n) {
 
 function startDemo() {
 
-  for (let i = 0; i < allConfigData.length; i++) {
-    demoData[i] = allConfigData[i];
+  for (let i = 1; i <= demoData.length; i++) {
+    allConfigData[i] = demoData[i-1];
     console.log("copying.." + i);
   }
 
@@ -321,12 +321,19 @@ function sendMessageToCtrlPie(msg) {
 }
 
 $(document).ready(function() { // ESTO PREVIENE QUE SE EJECUTEN ESTOS JQUERY ANTES DE QUE CARGUE LA PAGINA
+
+  $('#btnSaveAllPresetsToFile').click(function(){
+
+
+    saveAllDataInfo();
+  });
+
   $("#btnDemo").click(function() {
+    isConnected=true;
     startDemo();
     serialNumber = "THIS IS A DEMO"
     setRadioWithCurrentPreset(1);
     showCtrlPieConnected();
-
     connectionStep = 5;
   });
 
@@ -873,9 +880,23 @@ function pad(n, width, z) {
   return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
 }
 
-function downloadAllDataInfo() {
+function saveAllDataInfo() {
+
+  // location.href = uri;
+
+
   uri = "data:application/octet-stream," + encodeURIComponent(allConfigData);
-  location.href = uri;
+  var link = document.createElement('a');
+     if (typeof link.download === 'string') {
+         document.body.appendChild(link); // Firefox requires the link to be in the body
+         link.download = "allPresetsAndBanksConfig.info";
+         link.href = uri;
+         link.click();
+         document.body.removeChild(link); // remove the link when done
+     } else {
+         location.replace(uri);
+     }
+
 }
 
 
