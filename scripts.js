@@ -55,7 +55,7 @@ function onMIDISuccess(midiAccess) {
       sendInitMsg();
 
       sendKeepAlive();
-      $('#alertConnect').hide();
+
       // $('#btnAlertConnect').removeClass("invisible");
       // $('#btnAlertConnect').removeClass("btn btn-warning");
       // $('#btnAlertConnect').addClass("btn btn-block bg-light");
@@ -77,7 +77,7 @@ function onMIDISuccess(midiAccess) {
 }
 
 function showCtrlPieConnected() {
-
+  $('#alertConnect').hide();
   $("#lowPanel").removeClass("invisible");
   $('#infoAlertConnect').show();
   $('#infoSelPreset').collapse('show');
@@ -95,13 +95,13 @@ function getMIDIMessage(message) {
   var command = message.data[0];
   var note = message.data[1];
   var velocity = (message.data.length > 2) ? message.data[2] : null; // a velocity value might not be included with a noteOff command
-console.log(command + " " + note + " " + velocity);
+  console.log(command + " " + note + " " + velocity);
 
   switch (true) { //un switch especial!!!
     case ((command >= 144) && (command <= 159)): // noteOn
       if (velocity > 0) {
-        midiLearnCommand="NOTE";
-        midiLearnNote=velocity;
+        midiLearnCommand = "NOTE";
+        midiLearnNote = velocity;
         noteOnListener(command & 0xf, note, velocity);
       } else {
         noteOffListener(note);
@@ -121,11 +121,12 @@ console.log(command + " " + note + " " + velocity);
 var connectionStep = 0;
 var dataCount = 0;
 var allConfigData = new Array(493);
+var demoData = [1, 54, 1, 1, 19, 1, 0, 13, 1, 0, 13, 1, 0, 14, 1, 0, 9, 1, 0, 15, 1, 0, 15, 1, 1, 55, 1, 1, 17, 1, 0, 86, 3, 0, 84, 3, 0, 88, 3, 0, 91, 3, 0, 94, 3, 0, 93, 3, 0, 90, 3, 0, 92, 3, 0, 95, 3, 0, 95, 3, 0, 226, 2, 0, 234, 2, 0, 180, 2, 0, 182, 2, 0, 205, 2, 0, 183, 2, 0, 179, 2, 0, 181, 2, 0, 233, 2, 0, 233, 2, 16, 15, 1, 16, 31, 1, 0, 82, 1, 0, 80, 1, 0, 205, 2, 0, 183, 2, 0, 44, 1, 0, 81, 1, 0, 226, 2, 0, 74, 1, 16, 29, 1, 17, 29, 1, 0, 88, 3, 0, 91, 3, 0, 94, 3, 0, 93, 3, 0, 90, 3, 0, 92, 3, 0, 95, 3, 0, 6, 1, 4, 43, 1, 64, 30, 1, 0, 41, 1, 64, 31, 1, 0, 40, 1, 64, 32, 1, 0, 44, 1, 64, 33, 1, 0, 58, 1, 64, 34, 1, 0, 3, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 127, 0, 0, 0, 0, 0, 0, 0, 0, 0, 127, 0, 127, 1, 127, 0, 127, 2, 127, 0, 48, 3, 0, 49, 3, 0, 50, 3, 0, 51, 3, 0, 52, 3, 0, 53, 3, 0, 54, 3, 0, 55, 3, 0, 56, 3, 0, 57, 3, 0, 58, 3, 0, 59, 3, 0, 60, 3, 0, 61, 3, 0, 62, 3, 0, 63, 3, 0, 64, 3, 0, 65, 3, 0, 66, 3, 0, 67, 3, 0, 68, 3, 0, 69, 3, 0, 70, 3, 0, 71, 3, 0, 72, 3, 0, 73, 3, 0, 74, 3, 0, 75, 3, 0, 76, 3, 0, 77, 3, 0, 78, 3, 0, 79, 3, 0, 80, 3, 0, 81, 3, 0, 82, 3, 0, 83, 3, 0, 84, 3, 0, 85, 3, 0, 86, 3, 0, 87, 3, 0, 88, 3, 0, 89, 3, 0, 90, 3, 0, 91, 3, 0, 92, 3, 0, 93, 3, 0, 94, 3, 0, 95, 3, 0, 96, 3, 0, 97, 3, 0, 98, 3, 0, 99, 3, 0, 100, 3, 0, 101, 3, 0, 102, 3, 0, 103, 3, 0, 104, 3, 0, 105, 3, 0, 106, 3, 0, 107, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 9, 0, 205, 2, 0, 183, 2, 0, 255, 0, 193];
 var presetSelected;
 var currentBank = -1;
 var externalBtn = 483;
 var serialNumber = 0;
-var midiLearnCommand  =0;
+var midiLearnCommand = 0;
 var midiLearnNote = 0;
 
 function getCTRLPIEmsg(message) {
@@ -148,6 +149,7 @@ function getCTRLPIEmsg(message) {
         connectionStep++;
       }
       break;
+
     case 2: //receiving inital data config
       dataCount++;
       allConfigData[dataCount] = (((leftHalf & 0x0f) << 4) | (rightHalf & 0x0f)); //Stores read data
@@ -220,11 +222,10 @@ function getCTRLPIEmsg(message) {
         showBtnConfig(leftHalf);
       }
 
-
-
-
       break;
 
+    case 5: //DEMO
+      break;
   }
 
 }
@@ -258,7 +259,7 @@ var CtrlPieIsConnected = false;
 function sendInitMsg() {
   var msg1 = [0xBE, 0x1A, 0x70]; // BE	1A	70
   console.log("Connect request..." + msg1);
-  output.send(msg1);
+  sendMessageToCtrlPie(msg1);
   connectionStep = 1;
 }
 
@@ -266,7 +267,7 @@ function sendKeepAlive() {
   var msg1 = [0xB7, 0x70, 0x7F]; // note on, middle C, full velocity
 
   if (output) {
-    output.send(msg1, );
+    sendMessageToCtrlPie(msg1);
     console.log("keep alive...");
   }
   setTimeout(sendKeepAlive, 5000);
@@ -303,7 +304,32 @@ Number.prototype.mod = function(n) {
   return ((this % n) + n) % n;
 }
 
+function startDemo() {
+
+  for (let i = 0; i < allConfigData.length; i++) {
+    demoData[i] = allConfigData[i];
+    console.log("copying.." + i);
+  }
+
+
+}
+
+function sendMessageToCtrlPie(msg) {
+  if (!(output === null)) {
+    output.send(msg);
+  }
+}
+
 $(document).ready(function() { // ESTO PREVIENE QUE SE EJECUTEN ESTOS JQUERY ANTES DE QUE CARGUE LA PAGINA
+  $("#btnDemo").click(function() {
+    startDemo();
+    serialNumber = "THIS IS A DEMO"
+    setRadioWithCurrentPreset(1);
+    showCtrlPieConnected();
+
+    connectionStep = 5;
+  });
+
   $('#btnsCarousel').carousel('pause');
 
   $("#backToAll").click(function() {
@@ -344,17 +370,17 @@ $(document).ready(function() { // ESTO PREVIENE QUE SE EJECUTEN ESTOS JQUERY ANT
 
   $("#getConfig").click(function() {
     var msg1 = [0xBE, 0x1D, 0x70]; //BE	1D	70
-    output.send(msg1);
+    sendMessageToCtrlPie(msg1);
   });
 
   $("#getActivePreset").click(function() {
     var msg1 = [0xBE, 0x1D, 0x70]; //BE	1D	70
-    output.send(msg1);
+    sendMessageToCtrlPie(msg1);
   });
 
   $("#restoreToFactory").click(function() {
     var msg1 = [0xBE, 0x0F, 0x70]; //BE	0F	70
-    output.send(msg1);
+    sendMessageToCtrlPie(msg1);
     $("#modalbody").text("Default values restored.");
     $("#restoreToFactory").addClass("disabled")
     $("#restoreToFactory").prop('disabled', true);
@@ -414,7 +440,7 @@ $(document).ready(function() { // ESTO PREVIENE QUE SE EJECUTEN ESTOS JQUERY ANT
   $("[id^=preset]").click(function() {
     presetSelected = (($(this).prop('id')).slice(-1));
     var msg1 = [0xBF, 0x1C, presetSelected]; //BF	1C	06
-    output.send(msg1);
+    sendMessageToCtrlPie(msg1);
     updatePresetBtn(presetSelected);
     updatePresetCardTitle()
 
@@ -442,7 +468,7 @@ $(document).ready(function() { // ESTO PREVIENE QUE SE EJECUTEN ESTOS JQUERY ANT
     //BF	1C	07 para bank 1
     //BF	1C	08 para bank 1
     var msg1 = [0xBF, 0x1C, 6 + 1]; //BF	1C	07 para bank 1
-    output.send(msg1);
+    sendMessageToCtrlPie(msg1);
   });
 
   $('#btnBank2').click(function() {
@@ -459,7 +485,8 @@ $(document).ready(function() { // ESTO PREVIENE QUE SE EJECUTEN ESTOS JQUERY ANT
     //BF	1C	07 para bank 1
     //BF	1C	08 para bank 1
     var msg1 = [0xBF, 0x1C, 6 + 2]; //BF	1C	08 para bank 2
-    output.send(msg1);
+    sendMessageToCtrlPie(msg1);
+
   });
 
   function updatePresetCardTitle() {
@@ -846,11 +873,15 @@ function pad(n, width, z) {
   return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
 }
 
+function downloadAllDataInfo() {
+  uri = "data:application/octet-stream," + encodeURIComponent(allConfigData);
+  location.href = uri;
+}
 
 
 
 
 window.onunload = function() { //APP DISCONNECT message cuando se cierra
   var msg1 = [0xBE, 0x1F, 0x7F]; //BE	1F	7F
-  output.send(msg1);
+  sendMessageToCtrlPie(msg1);
 }
