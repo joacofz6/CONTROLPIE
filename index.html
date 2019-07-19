@@ -7,10 +7,10 @@
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="scripts.js"></script>
 
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="style.css">
   <link href='https://fonts.googleapis.com/css?family=Lato:300,400,400italic,700,700italic' rel='stylesheet'>
 
@@ -32,6 +32,8 @@
 </head>
 
 <body>
+
+
   <div style="background:transparent !important" class="text-center">
     <!-- <h3 style="color: antiquewhite" ;>CONTROL PIE CONFIGURATOR</h3> -->
     <img alt="CONTROL PIE" src="TITLE.png" class="img-fluid" ;>
@@ -78,7 +80,8 @@
     <div class="text-center">
       <div id="alertConnect">
         <h4 style="color: antiquewhite">Please connect your CONTROL PIE to USB PORT.</h4>
-        <label id="btnAlertConnect" class="btn btn-warning blink">THEN CLICK HERE</label>
+        <label id="btnAlertConnect" class="btn btn-warning blink">THEN CLICK HERE  </label>
+        <div class="spinner-grow text-warning"></div>
       </div>
 
     </div>
@@ -137,6 +140,7 @@
         </div>
         <div class="col bg-secondary">
 <img id="imgPresets" alt="CONTROL PIE" src="leds-presets-none.png" class="img-fluid">
+<!-- <div class="spinner-grow text-warning tag"></div> -->
         </div>
         </div>
       </div> <!-- NOTE: END OF MAIN BUTTONS CARD -->
