@@ -92,14 +92,16 @@ function getMIDIMessage(message) {
 var connectionStep = 0;
 var dataCount = 0;
 var allConfigData = new Array(493);
+var originalConfigData = new Array(493);
 var demoData = [1, 54, 1, 1, 19, 1, 0, 13, 1, 0, 13, 1, 0, 14, 1, 0, 9, 1, 0, 15, 1, 0, 15, 1, 1, 55, 1, 1, 17, 1, 0, 86, 3, 0, 84, 3, 0, 88, 3, 0, 91, 3, 0, 94, 3, 0, 93, 3, 0, 90, 3, 0, 92, 3, 0, 95, 3, 0, 95, 3, 0, 226, 2, 0, 234, 2, 0, 180, 2, 0, 182, 2, 0, 205, 2, 0, 183, 2, 0, 179, 2, 0, 181, 2, 0, 233, 2, 0, 233, 2, 16, 15, 1, 16, 31, 1, 0, 82, 1, 0, 80, 1, 0, 205, 2, 0, 183, 2, 0, 44, 1, 0, 81, 1, 0, 226, 2, 0, 74, 1, 16, 29, 1, 17, 29, 1, 0, 88, 3, 0, 91, 3, 0, 94, 3, 0, 93, 3, 0, 90, 3, 0, 92, 3, 0, 95, 3, 0, 6, 1, 4, 43, 1, 64, 30, 1, 0, 41, 1, 64, 31, 1, 0, 40, 1, 64, 32, 1, 0, 44, 1, 64, 33, 1, 0, 58, 1, 64, 34, 1, 0, 3, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 127, 0, 0, 0, 0, 0, 0, 0, 0, 0, 127, 0, 127, 1, 127, 0, 127, 2, 127, 0, 48, 3, 0, 49, 3, 0, 50, 3, 0, 51, 3, 0, 52, 3, 0, 53, 3, 0, 54, 3, 0, 55, 3, 0, 56, 3, 0, 57, 3, 0, 58, 3, 0, 59, 3, 0, 60, 3, 0, 61, 3, 0, 62, 3, 0, 63, 3, 0, 64, 3, 0, 65, 3, 0, 66, 3, 0, 67, 3, 0, 68, 3, 0, 69, 3, 0, 70, 3, 0, 71, 3, 0, 72, 3, 0, 73, 3, 0, 74, 3, 0, 75, 3, 0, 76, 3, 0, 77, 3, 0, 78, 3, 0, 79, 3, 0, 80, 3, 0, 81, 3, 0, 82, 3, 0, 83, 3, 0, 84, 3, 0, 85, 3, 0, 86, 3, 0, 87, 3, 0, 88, 3, 0, 89, 3, 0, 90, 3, 0, 91, 3, 0, 92, 3, 0, 93, 3, 0, 94, 3, 0, 95, 3, 0, 96, 3, 0, 97, 3, 0, 98, 3, 0, 99, 3, 0, 100, 3, 0, 101, 3, 0, 102, 3, 0, 103, 3, 0, 104, 3, 0, 105, 3, 0, 106, 3, 0, 107, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 9, 0, 205, 2, 0, 183, 2, 0, 255, 0, 193];
 var presetSelected;
 var currentBank = -1;
 var buttonPressed = null;
-var modifierBits = 0;
-var currentModifierText = "";
-var currentTypeText = "";
-var currentValueText = "";
+var editingHold = null;
+var modifierSelected = 0;
+var selectedModifierText = "";
+var selectedTypeText = "";
+var selectedValueText = "";
 var storedTypeTextP = "";
 var storedValueTextP = "";
 var storedModifierTextP = "";
@@ -151,6 +153,7 @@ function getCTRLPIEmsg(message) {
     case 2: //receiving inital data config
       dataCount++;
       allConfigData[dataCount] = (((leftHalf & 0x0f) << 4) | (rightHalf & 0x0f)); //Stores read data
+      originalConfigData[dataCount] = (((leftHalf & 0x0f) << 4) | (rightHalf & 0x0f)); //Stores a backup of read data
       console.log("data: " + pad(dataCount, 3) + " " + decimalToHex(header, 2) + " " + decimalToHex(leftHalf, 2) + " " + decimalToHex(rightHalf, 2) + " dec value: " + decValue);
       if (dataCount == 493) {
         console.log("all data received ok");
@@ -274,15 +277,6 @@ function setRadioWithCurrentPreset(value) {
 };
 
 function noteToNoteName(note) {
-  // var notes = "C C#D D#E F F#G G#A A#B ";
-  // var octv;
-  // var nt;
-  // for (noteNum = 0; noteNum < 128; noteNum++) {
-  //   octv = noteNum / 12 - 1;
-  //   nt = notes.substring((noteNum % 12) * 2, (noteNum % 12) * 2 + 2);
-  //   console.log("Note # " + noteNum + " = octave " + octv + ", note " + nt);
-  //   // System.out.println("Note # " + noteNum + " = octave " + octv + ", note " + nt);
-  // }
   note -= 21; // see the explanation below.
   var notes = ["A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#"];
   var octave = parseInt(note / 12) + 1;
@@ -297,6 +291,7 @@ Number.prototype.mod = function(n) {
 function startDemo() {
   for (let i = 1; i <= demoData.length; i++) {
     allConfigData[i] = demoData[i - 1];
+    originalConfigData[i]= demoData[i - 1];
     console.log("copying.." + i);
   }
 }
@@ -307,6 +302,12 @@ function sendMessageToCtrlPie(msg) {
   }
 }
 $(document).ready(function() { // ESTO PREVIENE QUE SE EJECUTEN ESTOS JQUERY ANTES DE QUE CARGUE LA PAGINA
+$('#applyEditBtn').click(function(){
+
+  applyEditBtnData();
+
+});
+
   $('#btnSaveAllPresetsToFile').click(function() {
     saveAllDataInfo();
   });
@@ -377,6 +378,7 @@ $(document).ready(function() { // ESTO PREVIENE QUE SE EJECUTEN ESTOS JQUERY ANT
     }
   }
   $('[id^="showBtn"]').click(function() {
+    resetSelectedConfig(true);
     buttonPressed = (($(this).prop('id')).slice(-1));
     $('#specificButtonInfo').text("BUTTON " + buttonPressed + " CURRENT SETUP");
     $('#specificButtonInfo').addClass("bg-info");
@@ -444,82 +446,82 @@ $(document).ready(function() { // ESTO PREVIENE QUE SE EJECUTEN ESTOS JQUERY ANT
   });
   $('#leftShift').click(function() {
     if ($(this).is(':checked')) {
-      modifierBits = modifierBits | left_shift;
+      modifierSelected = modifierSelected | left_shift;
     } else {
-      modifierBits = modifierBits ^ left_shift;
+      modifierSelected = modifierSelected ^ left_shift;
     }
-    console.log(modifierBits);
-    currentModifierText = getModifierValue(1, modifierBits);
+    console.log(modifierSelected);
+    selectedModifierText = getModifierValue(1, modifierSelected);
     updateSelectedConfig();
   });
   $('#rightShift').click(function() {
     if ($(this).is(':checked')) {
-      modifierBits = modifierBits | right_shift;
+      modifierSelected = modifierSelected | right_shift;
     } else {
-      modifierBits = modifierBits ^ right_shift;
+      modifierSelected = modifierSelected ^ right_shift;
     }
-    console.log(modifierBits);
-    currentModifierText = getModifierValue(1, modifierBits);
+    console.log(modifierSelected);
+    selectedModifierText = getModifierValue(1, modifierSelected);
     updateSelectedConfig();
   });
   $('#leftAlt').click(function() {
     if ($(this).is(':checked')) {
-      modifierBits = modifierBits | left_alt;
+      modifierSelected = modifierSelected | left_alt;
     } else {
-      modifierBits = modifierBits ^ left_alt;
+      modifierSelected = modifierSelected ^ left_alt;
     }
-    console.log(modifierBits);
-    currentModifierText = getModifierValue(1, modifierBits);
+    console.log(modifierSelected);
+    selectedModifierText = getModifierValue(1, modifierSelected);
     updateSelectedConfig();
   });
   $('#rightAlt').click(function() {
     if ($(this).is(':checked')) {
-      modifierBits = modifierBits | right_alt;
+      modifierSelected = modifierSelected | right_alt;
     } else {
-      modifierBits = modifierBits ^ right_alt;
+      modifierSelected = modifierSelected ^ right_alt;
     }
-    console.log(modifierBits);
-    currentModifierText = getModifierValue(1, modifierBits);
+    console.log(modifierSelected);
+    selectedModifierText = getModifierValue(1, modifierSelected);
     updateSelectedConfig();
   });
   $('#leftControl').click(function() {
     if ($(this).is(':checked')) {
-      modifierBits = modifierBits | left_ctrl;
+      modifierSelected = modifierSelected | left_ctrl;
     } else {
-      modifierBits = modifierBits ^ left_ctrl;
+      modifierSelected = modifierSelected ^ left_ctrl;
     }
-    console.log(modifierBits);
-    currentModifierText = getModifierValue(1, modifierBits);
+    console.log(modifierSelected);
+    selectedModifierText = getModifierValue(1, modifierSelected);
     updateSelectedConfig();
   });
   $('#rightControl').click(function() {
     if ($(this).is(':checked')) {
-      modifierBits = modifierBits | right_ctrl;
+      modifierSelected = modifierSelected | right_ctrl;
     } else {
-      modifierBits = modifierBits ^ right_ctrl;
+      modifierSelected = modifierSelected ^ right_ctrl;
     }
-    console.log(modifierBits);
-    currentModifierText = getModifierValue(1, modifierBits);
+    console.log(modifierSelected);
+    selectedModifierText = getModifierValue(1, modifierSelected);
     updateSelectedConfig();
   });
   $('#leftGui').click(function() {
     if ($(this).is(':checked')) {
-      modifierBits = modifierBits | left_gui;
+      modifierSelected = modifierSelected | left_gui;
     } else {
-      modifierBits = modifierBits ^ left_gui;
+      modifierSelected = modifierSelected ^ left_gui;
     }
-    console.log(modifierBits);
-    currentModifierText = getModifierValue(1, modifierBits);
+    console.log(modifierSelected);
+    selectedModifierText = getModifierValue(1, modifierSelected);
     updateSelectedConfig();
   });
   $('#rightGui').click(function() {
     if ($(this).is(':checked')) {
-      modifierBits = modifierBits | right_gui;
+      modifierSelected = modifierSelected | right_gui;
     } else {
-      modifierBits = modifierBits ^ right_gui;
+      modifierSelected = modifierSelected ^ right_gui;
     }
-    console.log(modifierBits);
-    currentModifierText = getModifierValue(1, modifierBits);
+    console.log(modifierSelected);
+    selectedModifierText = getModifierValue(1, modifierSelected);
     updateSelectedConfig();
   });
   $('#editPress').click(function() {
@@ -529,6 +531,7 @@ $(document).ready(function() { // ESTO PREVIENE QUE SE EJECUTEN ESTOS JQUERY ANT
     $('#editHeading').addClass('bg-press');
     $('#editHeading').removeClass('text-dark');
     $('#editHeading').addClass('text-light');
+    editingHold = false;
   });
   $('#editHold').click(function() {
     updateCurrentConfig(true);
@@ -537,6 +540,7 @@ $(document).ready(function() { // ESTO PREVIENE QUE SE EJECUTEN ESTOS JQUERY ANT
     $('#editHeading').addClass('bg-hold');
     $('#editHeading').removeClass('text-light');
     $('#editHeading').addClass('text-dark');
+    editingHold = true;
   });
   //TYPE SELECTOR IN EDIT BUTTON
   $("[id^=type]").click(function() {
@@ -553,31 +557,63 @@ $(document).ready(function() { // ESTO PREVIENE QUE SE EJECUTEN ESTOS JQUERY ANT
         text = "MIDI NOTE";
         break;
       case 4:
-        text = "KEY CONTROL CHANGE";
+        text = "MIDI CONTROL CHANGE";
         break;
       case 5:
-        text = "KEY PROGRAM CHANGE";
+        text = "MIDI PROGRAM CHANGE";
         break;
     }
-    currentTypeText = text;
+    resetSelectedConfig(false);
+    selectedTypeText = text;
     updateValueSelector(typeSelected);
     $('#btnGroupType').text(text);
     $('#btnGroupType').removeClass("btn-warning");
     $('#btnGroupType').addClass("btn-success");
+    // $('#modalModifierValue').collapse('hide');
+    // $('#modalChannelValue').collapse('hide');
     console.log(typeSelected);
     updateSelectedConfig();
   });
 
+  function resetSelectedConfig(fullReset) {
+    $('#selectedKey').text("choose...");
+
+    $('#selectedChannel').text("choose...");
+
+    $('#modalModifierValue').collapse('hide');
+
+    $('#modalChannelValue').collapse('hide');
+
+    if (fullReset) {
+      $('#modalKeyValue').collapse('hide');
+    }
+    $('#leftShift').prop('checked', false);
+    $('#rightShift').prop('checked', false);
+    $('#leftAlt').prop('checked', false);
+    $('#rightAlt').prop('checked', false);
+    $('#leftControl').prop('checked', false);
+    $('#rightControl').prop('checked', false);
+    $('#leftGui').prop('checked', false);
+    $('#rightGui').prop('checked', false);
+    selectedTypeText = "";
+    selectedValueText = "";
+    selectedModifierText = "";
+    modifierSelected = 0;
+  }
+
   function updateSelectedConfig() {
-    if (currentTypeText != "") {
-      $('#selectedConfig').html("New config: " + currentTypeText);
+    if (selectedTypeText != "") {
+      $('#selectedConfig').html("New config: <br>" + '<span class="typeType text-dark badge">' + selectedTypeText + ':</span> ');
     }
-    if (currentValueText != "") {
-      $('#selectedConfig').html("New config: " + currentTypeText + ' <span class="badge dataType badge-pill">' + currentValueText + ' </span>');
+    if (selectedValueText != "") {
+      $('#selectedConfig').html("New config: <br>" + '<span class="typeType text-dark badge">' + selectedTypeText + ':</span> ' + '<span class="badge dataType badge-pill">' + selectedValueText + ' </span>');
     }
-    if (currentModifierText != "") {
-      $('#selectedConfig').html("New config: " + currentTypeText + ' <span class="badge dataType badge-pill"> ' + currentModifierText + ' </span>' + ' <span class="badge dataType badge-pill"> + </span>' + ' <span class="badge dataType badge-pill">' + currentValueText + ' </span>');
+    if (selectedModifierText != "") {
+      $('#selectedConfig').html("New config: <br>" + '<span class="typeType text-dark badge">' + selectedTypeText + ':</span> ' + ' <span class="badge dataType badge-pill"> ' + selectedModifierText + ' </span>' + ' <span class="badge dataType badge-pill"> + </span>' + ' <span class="badge dataType badge-pill">' + selectedValueText + ' </span>');
     }
+    let addr = ((presetSelected - 1) * 30) + ((buttonPressed - 1) * 6) + 1 + currentBank;
+    let beh = ((presetSelected - 1) * 10) + ((buttonPressed - 1) * 2) + 181 + currentBank
+    console.log("modifier byte: " + modifierSelected + " | value byte: " + valueSelected + " | type byte:" + typeSelected + " | hold Edit? " + editingHold + " | init address: " + addr + " | behave addres: " + beh);
   }
 
   function updateCurrentConfig(isHold) {
@@ -591,44 +627,106 @@ $(document).ready(function() { // ESTO PREVIENE QUE SE EJECUTEN ESTOS JQUERY ANT
       var storedModifierText = storedModifierTextP;
     }
     if (storedTypeText != "") {
-      $('#currentConfig').html("Current config: " + storedTypeText);
+      $('#currentConfig').html("Current config: <br>" + '<span class="typeType text-dark badge">' + storedTypeText + ':</span> ');
     }
     if (storedValueText != "") {
-      $('#currentConfig').html("Current config: " + storedTypeText + ' <span class="badge dataType badge-pill">' + storedValueText + ' </span>');
+      $('#currentConfig').html("Current config: <br>" + '<span class="typeType text-dark badge">' + storedTypeText + ':</span> ' + ' <span class="badge dataType badge-pill">' + storedValueText + ' </span>');
     }
     if (storedModifierText != "") {
-      $('#currentConfig').html("Current config: " + storedTypeText + ' <span class="badge dataType badge-pill"> ' + storedModifierText + ' </span>' + ' <span class="badge dataType badge-pill"> + </span>' + ' <span class="badge dataType badge-pill">' + storedValueText + ' </span>');
+      $('#currentConfig').html("Current config: <br>" + '<span class="typeType text-dark badge">' + storedTypeText + ':</span> ' + ' <span class="badge dataType badge-pill"> ' + storedModifierText + ' </span>' + ' <span class="badge dataType badge-pill"> + </span>' + ' <span class="badge dataType badge-pill">' + storedValueText + ' </span>');
     }
   }
 
   function updateValueSelector(typeSelected) {
-    $('#modalModifierValue').collapse('hide');
-    valueSelected = "";
-    if (typeSelected == 1) {
-      $('.dropdown-menu.scrollable-menu.keys').html("");
-      // $('.dropdown-menu.scrollable-menu.keys').append('<div class="dropdown-menu" aria-labelledby="btnGroupType">');
-      const entries = Object.entries(keys);
-      for (const [key, value] of entries) {
-        console.log(value);
-        $('.dropdown-menu.scrollable-menu.keys').append('<div class="dropdown-menu" aria-labelledby="btnGroupType">');
-        $('.dropdown-menu.scrollable-menu.keys').append('<a class="dropdown-item"href="#" id=' + key + '>' + value.padEnd(20 - value.length, " ") + '</a>');
-      }
-      // $('.dropdown-menu.scrollable-menu.keys').append('</div>');
-      $('.dropdown-menu.scrollable-menu.keys a').click(function() {
-        $('#selectedKey').text($(this).text());
-        valueSelected = $(this).prop('id');
-        updateModifierSelector();
-        currentValueText = $(this).text();
-        updateSelectedConfig();
-      });
+    if (typeSelected.length < 1) {
+      // $('#modalModifierValue').collapse('show');
       $('#modalKeyValue').collapse('show');
-    } else {
-      $('#modalKeyValue').collapse('hide');
     }
+    valueSelected = "";
+    switch (typeSelected) {
+      case 1:
+        fillKeyDropdown(keys);
+        break;
+      case 2:
+        fillKeyDropdown(mediaKeys);
+        break;
+      case 3:
+        fillChannelDropDown(typeSelected);
+        break;
+      case 4:
+        fillChannelDropDown(typeSelected);
+        break;
+      case 5:
+        fillChannelDropDown(typeSelected);
+        break;
+    }
+  }
+
+  function fillChannelDropDown(typeSelected) {
+    $('.dropdown-menu.scrollable-menu.keys').html("");
+    if (typeSelected == 3) {
+      $('#dropdownTypeName').html("MIDI NOTE:");
+      $('#dropdownTypeComment').html("velocity is fixed and configurable.");
+    } else {
+      $('#dropdownTypeName').html("MIDI VALUE:");
+      if (typeSelected == 4) {
+        $('#dropdownTypeComment').html("will toggle controller between 0 to 127 values.");
+      } else {
+        $('#dropdownTypeComment').html("will send a program change message ");
+      }
+    }
+    for (var data = 0; data < 128; data++) {
+      $('.dropdown-menu.scrollable-menu.keys').append('<div class="dropdown-menu" aria-labelledby="btnGroupType">');
+      if (typeSelected == 3) {
+        $('.dropdown-menu.scrollable-menu.keys').append('<a class="dropdown-item"href="#" id=' + data + '>' + data + ' (' + noteToNoteName(data) + ')' + '</a>');
+      } else {
+        $('.dropdown-menu.scrollable-menu.keys').append('<a class="dropdown-item"href="#" id=' + data + '>' + data + '</a>');
+      }
+    }
+    $('.dropdown-menu.scrollable-menu.keys a').click(function() {
+      $('#selectedKey').text($(this).text());
+      valueSelected = $(this).prop('id');
+      updateChannelSelector();
+      selectedValueText = $(this).text();
+      updateSelectedConfig();
+    });
+    $('.dropdown-menu.scrollable-menu.channel a').click(function() {
+      $('#selectedChannel').text($(this).text());
+      let channelSelected = $(this).prop('id');
+      modifierSelected = (Number(channelSelected) - 1);
+      selectedModifierText = "Channel: " + channelSelected;
+      updateSelectedConfig();
+    });
+    $('#modalKeyValue').collapse('show');
+  }
+
+  function fillKeyDropdown(keys) {
+    $('#dropdownTypeName').html("KEY:");
+    $('#dropdownTypeComment').html("will send a keyboard stroke ");
+    $('.dropdown-menu.scrollable-menu.keys').html("");
+    // $('.dropdown-menu.scrollable-menu.keys').append('<div class="dropdown-menu" aria-labelledby="btnGroupType">');
+    const entries = Object.entries(keys);
+    for (const [key, value] of entries) {
+      $('.dropdown-menu.scrollable-menu.keys').append('<div class="dropdown-menu" aria-labelledby="btnGroupType">');
+      $('.dropdown-menu.scrollable-menu.keys').append('<a class="dropdown-item"href="#" id=' + key + '>' + value + '</a>');
+    }
+    // $('.dropdown-menu.scrollable-menu.keys').append('</div>');
+    $('.dropdown-menu.scrollable-menu.keys a').click(function() {
+      $('#selectedKey').text($(this).text());
+      valueSelected = $(this).prop('id');
+      updateModifierSelector();
+      selectedValueText = $(this).text();
+      updateSelectedConfig();
+    });
+    $('#modalKeyValue').collapse('show');
   }
 
   function updateModifierSelector() {
     $('#modalModifierValue').collapse('show');
+  }
+
+  function updateChannelSelector() {
+    $('#modalChannelValue').collapse('show');
   }
 
   function updatePresetCardTitle() {
@@ -702,10 +800,10 @@ $(document).ready(function() { // ESTO PREVIENE QUE SE EJECUTEN ESTOS JQUERY ANT
         return "N/A"
         break;
       case 1:
-        return "COMBINED"
+        return ""
         break;
       case 2:
-        return "COMBINED"
+        return ""
         break;
       case 3:
         return "CHANNEL"
@@ -902,28 +1000,56 @@ $(document).ready(function() { // ESTO PREVIENE QUE SE EJECUTEN ESTOS JQUERY ANT
   function getModifierValue(type, bitData) {
     var text = "";
     if ((bitData & left_shift) == left_shift) { //checks bit is on
-      text = text + "Left Shift ";
+      text = "Left Shift ";
     }
     if ((bitData & right_shift) == right_shift) { //checks bit is on
-      text = text + "Right Shift ";
+      if (text.length > 0) {
+        text = text + " + Right Shift";
+      } else {
+        text = " Right Shift";
+      }
     }
     if ((bitData & left_alt) == left_alt) { //checks bit is on
-      text = text + "Lft Alt ";
+      if (text.length > 0) {
+        text = text + " + Left Alt";
+      } else {
+        text = "Left Alt";
+      }
     }
     if ((bitData & right_alt) == right_alt) { //checks bit is on
-      text = text + "Right Alt ";
+      if (text.length > 0) {
+        text = text + " + Right Alt";
+      } else {
+        text = "Right Alt";
+      }
     }
     if ((bitData & left_ctrl) == left_ctrl) { //checks bit is on
-      text = text + "Left Contrl ";
+      if (text.length > 0) {
+        text = text + " + Left Ctrl";
+      } else {
+        text = "Left Ctrl";
+      }
     }
     if ((bitData & right_ctrl) == right_ctrl) { //checks bit is on
-      text = text + "Right Contrl ";
+      if (text.length > 0) {
+        text = text + " + Right Ctrl";
+      } else {
+        text = "Right Ctrl";
+      }
     }
     if ((bitData & left_gui) == left_gui) { //checks bit is on
-      text = text + "Left GUI ";
+      if (text.length > 0) {
+        text = text + " + Left GUI";
+      } else {
+        text = "Left GUI";
+      }
     }
     if ((bitData & right_gui) == right_gui) { //checks bit is on
-      text = text + "Right GUI ";
+      if (text.length > 0) {
+        text = text + " + Right GUI (Win key)";
+      } else {
+        text = "Right GUI (Win key)";
+      }
     }
     switch (type) {
       case 1:
@@ -956,18 +1082,15 @@ $(document).ready(function() { // ESTO PREVIENE QUE SE EJECUTEN ESTOS JQUERY ANT
       var valuePress = allConfigData[address + 1];
       var typePress = allConfigData[address + 2];
       var behaveShort = allConfigData[behave];
-
-      var modTxtP = getModifierName(typePress) + ':<span id ="btn'+btnNumber+'PressModVal" class="badge dataType badge-pill">' + getModifierValue(typePress, modifierPress) + '</span>';
+      var modTxtP = getModifierName(typePress) + '<span id ="btn' + btnNumber + 'PressModVal" class="badge dataType badge-pill">' + getModifierValue(typePress, modifierPress) + '</span>';
       var typeTxtP = getType(typePress);
-
       var modifierHold = allConfigData[address + 3];
       var valueHold = allConfigData[address + 4];
       var typeHold = allConfigData[address + 5];
       var behaveHold = allConfigData[behave + 1];
-
-      var modTxtH = getModifierName(typeHold) + ':<span id ="btn'+btnNumber+'HoldModVal" class="badge dataType badge-pill">' + getModifierValue(typeHold, modifierHold) + '</span>';
+      var modTxtH = getModifierName(typeHold) + '<span id ="btn' + btnNumber + 'HoldModVal" class="badge dataType badge-pill">' + getModifierValue(typeHold, modifierHold) + '</span>';
       var typeTxtH = getType(typeHold);
-      if (preset == 1 && bank == 0) {    //YOUTUBE PRESET
+      if (preset == 1 && bank == 0) { //YOUTUBE PRESET
         switch (btnNumber) {
           case 1:
             break;
@@ -986,79 +1109,72 @@ $(document).ready(function() { // ESTO PREVIENE QUE SE EJECUTEN ESTOS JQUERY ANT
         } else {
           if (typePress > 2) {
             // $('#btn' + btnNumber + 'PressModifier').html(modTxtP);
-          }else{
-            modTxtP="";
+          } else {
+            modTxtP = "";
           }
           // $('#btn' + btnNumber + 'PressModifier').html('<p> </p>');
         }
         $('#btn' + btnNumber + 'PressModifier').html(modTxtP);
-
-
         switch (typePress) {
           case 1:
             $('#btn' + btnNumber + 'PressTypeVal').css({
-              "background-color": "#1f6d49"
+              "background-color": "#8be0b9"
             });
             break;
           case 2:
             $('#btn' + btnNumber + 'PressTypeVal').css({
-              "background-color": "#6d431f"
+              "background-color": "#eac5a5"
             });
             break;
           case 3:
             $('#btn' + btnNumber + 'PressTypeVal').css({
-              "background-color": "#7e3ab2"
+              "background-color": "#d5aef3"
             });
             break;
           case 4:
             $('#btn' + btnNumber + 'PressTypeVal').css({
-              "background-color": "#7e3ab2"
+              "background-color": "#d5aef3"
             });
             break;
           case 5:
             $('#btn' + btnNumber + 'PressTypeVal').css({
-              "background-color": "#7e3ab2"
+              "background-color": "#d5aef3"
             });
             break;
         }
-        $('#btn' + btnNumber + 'PressValue').html(typeTxtP + ':<span id="btn' + btnNumber + 'PressValueVal" class="badge dataType badge-pill">P</span>');
+        $('#btn' + btnNumber + 'PressValue').html(typeTxtP + '<span id="btn' + btnNumber + 'PressValueVal" class="badge dataType badge-pill">P</span>');
         $('#btn' + btnNumber + 'PressTypeVal').text(typeTxtP);
         $('#btn' + btnNumber + 'PressValueVal').text(getValue(typePress, valuePress));
-        if ((typeHold == 1 || typeHold == 2) && modifierHold > 0) {
-        } else {
-          if (typeHold > 2) {
-          }else{
-            modTxtH="";
+        if ((typeHold == 1 || typeHold == 2) && modifierHold > 0) {} else {
+          if (typeHold > 2) {} else {
+            modTxtH = "";
           }
         }
-
         $('#btn' + btnNumber + 'HoldModifier').html(modTxtH);
-
-
         switch (typeHold) {
           case 1: //KEYBOARD
             $('#btn' + btnNumber + 'HoldTypeVal').css({
-              "background-color": "#1f6d49"
+              "background-color": "#8be0b9"
             });
             break;
           case 2: // MULTIMEDIA
             $('#btn' + btnNumber + 'HoldTypeVal').css({
-              "background-color": "#6d431f"
+              "background-color": "#eac5a5"
             });
             break;
           case 3: //MIDI NOTE
             $('#btn' + btnNumber + 'HoldTypeVal').css({
-              "background-color": "#7e3ab2"
+              "background-color": "#d5aef3"
             });
             break;
           case 4: //MIDI PROG
             $('#btn' + btnNumber + 'HoldTypeVal').css({
-              "background-color": "#7e3ab2"
+              "background-color": "#d5aef3"
             });
             break;
           case 5: //MIDI CC
             $('#btn' + btnNumber + 'HoldTypeVal').css({
-              "background-color": "#7e3ab2"
+              "background-color": "#d5aef3"
             });
             break;
         }
@@ -1086,6 +1202,8 @@ $(document).ready(function() { // ESTO PREVIENE QUE SE EJECUTEN ESTOS JQUERY ANT
     $('#showBtn' + buttonPressed).addClass("btn-dark")
     $("#btnsCarousel").carousel(parseInt(buttonPressed, 10) - 1);
     $('#btnsCarousel').carousel('pause');
+    $('.card-title.press').text('WHEN BUTTON ' + buttonPressed + ' IS PRESSED');
+    $('.card-title.hold').text('WHEN BUTTON ' + buttonPressed + ' IS HOLD')
     address = ((presetSelected - 1) * 30) + ((buttonPressed - 1) * 6) + 1 + currentBank;
     behave = ((presetSelected - 1) * 10) + ((buttonPressed - 1) * 2) + 181 + currentBank
     console.log("gettin config for initial addres " + address);
@@ -1108,7 +1226,7 @@ $(document).ready(function() { // ESTO PREVIENE QUE SE EJECUTEN ESTOS JQUERY ANT
     storedTypeTextH = getType(typeHold);
     storedValueTextH = getValue(typeHold, valueHold);
     $('.card-subtitle.valueHold').html(typeH);
-    let modifier = getModifierName(typePress) + ": " + getModifierValue(typePress, modifierPress);
+    let modifier = getModifierName(typePress) + getModifierValue(typePress, modifierPress);
     storedModifierTextP = getModifierValue(typePress, modifierPress);
     if ((typePress == 1 || typePress == 2) && modifierPress > 0) {
       $('.card-subtitle.modifierPress').text(modifier);
@@ -1116,10 +1234,10 @@ $(document).ready(function() { // ESTO PREVIENE QUE SE EJECUTEN ESTOS JQUERY ANT
       $('.card-subtitle.modifierPress').html('<p> </p>');
       if (typePress > 2) {
         $('.card-subtitle.modifierPress').text(modifier);
-        pressDescription = modifier + " + " + pressDescription;
+        // pressDescription = modifier + " + " + pressDescription;
       }
     }
-    let modifierH = getModifierName(typeHold) + ": " + getModifierValue(typeHold, modifierHold);
+    let modifierH = getModifierName(typeHold) + getModifierValue(typeHold, modifierHold);
     storedModifierTextH = getModifierValue(typeHold, modifierHold);
     if ((typeHold == 1 || typeHold == 2) && modifierHold > 0) {
       $('.card-subtitle.modifierHold').text(modifierH);
@@ -1130,6 +1248,26 @@ $(document).ready(function() { // ESTO PREVIENE QUE SE EJECUTEN ESTOS JQUERY ANT
       }
     }
   } //END show button configuration
+
+  function applyEditBtnData(){
+    let addr = ((presetSelected - 1) * 30) + ((buttonPressed - 1) * 6) + 1 + currentBank;
+    let beh = ((presetSelected - 1) * 10) + ((buttonPressed - 1) * 2) + 181 + currentBank
+    // alert("modifier byte: " + modifierSelected + " | value byte: " + valueSelected + " | type byte:" + typeSelected + " | hold Edit? " + editingHold + " | init address: " + addr + " | behave addres: " + beh);
+    if(editingHold){
+      addr+3;
+      beh+1;
+    }
+    allConfigData[addr]=Number(modifierSelected);
+    allConfigData[addr+1]=Number(valueSelected);
+    allConfigData[addr+2]=Number(typeSelected);
+    populateDashboard(presetSelected, currentBank);
+    showBtnConfig(buttonPressed);
+    $('#modalChannelValue').collapse('hide');
+
+  }
+
+
+
 }); // END DOCUMENT READY
 function decimalToHex(d, padding) {
   var hex = Number(d).toString(16);
@@ -1160,6 +1298,10 @@ function saveAllDataInfo() {
     location.replace(uri);
   }
 }
+
+
+
+
 window.onunload = function() { //APP DISCONNECT message cuando se cierra
   var msg1 = [0xBE, 0x1F, 0x7F]; //BE	1F	7F
   sendMessageToCtrlPie(msg1);
