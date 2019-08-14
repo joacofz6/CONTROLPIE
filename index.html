@@ -1,508 +1,528 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-  <script type="text/javascript" src="scripts.js"></script>
-
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="style.css">
-  <link href='https://fonts.googleapis.com/css?family=Lato:300,400,400italic,700,700italic' rel='stylesheet'>
-
-
-
-  <title>CONTROL PIE CONFIG APP</title>
-
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-
-
-  <meta name="description" content="Application dedicated to customize your Control Pie device">
-  <meta name="author" content="Joaquin Rodriguez">
-
-  <!-- <link href="css/bootstrap.min.css" rel="stylesheet">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="scripts.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link href='https://fonts.googleapis.com/css?family=Lato:300,400,400italic,700,700italic' rel='stylesheet'>
+    <title>CONTROL PIE CONFIG APP</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Application dedicated to customize your Control Pie device">
+    <meta name="author" content="Joaquin Rodriguez">
+    <!-- <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet"> -->
+  </head>
 
-</head>
-
-<body>
-
-
-  <div style="background:transparent !important" class="text-center">
-    <!-- <h3 style="color: antiquewhite" ;>CONTROL PIE CONFIGURATOR</h3> -->
-    <img alt="CONTROL PIE" src="TITLE.png" class="img-fluid" ;>
-    <!-- <img alt="CONTROL PIE" src="pedal.jpg" class="rounded img-fluid" ;> -->
-  </div>
-  <!-- NOTE: IMAGEN Y TITULO -->
-
-
-
-  <div id="demo" class="carousel slide" data-ride="carousel">
-
-    <!-- Indicators -->
-
-
-    <!-- The slideshow -->
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-        <img src="img/fnd1.jpg" alt="1">
-      </div>
-      <div class="carousel-item">
-        <img src="img/fnd2.jpg" alt="2">
-      </div>
-      <div class="carousel-item">
-        <img src="img/fnd3.jpg" alt="3">
-      </div>
-      <div class="carousel-item">
-        <img src="img/fnd4.jpg" alt="4">
-      </div>
-      <div class="carousel-item">
-        <img src="img/fnd5.jpg" alt="5">
-      </div>
+  <body>
+    <div style="background:transparent !important" class="text-center">
+      <!-- <h3 style="color: antiquewhite" ;>CONTROL PIE CONFIGURATOR</h3> -->
+      <img alt="CONTROL PIE" src="TITLE.png" class="img-fluid" ;>
+      <!-- <img alt="CONTROL PIE" src="pedal.jpg" class="rounded img-fluid" ;> -->
     </div>
-
-    <!-- Left and right controls -->
-
-
-  </div>
-  <!-- NOTE: END CAROUSEL -->
-
-
-  <div class="container-fluid">
-    <!-- NOTE: MAIN PANEL after image -->
-
-    <div class="text-center">
-      <div id="alertConnect">
-        <div class="row ">
-          <div class="col-lg-12">
-            <h4 style="color: #faebd7">Please connect your CONTROL PIE to USB PORT.</h4>
-            <div class="spinner-grow text-warning"></div>
-            <label id="btnAlertConnect" class="btn btn-warning blink">THEN CLICK HERE </label>
-            <div class="spinner-grow text-warning"></div>
+    <!-- NOTE: IMAGEN Y TITULO -->
+    <div id="demo" class="carousel slide" data-ride="carousel">
+      <!-- Indicators -->
+      <!-- The slideshow -->
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="img/fnd1.jpg" alt="1">
+        </div>
+        <div class="carousel-item">
+          <img src="img/fnd2.jpg" alt="2">
+        </div>
+        <div class="carousel-item">
+          <img src="img/fnd3.jpg" alt="3">
+        </div>
+        <div class="carousel-item">
+          <img src="img/fnd4.jpg" alt="4">
+        </div>
+        <div class="carousel-item">
+          <img src="img/fnd5.jpg" alt="5">
+        </div>
+      </div>
+      <!-- Left and right controls -->
+    </div>
+    <!-- NOTE: END CAROUSEL -->
+    <div class="container-fluid">
+      <!-- NOTE: MAIN PANEL after image -->
+      <div class="text-center">
+        <div id="alertConnect">
+          <div class="row ">
+            <div class="col-lg-12">
+              <h4 style="color: #faebd7">Please connect your CONTROL PIE to USB PORT.</h4>
+              <div class="spinner-grow text-warning"></div>
+              <label id="btnAlertConnect" class="btn btn-warning blink">THEN CLICK HERE </label>
+              <div class="spinner-grow text-warning"></div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12">
+              <h5 style="color: #deb887">I don't have one (yet) I want the demo...</h5>
+              <label id="btnDemo" class="btn btn-danger blink"> START DEMO </label>
+            </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col-lg-12">
-            <h5 style="color: #deb887">I don't have one (yet) I want the demo...</h5>
-            <label id="btnDemo" class="btn btn-danger blink"> START DEMO </label>
-
-          </div>
-        </div>
-
       </div>
-
-
-    </div>
-
-    <div class="invisible" id="lowPanel">
-      <div class="card-block">
-        <div class="row">
-          <h5 id="infoSelPreset" class="card-title bg-outline-dark rounded collapse">SELECT PRESET AND BANK TO EDIT</h5>
-
-        </div>
-
-        <div class="row rounded">
-          <div class="col-lg6 bg-secondary">
-            <div class="card-header bg-secondary text-white card-header text-white border-0">
-              <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-                <div class="btn-group mr-4" role="group" aria-label="First group">
-                  <div class="btn-group btn-group-justified">
-                    <div class="btn-group" role="group">
-                      <div class="btn-group btn-group-toggle" role="group" aria-label="Button group with nested dropdown">
-                        <button id="btnGroupDrop1" type="button" class="btn btn-sm btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          choose preset..
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                          <a class="dropdown-item" href="#" id="preset1">Preset 1</a>
-                          <a class="dropdown-item" href="#" id="preset2">Preset 2</a>
-                          <a class="dropdown-item" href="#" id="preset3">Preset 3</a>
-                          <a class="dropdown-item" href="#" id="preset4">Preset 4</a>
-                          <a class="dropdown-item" href="#" id="preset5">Preset 5</a>
-                          <a class="dropdown-item" href="#" id="preset6">Preset 6</a>
+      <div class="invisible" id="lowPanel">
+        <div class="card-block">
+          <div class="row rounded">
+            <div class="col-lg-6 bg-secondary">
+              <div class="card-header bg-secondary text-white card-header text-white border-0">
+                <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                  <div class="btn-group mr-4" role="group" aria-label="First group">
+                    <div class="btn-group btn-group-justified">
+                      <div class="btn-group" role="group">
+                        <div class="btn-group btn-group-toggle" role="group" aria-label="Button group with nested dropdown">
+                          <button id="btnGroupDrop1" type="button" class="btn btn-sm btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> choose preset.. </button>
+                          <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                            <a class="dropdown-item" href="#" id="preset1">Preset 1</a>
+                            <a class="dropdown-item" href="#" id="preset2">Preset 2</a>
+                            <a class="dropdown-item" href="#" id="preset3">Preset 3</a>
+                            <a class="dropdown-item" href="#" id="preset4">Preset 4</a>
+                            <a class="dropdown-item" href="#" id="preset5">Preset 5</a>
+                            <a class="dropdown-item" href="#" id="preset6">Preset 6</a>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <button id="btnBank1" class="btn btn-dark btn-sm btn-ripple" type="button" aria-expanded="false" data-placement="top" title="Choose Bank 1" disabled="disabled">
-                      Select BANK 1
-                    </button>
-                    <button id="btnBank2" class="btn btn-dark btn-sm btn-ripple" type="button" aria-expanded="false" data-placement="top" title="Choose Bank 2" disabled="disabled">
-                      Select BANK 2
-                    </button>
-                    <!-- <button id="editBtns" class="btn btn-dark btn-sm" type="button" data-toggle="collapse" data-target="#collapsePresets" aria-expanded="false" aria-controls="collapsePresets" data-toggle="tooltip" data-placement="top"
+                      <button id="btnBank1" class="btn btn-dark btn-sm btn-ripple" type="button" aria-expanded="false" data-placement="top" title="Choose Bank 1" disabled="disabled"> Select BANK 1 </button>
+                      <button id="btnBank2" class="btn btn-dark btn-sm btn-ripple" type="button" aria-expanded="false" data-placement="top" title="Choose Bank 2" disabled="disabled"> Select BANK 2 </button>
+                      <!-- <button id="editBtns" class="btn btn-dark btn-sm" type="button" data-toggle="collapse" data-target="#collapsePresets" aria-expanded="false" aria-controls="collapsePresets" data-toggle="tooltip" data-placement="top"
                     title="Elige el preset" disabled>
                     EDIT BUTTON's ACTIONS
                   </button> -->
+                    </div>
                   </div>
-                </div>
-                <div class="btn-group" role="group" aria-label="First group">
-                  <button class="btn btn-dark btn-sm btn-ripple" type="button">
-                    MIDI Learn..
-                  </button>
-                  <button id="infoAlertConnect" class="btn btn-success btn-ripple blink btn-sm">CONTROL PIE IS CONNECTED!</button>
-                </div>
-
-
-
-              </div> <!-- NOTE:  PRESET Y BANK SELECTOR-->
+                </div> <!-- NOTE:  PRESET Y BANK SELECTOR-->
+              </div>
+            </div>
+            <div id="cf3" class="col-lg-4 bg-secondary">
+              <img id="imgPresetsBack" alt="CONTROL PIE" src="leds-presets-none.png" class="img-fluid bottom">
+              <img id="imgPresetsTop" alt="CONTROL PIE" src="leds-presets-none.png" class="img-fluid top">
+            </div>
+            <div class="col-lg-2 bg-secondary">
+              <div class="btn-group" role="group" aria-label="First group">
+                <button class="btn btn-dark btn-sm btn-ripple rounded" type="button"> MIDI Learn.. </button>
+                <button id="infoAlertConnect" class="btn btn-success btn-ripple blink btn-sm">CONTROL PIE IS CONNECTED!</button>
+              </div>
             </div>
           </div>
-          <div class="col-lg-6 bg-secondary">
-            <img id="imgPresets" alt="CONTROL PIE" src="leds-presets-none.png" class="img-fluid">
-            <!-- <div class="spinner-grow text-warning tag"></div> -->
-          </div>
-        </div>
-      </div> <!-- NOTE: END OF MAIN BUTTONS CARD -->
-
-
-
-      <div class="collapse" id="collapsePresets">
-
-
-        <div class="card-group">
-          <div class="card bg-dark">
-            <div class="card-body text-center">
-              <!-- NOTE: content of button picker starts here -->
-              <h5 class="card-title bg-info rounded">CHOOSE BUTTON TO EDIT</h5>
-              <div class="container">
-                <!-- <img alt="CONTROL PIE" src="pedal_btns.jpg" class="card-img-top rounded"> -->
-                <!-- <div id="btnsCarousel" class="carousel slide" data-ride="carousel"> -->
-                <div id="btnsCarousel" class="carousel slide">
-
-                  <!-- Indicators -->
-                  <!-- <ul class="carousel-indicators">
-                    <li data-target="#btnsCarousel" data-slide-to="0" class="active"></li>
-                    <li data-target="#btnsCarousel" data-slide-to="1"></li>
-                    <li data-target="#btnsCarousel" data-slide-to="2"></li>
-                    <li data-target="#btnsCarousel" data-slide-to="3"></li>
-                    <li data-target="#btnsCarousel" data-slide-to="4"></li>
-                  </ul> -->
-
-                  <!-- The slideshow -->
-                  <div class="carousel-inner">
-                    <div class="carousel-item">
-                      <img src="img/btn1.jpg" alt="1">
+        </div> <!-- NOTE: END OF MAIN BUTTONS CARD -->
+        <div class="collapse" id="collapsePresets">
+          <div class="card-group">
+              <div class="card bg-dark col-lg-4">
+                <div class="card-body text-center">
+                  <!-- NOTE: content of button picker starts here -->
+                  <h5 class="card-title bg-info rounded">CHOOSE BUTTON TO EDIT</h5>
+                  <div class="container">
+                    <!-- <img alt="CONTROL PIE" src="pedal_btns.jpg" class="card-img-top rounded"> -->
+                    <!-- <div id="btnsCarousel" class="carousel slide" data-ride="carousel"> -->
+                    <div id="btnsCarousel" class="carousel slide">
+                      <!-- Indicators -->
+                      <!-- <ul class="carousel-indicators">
+                      <li data-target="#btnsCarousel" data-slide-to="0" class="active"></li>
+                      <li data-target="#btnsCarousel" data-slide-to="1"></li>
+                      <li data-target="#btnsCarousel" data-slide-to="2"></li>
+                      <li data-target="#btnsCarousel" data-slide-to="3"></li>
+                      <li data-target="#btnsCarousel" data-slide-to="4"></li>
+                    </ul> -->
+                    <!-- The slideshow -->
+                    <div class="carousel-inner">
+                      <div class="carousel-item">
+                        <img src="img/btn1.jpg" alt="1">
+                      </div>
+                      <div class="carousel-item">
+                        <img src="img/btn2.jpg" alt="2">
+                      </div>
+                      <div class="carousel-item">
+                        <img src="img/btn3.jpg" alt="3">
+                      </div>
+                      <div class="carousel-item">
+                        <img src="img/btn4.jpg" alt="4">
+                      </div>
+                      <div class="carousel-item">
+                        <img src="img/btn5.jpg" alt="5">
+                      </div>
+                      <div class="carousel-item ">
+                        <img src="img/btnext.jpg" alt="6">
+                      </div>
+                      <div class="carousel-item active">
+                        <img src="img/nobutton.jpg" alt="7">
+                      </div>
                     </div>
-                    <div class="carousel-item">
-                      <img src="img/btn2.jpg" alt="2">
-                    </div>
-                    <div class="carousel-item">
-                      <img src="img/btn3.jpg" alt="3">
-                    </div>
-                    <div class="carousel-item">
-                      <img src="img/btn4.jpg" alt="4">
-                    </div>
-                    <div class="carousel-item">
-                      <img src="img/btn5.jpg" alt="5">
-                    </div>
-                    <div class="carousel-item ">
-                      <img src="img/btnext.jpg" alt="6">
-                    </div>
-                    <div class="carousel-item active">
-                      <img src="img/nobutton.jpg" alt="7">
-                    </div>
-                  </div>
-
-                  <!-- Left and right controls -->
-                  <!-- <a class="carousel-control-prev" href="#btnsCarousel" data-slide="prev">
+                    <!-- Left and right controls -->
+                    <!-- <a class="carousel-control-prev" href="#btnsCarousel" data-slide="prev">
                     <span class="carousel-control-prev-icon"></span>
                   </a>
                   <a class="carousel-control-next" href="#btnsCarousel" data-slide="next">
-                    <span class="carousel-control-next-icon"></span>
-                  </a> -->
-
-                </div>
-
-                <div id="btnPressed" class="overlay text-dark align-middle"></div>
+                  <span class="carousel-control-next-icon"></span>
+                </a> -->
               </div>
-              <div class="btn-group flex-wrap btn-group-justified">
-                <a class="btn btn-light btn-ripple btn-xs zoom" href="#" id="showBtn1">Button 1</a>
-                <a class="btn btn-light btn-ripple btn-xs zoom" href="#" id="showBtn2">Button 2</a>
-                <a class="btn btn-light btn-ripple btn-xs zoom" href="#" id="showBtn3">Button 3</a>
-                <a class="btn btn-light btn-ripple btn-xs zoom" href="#" id="showBtn4">Button 4</a>
-                <a class="btn btn-light btn-ripple btn-xs zoom" href="#" id="showBtn5">Button 5</a>
-                <a class="btn btn-warning btn-ripple btn-xs zoom" href="#" id="external">External</a>
-                <a class="btn btn-primary btn-ripple btn-xs zoom" href="#" id="showAll">ShowAll</a>
-                <!-- <button id="showBtn1" type="button" class="btn btn-light btn-xs">Button 1</button> -->
-                <!-- <button id="showBtn2" type="button" class="btn btn-light btn-xs">Button 2</button> -->
-
-
-              </div>
+              <div id="btnPressed" class="overlay text-dark align-middle"></div>
+            </div>
+            <div class="btn-group flex-wrap btn-group-justified">
+              <a class="btn btn-light btn-ripple btn-xs zoom" href="#" id="showBtn1">Button 1</a>
+              <a class="btn btn-light btn-ripple btn-xs zoom" href="#" id="showBtn2">Button 2</a>
+              <a class="btn btn-light btn-ripple btn-xs zoom" href="#" id="showBtn3">Button 3</a>
+              <a class="btn btn-light btn-ripple btn-xs zoom" href="#" id="showBtn4">Button 4</a>
+              <a class="btn btn-light btn-ripple btn-xs zoom" href="#" id="showBtn5">Button 5</a>
+              <a class="btn btn-warning btn-ripple btn-xs zoom" href="#" id="external">External</a>
+              <a class="btn btn-primary btn-ripple btn-xs zoom" href="#" id="showAll">Show All Button configuration</a>
+              <!-- <button id="showBtn1" type="button" class="btn btn-light btn-xs">Button 1</button> -->
+              <!-- <button id="showBtn2" type="button" class="btn btn-light btn-xs">Button 2</button> -->
             </div>
           </div>
 
-          <div id="allPresetsInfo" class="card bg-dark">
-            <div id="allPresetsInfo" class="card-body text">
-              <!-- NOTE: content of BUTON INFO BEGINS HERE -->
-              <h5 id="overallPresetInfo" class="card-title text-center bg-info rounded">OVERALL PRESET INFO</h5>
-
-              <!-- NOTE: begin of button contents -->
-              <div class="card-block">
-                <div class="row">
-                  <div class="col">
-                    <ul id="btnInfo1" class="list-unstyled zoom">
-                      <li class="infoTabla headerRow rounded  text-light">1 PRESS</li>
-                      <li id="btn1PressType" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light" style="line-height: 0.1 !IMPORTANT;">TYPE: <span id="btn1PressTypeVal"
-                          class="badge infoType badge-pill">Keyboard</span></li>
-                      <li id="btn1PressModifier" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light" style="line-height: 0.1 !IMPORTANT;">MODIFIER: <span id="btn1PressModVal"
-                          class="badge dataType badge-pill">CTRL-ALT</span></li>
-                      <li id="btn1PressValue" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light" style="line-height: 0.1 !IMPORTANT;">VALUE: <span id="btn1PressValueVal" class="badge dataType badge-pill">P</span>
-                      </li>
-                      <li class="infoTabla headerRow rounded  text-light text-right">1 HOLD</li>
-                      <li id="btn1HoldType" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light" style="line-height: 0.1 !IMPORTANT;">TYPE: <span id="btn1HoldTypeVal" class="badge infoType badge-pill">Keyboard</span>
-                      </li>
-                      <li id="btn1HoldModifier" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light" style="line-height: 0.1 !IMPORTANT;">MODIFIER: <span id="btn1HoldModVal"
-                          class="badge dataType badge-pill">CTRL-ALT</span></li>
-                      <li id="btn1HoldValue" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light" style="line-height: 0.1 !IMPORTANT;">VALUE: <span id="btn1HoldValueVal" class="badge dataType badge-pill">P</span>
-                      </li>
-                    </ul>
-                  </div> <!-- NOTE: end of COLUMN in card block -->
-                  <div class="col">
-                    <ul id="btnInfo2" class="list-unstyled zoom">
-                      <li class="infoTabla headerRow rounded  text-light">2 PRESS</li>
-                      <li id="btn2PressType" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light" style="line-height: 0.1 !IMPORTANT;">TYPE: <span id="btn2PressTypeVal"
-                          class="badge infoType badge-pill">Keyboard</span></li>
-                      <li id="btn2PressModifier" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light" style="line-height: 0.1 !IMPORTANT;">MODIFIER: <span id="btn2PressModVal"
-                          class="badge dataType badge-pill">CTRL-ALT</span></li>
-                      <li id="btn2PressValue" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light" style="line-height: 0.1 !IMPORTANT;">VALUE: <span id="btn2PressValueVal" class="badge dataType badge-pill">P</span>
-                      </li>
-                      <li class="infoTabla headerRow rounded  text-light text-right">2 HOLD</li>
-                      <li id="btn2HoldType" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light" style="line-height: 0.1 !IMPORTANT;">TYPE: <span id="btn2HoldTypeVal" class="badge infoType badge-pill">Keyboard</span>
-                      </li>
-                      <li id="btn2HoldModifier" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light" style="line-height: 0.1 !IMPORTANT;">MODIFIER: <span id="btn2HoldModVal"
-                          class="badge dataType badge-pill">CTRL-ALT</span></li>
-                      <li id="btn2HoldValue" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light" style="line-height: 0.1 !IMPORTANT;">VALUE: <span id="btn2HoldValueVal" class="badge dataType badge-pill">P</span>
-                      </li>
-                    </ul>
-                  </div> <!-- NOTE: end of COLUMN in card block -->
-                  <div class="col">
-                    <ul id="btnInfo3" class="list-unstyled zoom">
-                      <li class="infoTabla headerRow rounded  text-light">3 PRESS</li>
-                      <li id="btn3PressType" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light" style="line-height: 0.1 !IMPORTANT;">TYPE: <span id="btn3PressTypeVal"
-                          class="badge infoType badge-pill">Keyboard</span></li>
-                      <li id="btn3PressModifier" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light" style="line-height: 0.1 !IMPORTANT;">MODIFIER: <span id="btn3PressModVal"
-                          class="badge dataType badge-pill">CTRL-ALT</span></li>
-                      <li id="btn3PressValue" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light" style="line-height: 0.1 !IMPORTANT;">VALUE: <span id="btn3PressValueVal" class="badge dataType badge-pill">P</span>
-                      </li>
-                      <li class="infoTabla headerRow rounded  text-light text-right">3 HOLD</li>
-                      <li id="btn3HoldType" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light" style="line-height: 0.1 !IMPORTANT;">TYPE: <span id="btn3HoldTypeVal" class="badge infoType badge-pill">Keyboard</span>
-                      </li>
-                      <li id="btn3HoldModifier" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light" style="line-height: 0.1 !IMPORTANT;">MODIFIER: <span id="btn3HoldModVal"
-                          class="badge dataType badge-pill">CTRL-ALT</span></li>
-                      <li id="btn3HoldValue" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light" style="line-height: 0.1 !IMPORTANT;">VALUE: <span id="btn3HoldValueVal" class="badge dataType badge-pill">P</span>
-                      </li>
-                    </ul>
-                  </div> <!-- NOTE: end of COLUMN in card block -->
-
-
-                </div>
-                <div class="row">
-                  <br>
-                </div>
-
-                <div class="row">
-                  <div class="col">
-                    <ul id="btnInfo4" class="list-unstyled zoom">
-                      <li class="infoTabla headerRow rounded  text-light">4 PRESS</li>
-                      <li id="btn4PressType" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light" style="line-height: 0.1 !IMPORTANT;">TYPE: <span id="btn4PressTypeVal"
-                          class="badge infoType badge-pill">Keyboard</span></li>
-                      <li id="btn4PressModifier" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light" style="line-height: 0.1 !IMPORTANT;">MODIFIER: <span id="btn4PressModVal"
-                          class="badge dataType badge-pill">CTRL-ALT</span></li>
-                      <li id="btn4PressValue" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light" style="line-height: 0.1 !IMPORTANT;">VALUE: <span id="btn4PressValueVal" class="badge dataType badge-pill">P</span>
-                      </li>
-                      <li class="infoTabla headerRow rounded  text-light text-right">4 HOLD</li>
-                      <li id="btn4HoldType" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light" style="line-height: 0.1 !IMPORTANT;">TYPE: <span id="btn4HoldTypeVal" class="badge infoType badge-pill">Keyboard</span>
-                      </li>
-                      <li id="btn4HoldModifier" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light" style="line-height: 0.1 !IMPORTANT;">MODIFIER: <span id="btn4HoldModVal"
-                          class="badge dataType badge-pill">CTRL-ALT</span></li>
-                      <li id="btn4HoldValue" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light" style="line-height: 0.1 !IMPORTANT;">VALUE: <span id="btn4HoldValueVal" class="badge dataType badge-pill">P</span>
-                      </li>
-                    </ul>
-                  </div> <!-- NOTE: end of COLUMN in card block -->
-                  <div class="col">
-                    <ul id="btnInfo5" class="list-unstyled zoom">
-                      <li class="infoTabla headerRow rounded  text-light">5 PRESS</li>
-                      <li id="btn5PressType" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light" style="line-height: 0.1 !IMPORTANT;">TYPE: <span id="btn5PressTypeVal"
-                          class="badge infoType badge-pill">Keyboard</span></li>
-                      <li id="btn5PressModifier" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light" style="line-height: 0.1 !IMPORTANT;">MODIFIER: <span id="btn5PressModVal"
-                          class="badge dataType badge-pill">CTRL-ALT</span></li>
-                      <li id="btn5PressValue" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light" style="line-height: 0.1 !IMPORTANT;">VALUE: <span id="btn5PressValueVal" class="badge dataType badge-pill">P</span>
-                      </li>
-                      <li class="infoTabla headerRow rounded  text-light text-right">5 HOLD</li>
-                      <li id="btn5HoldType" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light" style="line-height: 0.1 !IMPORTANT;">TYPE: <span id="btn5HoldTypeVal" class="badge infoType badge-pill">Keyboard</span>
-                      </li>
-                      <li id="btn5HoldModifier" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light" style="line-height: 0.1 !IMPORTANT;">MODIFIER: <span id="btn5HoldModVal"
-                          class="badge dataType badge-pill">CTRL-ALT</span></li>
-                      <li id="btn5HoldValue" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light" style="line-height: 0.1 !IMPORTANT;">VALUE: <span id="btn5HoldValueVal" class="badge dataType badge-pill">P</span>
-                      </li>
-                    </ul>
-                  </div>
-                  <div class="col">
-                    <div class="list-unstyled group">
-                      <a href="#" class="list-group-item list-group-item-action">SAVE AND LOAD PRESETS</a>
-                      <a href="#" class="list-group-item list-group-item-action list-group-item-success">SAVE CURRENT</a>
-                      <a href="#" class="list-group-item list-group-item-action list-group-item-secondary">COPY CURRENT</a>
-                      <a href="#" class="list-group-item list-group-item-action list-group-item-info">RESTORE CURRENT</a>
-
-                    </div>
-                  </div>
-                </div>
-
-              </div> <!-- NOTE: END OF CARD BLOCK -->
+          <div class="card-body text-center">
+            <div class="col">
+              <div class="list-unstyled group">
+                <a href="#" class="list-group-item list-group-item-action zoom">SAVE AND LOAD PRESETS</a>
+                <a href="#" class="list-group-item list-group-item-action list-group-item-success zoom">SAVE CURRENT</a>
+                <a href="#" class="list-group-item list-group-item-action list-group-item-secondary zoom">COPY CURRENT</a>
+                <a href="#" class="list-group-item list-group-item-action list-group-item-info zoom">RESTORE CURRENT</a>
+              </div>
             </div>
+
           </div>
 
-          <div id="buttonInfo" class="card bg-dark ">
-            <div class="card-body text ">
-              <!-- NOTE: content of BUTON INFO BEGINS HERE -->
-              <h5 id="specificButtonInfo" class="card-title text-center bg-info rounded">OVERALL PRESET INFO</h5>
 
-              <!-- NOTE: begin of button contents -->
-              <div class="card-block">
-                <div class="row">
-                  <div class="col-lg-6">
-                    <div class="card">
-                      <div class="card-body bg-dark">
-                        <h5 class="card-title">WHEN BUTTON is PRESSED</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                        <p class="text-dark">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-light btn-xs">EDIT</a>
-                        <a href="#" class="btn btn-light btn-xs">ASSIGN MIDI LEARN</a>
+        </div>
 
+
+
+            <div id="allPresetsInfo" class="card col-lg-8 bg-dark">
+              <div id="allPresetsInfo" class="card-body text">
+                <!-- NOTE: content of BUTON INFO BEGINS HERE -->
+                <h5 id="overallPresetInfo" class="card-title text-center bg-info rounded">OVERALL PRESET INFO</h5>
+                <!-- NOTE: begin of button contents -->
+                <div class="card-block">
+                  <div class="row">
+                    <div class="col">
+                      <ul id="btnInfo1" class="list-unstyled zoom">
+                        <li class="infoTabla headerRow rounded  text-light txt-bold bg-press">1 PRESS</li>
+                        <li id="btn1PressType" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light">TYPE: <span id="btn1PressTypeVal" class="badge infoType badge-pill"></span></li>
+                        <li id="btn1PressModifier" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light">MODIFIER: <span id="btn1PressModVal" class="badge dataType badge-pill"></span> </li>
+                        <li id="btn1PressValue" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light">VALUE: <span id="btn1PressValueVal" class="badge dataType badge-pill"></span> </li>
+
+                        <li class="infoTabla headerRow rounded  text-dark text-right txt-bold bg-hold">1 HOLD</li>
+                        <li id="btn1HoldType" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light">TYPE: <span id="btn1HoldTypeVal" class="badge infoType badge-pill"></span></li>
+                        <li id="btn1HoldModifier" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light">MODIFIER: <span id="btn1HoldModVal" class="badge dataType badge-pill"/span> </li>
+                        <li id="btn1HoldValue" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light">VALUE: <span id="btn1HoldValueVal" class="badge dataType badge-pill"></span></li>
+                      </ul>
+                    </div> <!-- NOTE: end of COLUMN in card
+                              block -->
+                    <div class="col">
+                      <ul id="btnInfo2" class="list-unstyled zoom">
+                        <li class="infoTabla headerRow rounded  text-light  txt-bold bg-press">2 PRESS</li>
+                        <li id="btn2PressType" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light">TYPE: <span id="btn2PressTypeVal" class="badge infoType badge-pill"></span></li>
+                        <li id="btn2PressModifier" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light">MODIFIER: <span id="btn2PressModVal" class="badge dataType badge-pill"></span> </li>
+                        <li id="btn2PressValue" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light">VALUE: <span id="btn2PressValueVal" class="badge dataType badge-pill"></span></li>
+
+                        <li class="infoTabla headerRow rounded  text-dark text-right txt-bold bg-hold">2 HOLD</li>
+                        <li id="btn2HoldType" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light">TYPE: <span id="btn2HoldTypeVal" class="badge infoType badge-pill"></span></li>
+                        <li id="btn2HoldModifier" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light">MODIFIER: <span id="btn2HoldModVal" class="badge dataType badge-pill"></span> </li>
+                        <li id="btn2HoldValue" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light">VALUE: <span id="btn2HoldValueVal" class="badge dataType badge-pill"></span></li>
+                      </ul>
+                    </div> <!-- NOTE: end of COLUMN
+                                        in card block -->
+                    <div class="col">
+                      <ul id="btnInfo3" class="list-unstyled zoom">
+                        <li class="infoTabla headerRow rounded  text-light  txt-bold bg-press">3 PRESS</li>
+                        <li id="btn3PressType" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light">TYPE: <span id="btn3PressTypeVal" class="badge infoType badge-pill"></span></li>
+                        <li id="btn3PressModifier" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light">MODIFIER: <span id="btn3PressModVal" class="badge dataType badge-pill"></span> </li>
+                        <li id="btn3PressValue" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light">VALUE: <span id="btn3PressValueVal" class="badge dataType badge-pill"></span> </li>
+                        <li class="infoTabla headerRow rounded  text-dark text-right txt-bold bg-hold">3 HOLD</li>
+                        <li id="btn3HoldType" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light">TYPE: <span id="btn3HoldTypeVal" class="badge infoType badge-pill"></span> </li>
+                        <li id="btn3HoldModifier" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light">MODIFIER: <span id="btn3HoldModVal" class="badge dataType badge-pill"></span> </li>
+                        <li id="btn3HoldValue" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light">VALUE: <span id="btn3HoldValueVal" class="badge dataType badge-pill"></span> </li>
+                      </ul>
+                    </div> <!-- NOTE: end of COLUMN in card block -->
+                  </div>
+                  <div class="row">
+                    <br>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <ul id="btnInfo4" class="list-unstyled zoom">
+                        <li class="infoTabla headerRow rounded  text-light txt-bold  bg-press">4 PRESS</li>
+                        <li id="btn4PressType" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light">TYPE: <span id="btn4PressTypeVal" class="badge infoType badge-pill"></span> </li>
+                        <li id="btn4PressModifier" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light">MODIFIER: <span id="btn4PressModVal" class="badge dataType badge-pill"></span> </li>
+                        <li id="btn4PressValue" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light">VALUE: <span id="btn4PressValueVal" class="badge dataType badge-pill"></span> </li>
+
+                        <li class="infoTabla headerRow rounded  text-dark text-right txt-bold bg-hold">4 HOLD</li>
+                        <li id="btn4HoldType" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light">TYPE: <span id="btn4HoldTypeVal" class="badge infoType badge-pill"></span> </li>
+                        <li id="btn4HoldModifier" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light">MODIFIER: <span id="btn4HoldModVal" class="badge dataType badge-pill"></span> </li>
+                        <li id="btn4HoldValue" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light">VALUE: <span id="btn4HoldValueVal" class="badge dataType badge-pill"></span> </li>
+                      </ul>
+                    </div> <!-- NOTE: end of COLUMN in card block -->
+                    <div class="col">
+                      <ul id="btnInfo5" class="list-unstyled zoom">
+                        <li class="infoTabla headerRow rounded  text-light txt-bold  bg-press">5 PRESS</li>
+                        <li id="btn5PressType" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light">TYPE: <span id="btn5PressTypeVal" class="badge infoType badge-pill"></span></li>
+                        <li id="btn5PressModifier" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light">MODIFIER: <span id="btn5PressModVal" class="badge dataType badge-pill"></span></li>
+                        <li id="btn5PressValue" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light">VALUE: <span id="btn5PressValueVal" class="badge dataType badge-pill"></span> </li>
+
+                        <li class="infoTabla headerRow rounded  text-dark text-right txt-bold bg-hold">5 HOLD</li>
+                        <li id="btn5HoldType" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light">TYPE: <span id="btn5HoldTypeVal" class="badge infoType badge-pill"></span> </li>
+                        <li id="btn5HoldModifier" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light">MODIFIER: <span id="btn5HoldModVal" class="badge dataType badge-pill"></span> </li>
+                        <li id="btn5HoldValue" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light">VALUE: <span id="btn5HoldValueVal" class="badge dataType badge-pill"></span> </li>
+                        </ul>
                       </div>
 
-                    </div>
+                      <div class="col">
+                        <ul id="btnExternal" class="list-unstyled zoom">
+                          <li class="infoTabla headerRow rounded  text-light txt-bold  bg-press">EXTERNAL</li>
+                          <li id=" btnExternalPressType" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light">TYPE: <span id=" btnExternalPressTypeVal" class="badge infoType badge-pill"></span></li>
+                          <li id=" btnExternalPressModifier" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light">MODIFIER: <span id=" btnExternalPressModVal" class="badge dataType badge-pill"></span></li>
+                          <li id=" btnExternalPressValue" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light">VALUE: <span id=" btnExternalPressValueVal" class="badge dataType badge-pill"></span> </li>
+
+                          <li class="infoTabla headerRow rounded  text-dark text-right txt-bold bg-hold">External HOLD</li>
+                          <li id=" btnExternalHoldType" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light">TYPE: <span id=" btnExternalHoldTypeVal" class="badge infoType badge-pill"></span> </li>
+                          <li id=" btnExternalHoldModifier" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light">MODIFIER: <span id=" btnExternalHoldModVal" class="badge dataType badge-pill"></span> </li>
+                          <li id=" btnExternalHoldValue" class="infoTabla d-flex justify-content-between align-items-center rowInfo text-light">VALUE: <span id=" btnExternalHoldValueVal" class="badge dataType badge-pill"></span> </li>
+                          </ul>
+                        </div>
 
                   </div>
-                  <div class="col-lg-6">
-                    <div class="card">
-                      <div class="card-body">
-                        <h5 class="card-title">WHEN BUTTON is HOLD</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-                        <p class="text-dark">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-dark btn-xs">EDIT</a>
-                        <a href="#" class="btn btn-dark btn-xs">ASSIGN MIDI LEARN</a>
-
+                                        </div> <!-- NOTE: END OF CARD BLOCK -->
+                              </div>
+                    </div>
+                    <div id="buttonInfo" class="card bg-dark ">
+                      <div class="card-body text ">
+                        <!-- NOTE: content of BUTON INFO BEGINS HERE -->
+                        <h5 id="specificButtonInfo" class="card-title text-center bg-info rounded">OVERALL PRESET INFO</h5>
+                        <!-- NOTE: begin of button contents -->
+                        <div class="card-block">
+                          <div class="row">
+                            <div class="col-lg-6">
+                              <div class="card">
+                                <div class="card-body bg-press">
+                                  <h5 class="card-title">WHEN BUTTON IS PRESSED</h5>
+                                  <h6 class="card-subtitle mb-2 text-muted typePress"></h6>
+                                  <h6 class="card-subtitle mb-2 text-muted valuePress">VALUE:</h6>
+                                  <h6 class="card-subtitle mb-2 text-muted modifierPress">MOD:</h6>
+                                  <p class="text-dark">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                  <a data-toggle="modal" data-target="#editBtnModal" href="#" class="btn btn-light btn-xs" id="editPress">EDIT</a>
+                                  <a href="#" class="btn btn-light btn-xs">ASSIGN MIDI LEARN</a>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-lg-6">
+                              <div class="card">
+                                <div class="card-body bg-hold">
+                                  <h5 class="card-title">WHEN BUTTON IS HOLD</h5>
+                                  <h6 class="card-subtitle mb-2 text-muted typeHold"></h6>
+                                  <h6 class="card-subtitle mb-2 text-muted valueHold">VALUE:</h6>
+                                  <h6 class="card-subtitle mb-2 text-muted modifierHold">MOD:</h6>
+                                  <p class="text-dark">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                  <a data-toggle="modal" data-target="#editBtnModal" href="#" class="btn btn-dark btn-xs" id="editHold">EDIT</a>
+                                  <a href="#" class="btn btn-dark btn-xs">ASSIGN MIDI LEARN</a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col">
+                            <div class="list-group">
+                              <a id="backToAll" href="#" class="list-group-item list-group-item-action">CANCEL</a>
+                              <a href="#" class="list-group-item list-group-item-action list-group-item-success">SAVE THIS BUTTON CONFIG</a>
+                              <a href="#" class="list-group-item list-group-item-action list-group-item-secondary">COPY CURRENT BUTTON CONFIG</a>
+                              <a href="#" class="list-group-item list-group-item-action list-group-item-info">RESTORE CURRENT BUTTON CONFIG</a>
+                            </div>
+                          </div>
+                        </div>
+                      </div> <!-- NOTE: END OF CARD BLOCK -->
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <div class="card border-0">
+                        <!-- <img src="MENU.png" class="card-img-top img-fluid" style="width:5%;" alt="MENU"> -->
+                        <div class="card-body bg-dark text-light ">
+                          <h5 class="card-title">ADITIONAL OPTIONS</h5>
+                          <p class="card-text">You can quickly load presets configurations using files.</p>
+                          <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                            <div class="btn-group mr-2" role="group" aria-label="First group">
+                              <button type="button" class="btn btn-info"> User Manual</button>
+                              <button type="button" class="btn btn-info">Demo Videos</button>
+                              <button type="button" class="btn btn-info">Tutorial</button>
+                            </div>
+                            <div class="btn-group mr-2" role="group" aria-label="Second group">
+                              <button type="button" class="btn btn-info">LOAD ALL PRESETS FROM FILE</button>
+                            </div>
+                            <div class="btn-group mr-2" role="group" aria-label="Third group">
+                              <button id="btnSaveAllPresetsToFile" type="button" class="btn btn-info">SAVE ALL PRESETS TO FILE</button>
+                            </div>
+                            <div class="btn-group" role="group" aria-label="Third group">
+                              <button id="restoreBtn" type="button" class="btn btn-warning" data-toggle="modal" data-target="#restoreModal">RESTORE TO FACTORY</button>
+                            </div>
+                          </div>
+                        </div>
                       </div>
-
                     </div>
-
                   </div>
-                </div>
-
-
-
-              </div>
-
-              <div class="row">
-
-                <div class="col">
-                  <div class="list-group">
-                    <a id="backToAll" href="#" class="list-group-item list-group-item-action">CANCEL</a>
-                    <a href="#" class="list-group-item list-group-item-action list-group-item-success">SAVE THIS BUTTON CONFIG</a>
-                    <a href="#" class="list-group-item list-group-item-action list-group-item-secondary">COPY CURRENT BUTTON CONFIG</a>
-                    <a href="#" class="list-group-item list-group-item-action list-group-item-info">RESTORE CURRENT BUTTON CONFIG</a>
-
-                  </div>
+                </div> <!-- NOTE: END OF DOUBLE MAIN CARD GROUP -->
+                <div class="row">
+                  <h5 id="infoSelPreset" class="card-title bg-outline-dark rounded collapse">SELECT PRESET AND BANK TO EDIT</h5>
                 </div>
               </div>
-
-            </div> <!-- NOTE: END OF CARD BLOCK -->
-          </div>
-        </div>
-
-
-
-        <div class="row">
-          <div class="col">
-            <div class="card border-0">
-              <!-- <img src="MENU.png" class="card-img-top img-fluid" style="width:5%;" alt="MENU"> -->
-              <div class="card-body bg-dark text-light ">
-                <h5 class="card-title">ADITIONAL OPTIONS</h5>
-                <p class="card-text">You can quickly load presets configurations using files.</p>
-                <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-                  <div class="btn-group mr-2" role="group" aria-label="First group">
-                    <button type="button" class="btn btn-info"> User Manual</button>
-                    <button type="button" class="btn btn-info">Demo Videos</button>
-                    <button type="button" class="btn btn-info">Tutorial</button>
-                  </div>
-                  <div class="btn-group mr-2" role="group" aria-label="Second group">
-                    <button type="button" class="btn btn-info">LOAD ALL PRESETS FROM FILE</button>
-                  </div>
-                  <div class="btn-group mr-2" role="group" aria-label="Third group">
-                    <button id="btnSaveAllPresetsToFile" type="button" class="btn btn-info">SAVE ALL PRESETS TO FILE</button>
-                  </div>
-                  <div class="btn-group" role="group" aria-label="Third group">
-                    <button id="restoreBtn" type="button" class="btn btn-warning" data-toggle="modal" data-target="#restoreModal">RESTORE TO FACTORY</button>
+            </div> <!-- NOTE: END Of lowPanel -->
+          </div> <!-- NOTE: END OF MAIN CONTAINER -->
+          <!-- NOTE: NODALS -->
+          <div class="modal hide fade bd-example-modal-xl" id="editBtnModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 75vw !important;">
+              <div class="modal-content">
+                <div id="editHeading" class="modal-header">
+                  <h6 class="modal-title" id="btnConfigTitle"></h6>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <h6 id="currentConfig"></h6>
+                    </div>
+                    <div class="col-lg-6">
+                      <h6 id="selectedConfig"></h6>
+                    </div>
                   </div>
                 </div>
-
+                <div id="modalbody" class="modal-body">
+                  <div class="row">
+                    <div class="col">
+                      <p>TYPE:</p>
+                    </div>
+                    <div class="col">
+                      <div class="btn-group" role="group">
+                        <div class="btn-group btn-group-toggle" role="group" aria-label="Button group with nested dropdown">
+                          <button id="btnGroupType" type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> choose type.. </button>
+                          <div class="dropdown-menu" aria-labelledby="btnGroupType">
+                            <a class="dropdown-item" href="#" id="type1">Key</a>
+                            <a class="dropdown-item" href="#" id="type2">Multimedia Key</a>
+                            <a class="dropdown-item" href="#" id="type3">MIDI Note</a>
+                            <a class="dropdown-item" href="#" id="type4">MIDI Control Change</a>
+                            <a class="dropdown-item" href="#" id="type5">MIDI Program Change</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div id="modalKeyValue" class="modal-body collapse">
+                  <div class="row">
+                    <div class="col">
+                      <p>KEY:</p>
+                    </div>
+                    <div class="col">
+                      <div class="dropdown">
+                        <button id="selectedKey" type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> choose type.. </button>
+                        <div class="dropdown-menu scrollable-menu keys" role="menu">
+                          <li>
+                            <a href="#">example</a>
+                          </li>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div id="modalModifierValue" class="modal-body collapse">
+                  <div class="row">
+                    <div class="col">
+                      <p>Modifier:</p>
+                    </div>
+                    <div class="col">
+                      <div class="modal-header">
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" value="" id="leftShift">
+                          <label class="form-check-label" for="defaultCheck1"> Left Shift </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" value="" id="rightShift">
+                          <label class="form-check-label" for="defaultCheck1"> Right Shift </label>
+                        </div>
+                      </div>
+                      <div class="modal-header">
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" value="" id="leftControl">
+                          <label class="form-check-label" for="defaultCheck1"> Left Control </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" value="" id="rightControl">
+                          <label class="form-check-label" for="defaultCheck1"> Right Control </label>
+                        </div>
+                      </div>
+                      <div class="modal-header">
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" value="" id="leftAlt">
+                          <label class="form-check-label" for="defaultCheck1"> Left Alt </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" value="" id="rightAlt">
+                          <label class="form-check-label" for="defaultCheck1"> Right Alt </label>
+                        </div>
+                      </div>
+                      <div class="modal-header">
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" value="" id="leftGui">
+                          <label class="form-check-label" for="defaultCheck1"> Left Gui </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" value="" id="rightGui">
+                          <label class="form-check-label" for="defaultCheck1"> Right Gui </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" id="editModalCancel">Cancel</button>
+                  <button id="saveBtn" type="button" class="btn btn-primary">Save</button>
+                </div>
               </div>
             </div>
-
-
           </div>
-
-        </div>
-
-
-
-
-      </div> <!-- NOTE: END OF DOUBLE MAIN CARD GROUP -->
-
-    </div>
-
-
-  </div> <!-- NOTE: END Of lowPanel -->
-
-
-  </div> <!-- NOTE: END OF MAIN CONTAINER -->
-
-  <!-- NOTE: NODALS -->
-
-  <div class="modal fade" id="restoreModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div id="restoreHeading" class="modal-header bg-danger">
-          <h5 class="modal-title" id="restoreTitle">This will restore CONTROL PIE to factory defaults</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div id="modalbody" class="modal-body">
-          confirm?
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button id="restoreToFactory" type="button" class="btn btn-primary">Yes</button>
-          <!-- <button id="restoreToFactory"data-dismiss="modal" type="button" style="background-color:red">Restore to factory defaults</button> -->
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div id="serialModal" class="modal fade" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-md " role="document">
-      <div class="modal-content text-center">
-        <div class="modal-header bg-success">
-          <h5 class="modal-title">Control PIE is connected</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body ">
-          <p id="serialNumber"></p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-</body>
+          <div class="modal fade" id="restoreModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div id="restoreHeading" class="modal-header bg-danger">
+                  <h5 class="modal-title" id="restoreTitle">This will restore CONTROL PIE to factory defaults</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div id="modalbody" class="modal-body"> confirm? </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button id="restoreToFactory" type="button" class="btn btn-primary">Yes</button>
+                  <!-- <button id="restoreToFactory"data-dismiss="modal" type="button" style="background-color:red">Restore to factory defaults</button> -->
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="serialModal" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-md " role="document">
+              <div class="modal-content text-center">
+                <div class="modal-header bg-success">
+                  <h5 class="modal-title">Control PIE is connected</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body ">
+                  <p id="serialNumber"></p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+  </body>
