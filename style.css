@@ -246,6 +246,16 @@ padding-inline-start: 2%;
   text-align: center;
 }
 
+.icon-confirm{
+  color: green;
+font-size: 34px !important;
+}
+
+.icon-altered{
+  color: yellow;
+font-size: 22px !important;
+}
+
 .btn-ripple {
   display: inline-block;
   position: relative;
