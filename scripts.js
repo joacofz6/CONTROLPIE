@@ -565,8 +565,8 @@ $(document).ready(function() { // ESTO PREVIENE QUE SE EJECUTEN ESTOS JQUERY ANT
     selectedTypeText = text;
     updateValueSelector(typeSelected);
     $('#btnGroupType').text(text);
-    $('#btnGroupType').removeClass("btn-warning");
-    $('#btnGroupType').addClass("btn-success");
+    // $('#btnGroupType').removeClass("btn-warning");
+    // $('#btnGroupType').addClass("btn-success");
     // $('#modalModifierValue').collapse('hide');
     // $('#modalChannelValue').collapse('hide');
     console.log(typeSelected);
@@ -597,13 +597,13 @@ $(document).ready(function() { // ESTO PREVIENE QUE SE EJECUTEN ESTOS JQUERY ANT
 
   function updateSelectedConfig() {
     if (selectedTypeText != "") {
-      $('#selectedConfig').html("New config: <br>" + '<span class="typeType text-dark badge">' + selectedTypeText + ':</span> ');
+      $('#selectedConfig').html('<span class="typeType text-dark badge">' + selectedTypeText + ':</span> ');
     }
     if (selectedValueText != "") {
-      $('#selectedConfig').html("New config: <br>" + '<span class="typeType text-dark badge">' + selectedTypeText + ':</span> ' + '<span class="badge dataType badge-pill">' + selectedValueText + ' </span>');
+      $('#selectedConfig').html('<span class="typeType text-dark badge">' + selectedTypeText + ':</span> ' + '<span class="badge dataType badge-pill">' + selectedValueText + ' </span>');
     }
     if (selectedModifierText != "") {
-      $('#selectedConfig').html("New config: <br>" + '<span class="typeType text-dark badge">' + selectedTypeText + ':</span> ' + ' <span class="badge dataType badge-pill"> ' + selectedModifierText + ' </span>' + ' <span class="badge dataType badge-pill"> + </span>' + ' <span class="badge dataType badge-pill">' + selectedValueText + ' </span>');
+      $('#selectedConfig').html('<span class="typeType text-dark badge">' + selectedTypeText + ':</span> ' + ' <span class="badge dataType badge-pill"> ' + selectedModifierText + ' </span>' + ' <span class="badge dataType badge-pill"> + </span>' + ' <span class="badge dataType badge-pill">' + selectedValueText + ' </span>');
     }
     let addr = ((presetSelected - 1) * 30) + ((buttonPressed - 1) * 6) + 1 + currentBank;
     let beh = ((presetSelected - 1) * 10) + ((buttonPressed - 1) * 2) + 181 + currentBank
@@ -614,9 +614,13 @@ $(document).ready(function() { // ESTO PREVIENE QUE SE EJECUTEN ESTOS JQUERY ANT
   function validateSelectedConfig() {
     if (typeSelected != null && valueSelected != null && modifierSelected != null) {
       $('.fa-check-circle.edit').show();
+      $('.modal-body.selectedConfig').addClass('bg-success');
+      $('.modal-body.selectedConfig').removeClass('bg-dark');
       $('#applyEditBtn').prop('disabled', false);
     } else {
       $('.fa-check-circle.edit').hide();
+      $('.modal-body.selectedConfig').removeClass('bg-success');
+      $('.modal-body.selectedConfig').addClass('bg-dark');
       $('#applyEditBtn').prop('disabled', true);
     }
   }
@@ -1089,19 +1093,32 @@ $(document).ready(function() { // ESTO PREVIENE QUE SE EJECUTEN ESTOS JQUERY ANT
   function populateDashboard(preset, bank) { // NOTE: BANK EITHER 0 or 240
     var address = 0;
     var behave = 0;
+    var changesMade =false;
     for (btnNumber = 1; btnNumber <= 5; btnNumber++) {
       address = ((preset - 1) * 30) + ((btnNumber - 1) * 6) + 1 + bank;
       behave = ((preset - 1) * 10) + ((btnNumber - 1) * 2) + 181 + bank
       if (compareData(address, behave, false)) { //false  means this button was edited for short
         $('.press' + btnNumber).show();
+        changesMade=true;
       }else{
         $('.press' + btnNumber).hide();
       }
       if (compareData(address, behave, true)) { //
         $('.hold' + btnNumber).show();
+        changesMade=true;
       }else {
         $('.hold' + btnNumber).hide();
       }
+      if(changesMade){
+        $('#btnBurnData').prop('disabled',false);
+        $('#btnBurnData').show();
+        $('#btnDiscardData').prop('disabled',false);
+        $('#btnDiscardData').show();
+      }else{
+        $('#btnBurnData').prop('disabled',true);
+        $('#btnDiscardData').prop('disabled',true);
+      }
+
       var modifierPress = allConfigData[address];
       var valuePress = allConfigData[address + 1];
       var typePress = allConfigData[address + 2];
@@ -1127,87 +1144,96 @@ $(document).ready(function() { // ESTO PREVIENE QUE SE EJECUTEN ESTOS JQUERY ANT
           case 5:
             break;
         }
-      } else {
-        if ((typePress == 1 || typePress == 2) && modifierPress > 0) {
-          // $('#btn' + btnNumber + 'PressModifier').html(modTxtP);
-        } else {
-          if (typePress > 2) {
-            // $('#btn' + btnNumber + 'PressModifier').html(modTxtP);
-          } else {
-            modTxtP = "";
-          }
-          // $('#btn' + btnNumber + 'PressModifier').html('<p> </p>');
-        }
-        $('#btn' + btnNumber + 'PressModifier').html(modTxtP);
-        switch (typePress) {
-          case 1:
-            $('#btn' + btnNumber + 'PressTypeVal').css({
-              "background-color": "#8be0b9"
-            });
-            break;
-          case 2:
-            $('#btn' + btnNumber + 'PressTypeVal').css({
-              "background-color": "#eac5a5"
-            });
-            break;
-          case 3:
-            $('#btn' + btnNumber + 'PressTypeVal').css({
-              "background-color": "#d5aef3"
-            });
-            break;
-          case 4:
-            $('#btn' + btnNumber + 'PressTypeVal').css({
-              "background-color": "#d5aef3"
-            });
-            break;
-          case 5:
-            $('#btn' + btnNumber + 'PressTypeVal').css({
-              "background-color": "#d5aef3"
-            });
-            break;
-        }
-        $('#btn' + btnNumber + 'PressValue').html(typeTxtP + '<span id="btn' + btnNumber + 'PressValueVal" class="badge dataType badge-pill">P</span>');
-        $('#btn' + btnNumber + 'PressTypeVal').text(typeTxtP);
-        $('#btn' + btnNumber + 'PressValueVal').text(getValue(typePress, valuePress));
-        if ((typeHold == 1 || typeHold == 2) && modifierHold > 0) {} else {
-          if (typeHold > 2) {} else {
-            modTxtH = "";
-          }
-        }
-        $('#btn' + btnNumber + 'HoldModifier').html(modTxtH);
-        switch (typeHold) {
-          case 1: //KEYBOARD
-            $('#btn' + btnNumber + 'HoldTypeVal').css({
-              "background-color": "#8be0b9"
-            });
-            break;
-          case 2: // MULTIMEDIA
-            $('#btn' + btnNumber + 'HoldTypeVal').css({
-              "background-color": "#eac5a5"
-            });
-            break;
-          case 3: //MIDI NOTE
-            $('#btn' + btnNumber + 'HoldTypeVal').css({
-              "background-color": "#d5aef3"
-            });
-            break;
-          case 4: //MIDI PROG
-            $('#btn' + btnNumber + 'HoldTypeVal').css({
-              "background-color": "#d5aef3"
-            });
-            break;
-          case 5: //MIDI CC
-            $('#btn' + btnNumber + 'HoldTypeVal').css({
-              "background-color": "#d5aef3"
-            });
-            break;
-        }
-        $('#btn' + btnNumber + 'HoldValue').html(typeTxtP + ':<span id="btn' + btnNumber + 'HoldValueVal" class="badge dataType badge-pill">P</span>');
-        $('#btn' + btnNumber + 'HoldTypeVal').text(typeTxtH);
-        $('#btn' + btnNumber + 'HoldValueVal').text(getValue(typeHold, valueHold));
+      // } else {
+      //
+      //
+      //   if ((typePress == 1 || typePress == 2) && modifierPress > 0) {
+      //     // $('#btn' + btnNumber + 'PressModifier').html(modTxtP);
+      //   } else {
+      //     if (typePress > 2) {
+      //       // $('#btn' + btnNumber + 'PressModifier').html(modTxtP);
+      //     } else {
+      //       modTxtP = "";
+      //     }
+      //     // $('#btn' + btnNumber + 'PressModifier').html('<p> </p>');
+      //   }
+      //   $('#btn' + btnNumber + 'PressModifier').html(modTxtP);
+      //   switch (typePress) {
+      //     case 1:
+      //       $('#btn' + btnNumber + 'PressTypeVal').css({
+      //         "background-color": "#8be0b9"
+      //       });
+      //       break;
+      //     case 2:
+      //       $('#btn' + btnNumber + 'PressTypeVal').css({
+      //         "background-color": "#eac5a5"
+      //       });
+      //       break;
+      //     case 3:
+      //       $('#btn' + btnNumber + 'PressTypeVal').css({
+      //         "background-color": "#d5aef3"
+      //       });
+      //       break;
+      //     case 4:
+      //       $('#btn' + btnNumber + 'PressTypeVal').css({
+      //         "background-color": "#d5aef3"
+      //       });
+      //       break;
+      //     case 5:
+      //       $('#btn' + btnNumber + 'PressTypeVal').css({
+      //         "background-color": "#d5aef3"
+      //       });
+      //       break;
+      //   }
+      //   $('#btn' + btnNumber + 'PressValue').html(typeTxtP + '<span id="btn' + btnNumber + 'PressValueVal" class="badge dataType badge-pill">P</span>');
+      //   $('#btn' + btnNumber + 'PressTypeVal').text(typeTxtP);
+      //   $('#btn' + btnNumber + 'PressValueVal').text(getValue(typePress, valuePress));
+      //   if ((typeHold == 1 || typeHold == 2) && modifierHold > 0) {} else {
+      //     if (typeHold > 2) {} else {
+      //       modTxtH = "";
+      //     }
+      //   }
+      //   $('#btn' + btnNumber + 'HoldModifier').html(modTxtH);
+      //   switch (typeHold) {
+      //     case 1: //KEYBOARD
+      //       $('#btn' + btnNumber + 'HoldTypeVal').css({
+      //         "background-color": "#8be0b9"
+      //       });
+      //       break;
+      //     case 2: // MULTIMEDIA
+      //       $('#btn' + btnNumber + 'HoldTypeVal').css({
+      //         "background-color": "#eac5a5"
+      //       });
+      //       break;
+      //     case 3: //MIDI NOTE
+      //       $('#btn' + btnNumber + 'HoldTypeVal').css({
+      //         "background-color": "#d5aef3"
+      //       });
+      //       break;
+      //     case 4: //MIDI PROG
+      //       $('#btn' + btnNumber + 'HoldTypeVal').css({
+      //         "background-color": "#d5aef3"
+      //       });
+      //       break;
+      //     case 5: //MIDI CC
+      //       $('#btn' + btnNumber + 'HoldTypeVal').css({
+      //         "background-color": "#d5aef3"
+      //       });
+      //       break;
+      //   }
+      //   $('#btn' + btnNumber + 'HoldValue').html(typeTxtP + ':<span id="btn' + btnNumber + 'HoldValueVal" class="badge dataType badge-pill">P</span>');
+      //   $('#btn' + btnNumber + 'HoldTypeVal').text(typeTxtH);
+      //   $('#btn' + btnNumber + 'HoldValueVal').text(getValue(typeHold, valueHold));
       }
-      // $('#btn' + btnNumber + 'HoldValue').val("SABARA");
-    }
+      storedTypeTextP = getType(typePress);
+      storedValueTextP = getValue(typePress, valuePress);
+      storedTypeTextH = getType(typeHold);
+      storedValueTextH = getValue(typeHold, valueHold);
+      storedModifierTextP = getModifierValue(typePress, modifierPress);
+      storedModifierTextH = getModifierValue(typeHold, modifierHold);
+      generateBtnInfo("CONFIG: <br>",typePress,typeHold,'#btn'+btnNumber+'PressType','#btn'+btnNumber+'HoldType');
+
+    } //END OF FOR - EACH iteration of buttons
     $('#allPresetsInfo').show();
     $('#buttonInfo').hide();
   }
@@ -1251,16 +1277,17 @@ $(document).ready(function() { // ESTO PREVIENE QUE SE EJECUTEN ESTOS JQUERY ANT
     let typeP = getType(typePress) + ':     <span class="badge dataType badge-pill">' + getValue(typePress, valuePress) + '</span>';
     storedTypeTextP = getType(typePress);
     storedValueTextP = getValue(typePress, valuePress);
-    $('.card-subtitle.valuePress').html(typeP);
-    let typeH = getType(typeHold) + ':     <span class="badge dataType badge-pill">' + getValue(typeHold, valueHold) + '</span>';
     storedTypeTextH = getType(typeHold);
     storedValueTextH = getValue(typeHold, valueHold);
+    storedModifierTextP = getModifierValue(typePress, modifierPress);
+    storedModifierTextH = getModifierValue(typeHold, modifierHold);
+
+    $('.card-subtitle.valuePress').html(typeP);
+    let typeH = getType(typeHold) + ':     <span class="badge dataType badge-pill">' + getValue(typeHold, valueHold) + '</span>';
     $('.card-subtitle.valueHold').html(typeH);
     let modifier = getModifierName(typePress) + getModifierValue(typePress, modifierPress);
-    storedModifierTextP = getModifierValue(typePress, modifierPress);
 
     let modifierH = getModifierName(typeHold) + getModifierValue(typeHold, modifierHold);
-    storedModifierTextH = getModifierValue(typeHold, modifierHold);
     // if ((typeHold == 1 || typeHold == 2) && modifierHold > 0) {
     //   $('.card-subtitle.modifierHold').text(modifierH);
     // } else {
@@ -1269,13 +1296,31 @@ $(document).ready(function() { // ESTO PREVIENE QUE SE EJECUTEN ESTOS JQUERY ANT
     //     $('.card-subtitle.modifierHold').text(modifierH);
     //   }
     // }
-    $('.card-subtitle.configPress').html("Current config: <br>" + '<span class="typeType text-dark badge">' + storedTypeTextP + ':</span> ' + ' <span class="badge dataType badge-pill"> ' + storedModifierTextP + ' </span>' + ' <span class="badge dataType badge-pill"> + </span>' + ' <span class="badge dataType badge-pill">' + storedValueTextP + ' </span>');
-    $('.card-subtitle.configHold').html("Current config: <br>" + '<span class="typeType text-dark badge">' + storedTypeTextH + ':</span> ' + ' <span class="badge dataType badge-pill"> ' + storedModifierTextH + ' </span>' + ' <span class="badge dataType badge-pill"> + </span>' + ' <span class="badge dataType badge-pill">' + storedValueTextH + ' </span>');
-
-
-
+    generateBtnInfo("Current config: <br>",typePress,typeHold,'.card-subtitle.configPress','.card-subtitle.configHold');
   } //END show button configuration
-  function compareData(address, behave, isHold) { //returns true when different data
+
+function generateBtnInfo(prefix,typePress,typeHold,containerPress,containerHold){
+  if(typePress>=3){
+    $(containerPress).html( prefix+ '<span class="typeType text-dark badge">' + storedTypeTextP + ':</span> ' + ' <span class="badge dataType badge-pill"> ' + storedValueTextP + '</span>' + ' - ' + ' <span class="badge dataType badge-pill">' + "Channel: "  +storedModifierTextP+ ' </span>');
+  }else{
+    if(storedModifierTextP!=""){
+      $(containerPress).html(prefix + '<span class="typeType text-dark badge">' + storedTypeTextP + ':</span> ' + ' <span class="badge dataType badge-pill"> ' + storedModifierTextP + '</span>' + ' + ' + ' <span class="badge dataType badge-pill">' + storedValueTextP + ' </span>');
+    }else{
+      $(containerPress).html(prefix + '<span class="typeType text-dark badge">' + storedTypeTextP + ':</span> ' +  ' <span class="badge dataType badge-pill">' + storedValueTextP + ' </span>');
+    }
+  }
+  if(typeHold>=3){
+    $(containerHold).html(prefix + '<span class="typeType text-dark badge">' + storedTypeTextH + ':</span> ' + ' <span class="badge dataType badge-pill"> ' +  storedValueTextH+ '</span>' + '  - ' + ' <span class="badge dataType badge-pill">' + "Channel: " + storedModifierTextH + ' </span>');
+  }else{
+    if(storedModifierTextH!=""){
+      $(containerHold).html(prefix + '<span class="typeType text-dark badge">' + storedTypeTextH + ':</span> ' + ' <span class="badge dataType badge-pill"> ' + storedModifierTextH + '</span>' + ' + ' + ' <span class="badge dataType badge-pill">' + storedValueTextH + ' </span>');
+    }else {
+      $(containerHold).html(prefix + '<span class="typeType text-dark badge">' + storedTypeTextH + ':</span> ' + ' <span class="badge dataType badge-pill">' + storedValueTextH + ' </span>');
+    }
+  }
+}
+
+function compareData(address, behave, isHold) { //returns true when different data
     if (isHold) {
       if (allConfigData[address + 3] != originalConfigData[address + 3] || allConfigData[address + 4] != originalConfigData[address + 4] || allConfigData[address + 5] != originalConfigData[address + 5] || allConfigData[behave + 1] != originalConfigData[behave + 1]) {
         return true;

@@ -13,6 +13,7 @@
     <link href='https://fonts.googleapis.com/css?family=Lato:300,400,400italic,700,700italic' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>CONTROL PIE CONFIG APP</title>
+    <link rel="icon" href="icono.png">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Application dedicated to customize your Control Pie device">
@@ -103,8 +104,8 @@
                   </button> -->
                     </div>
                   </div>
-                  <button id="btnBurnData" class="btn btn-dark btn-sm btn-ripple" type="button" aria-expanded="false" data-placement="top" disabled="disabled"> Save to Pedal </button>
-                  <button id="btnDiscardData" class="btn btn-dark btn-sm btn-ripple" type="button" aria-expanded="false" data-placement="top" disabled="disabled"> Discard changes </button>
+                  <button id="btnBurnData" class="btn btn-warning btn-sm btn-ripple" type="button" aria-expanded="false" data-placement="top" disabled="disabled" style="display:none;"> Save to Pedal </button>
+                  <button id="btnDiscardData" class="btn btn-dark btn-sm btn-ripple" type="button" aria-expanded="false" data-placement="top" disabled="disabled" style="display:none;"> Discard changes </button>
                 </div> <!-- NOTE:  PRESET Y BANK SELECTOR-->
               </div>
             </div>
@@ -211,42 +212,43 @@
                   <div class="row">
                     <div class="col">
                       <ul id="btnInfo1" class="list-unstyled zoom">
-                        <li class="infoHeader headerRow rounded  text-light txt-bold bg-press"><div class="row"><div class="col">1 PRESS </div><div class="col text-right press1"> <i class="fa fa-exclamation-triangle icon-altered blink"></i></div>  <div class="col press1"><span>(modified)</span></div></div></li>
-                        <li id="btn1PressType" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">TYPE: <span id="btn1PressTypeVal" class="badge infoType badge-pill"></span></li>
+                        <li class="infoHeader headerRow rounded  text-light txt-bold bg-press"><div class="row"><div class="col">BUTTON 1 PRESSED </div><div class="col text-right press1"> <i class="fa fa-exclamation-triangle icon-altered blink"></i></div>  <div class="col press1"><span>(modified)</span></div></div></li>
+                        <li id="btn1PressType" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">CONFIG:<span id="btn1PressTypeVal" class="badge infoType badge-pill"></span></li>
+                        <!-- <li id="btn1PressType" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">TYPE: <span id="btn1PressTypeVal" class="badge infoType badge-pill"></span></li>
                         <li id="btn1PressModifier" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">MODIFIER: <span id="btn1PressModVal" class="badge dataType badge-pill"></span> </li>
-                        <li id="btn1PressValue" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">VALUE: <span id="btn1PressValueVal" class="badge dataType badge-pill"></span> </li>
+                        <li id="btn1PressValue" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">VALUE: <span id="btn1PressValueVal" class="badge dataType badge-pill"></span> </li> -->
 
-                        <li class="infoHeader headerRow rounded  text-dark text-right txt-bold bg-hold"><div class="row"><div class="col hold1"><span>(modified)</span></div><div class="col hold1" style="text-align: left;"> <i class="fa fa-exclamation-triangle icon-altered blink"></i></div> <div class="col"> 5 HOLD </div></div></li>
-                        <li id="btn1HoldType" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">TYPE: <span id="btn1HoldTypeVal" class="badge infoType badge-pill"></span></li>
-                        <li id="btn1HoldModifier" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">MODIFIER: <span id="btn1HoldModVal" class="badge dataType badge-pill"/><span> </li>
-                        <li id="btn1HoldValue" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">VALUE: <span id="btn1HoldValueVal" class="badge dataType badge-pill"></span></li>
+                        <li class="infoHeader headerRow rounded  text-dark text-right txt-bold bg-hold"><div class="row"><div class="col hold1"><span>(modified)</span></div><div class="col hold1" style="text-align: left;"> <i class="fa fa-exclamation-triangle icon-altered blink"></i></div> <div class="col">BUTTON 1 HOLD </div></div></li>
+                        <li id="btn1HoldType" class="infoTabla d-flex justify-content-between align-items-center text-right rowInfo ">CONFIG:<span id="btn1HoldTypeVal" class="badge infoType badge-pill"></span></li>
+                        <!-- <li id="btn1HoldModifier" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">MODIFIER: <span id="btn1HoldModVal" class="badge dataType badge-pill"/><span> </li>
+                        <li id="btn1HoldValue" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">VALUE: <span id="btn1HoldValueVal" class="badge dataType badge-pill"></span></li> -->
                       </ul>
                     </div> <!-- NOTE: end of COLUMN in card
                               block -->
                     <div class="col">
                       <ul id="btnInfo2" class="list-unstyled zoom">
-                        <li id="press2"class="infoHeader headerRow rounded  text-light  txt-bold bg-press"><div class="row"><div class="col"><div class="row"><div class="col">2 PRESS </div><div class="col text-right press2"> <i class="fa fa-exclamation-triangle icon-altered blink"></i></div>  <div class="col press2"><span>(modified)</span></div></div></li>
-                        <li id="btn2PressType" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">TYPE: <span id="btn2PressTypeVal" class="badge infoType badge-pill"></span></li>
-                        <li id="btn2PressModifier" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">MODIFIER: <span id="btn2PressModVal" class="badge dataType badge-pill"></span> </li>
-                        <li id="btn2PressValue" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">VALUE: <span id="btn2PressValueVal" class="badge dataType badge-pill"></span></li>
+                        <li id="press2"class="infoHeader headerRow rounded  text-light  txt-bold bg-press"><div class="row"><div class="col"><div class="row"><div class="col">BUTTON 2 PRESSED </div><div class="col text-right press2"> <i class="fa fa-exclamation-triangle icon-altered blink"></i></div>  <div class="col press2"><span>(modified)</span></div></div></li>
+                        <li id="btn2PressType" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">CONFIG:<span id="btn2PressTypeVal" class="badge infoType badge-pill"></span></li>
+                        <!-- <li id="btn2PressModifier" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">MODIFIER: <span id="btn2PressModVal" class="badge dataType badge-pill"></span> </li>
+                        <li id="btn2PressValue" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">VALUE: <span id="btn2PressValueVal" class="badge dataType badge-pill"></span></li> -->
 
-                        <li class="infoHeader headerRow rounded  text-dark text-right txt-bold bg-hold"><div class="row"><div class="col hold2"><span>(modified)</span></div><div class="col hold2" style="text-align: left;"> <i class="fa fa-exclamation-triangle icon-altered blink"></i></div> <div class="col"> 5 HOLD </div></div></li>
-                        <li id="btn2HoldType" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">TYPE: <span id="btn2HoldTypeVal" class="badge infoType badge-pill"></span></li>
-                        <li id="btn2HoldModifier" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">MODIFIER: <span id="btn2HoldModVal" class="badge dataType badge-pill"></span> </li>
-                        <li id="btn2HoldValue" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">VALUE: <span id="btn2HoldValueVal" class="badge dataType badge-pill"></span></li>
+                        <li class="infoHeader headerRow rounded  text-dark text-right txt-bold bg-hold"><div class="row"><div class="col hold2"><span>(modified)</span></div><div class="col hold2" style="text-align: left;"> <i class="fa fa-exclamation-triangle icon-altered blink"></i></div> <div class="col">BUTTON 2 HOLD </div></div></li>
+                        <li id="btn2HoldType" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">CONFIG:<span id="btn2HoldTypeVal" class="badge infoType badge-pill"></span></li>
+                        <!-- <li id="btn2HoldModifier" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">MODIFIER: <span id="btn2HoldModVal" class="badge dataType badge-pill"></span> </li>
+                        <li id="btn2HoldValue" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">VALUE: <span id="btn2HoldValueVal" class="badge dataType badge-pill"></span></li> -->
                       </ul>
                     </div> <!-- NOTE: end of COLUMN
                                         in card block -->
                     <div class="col">
                       <ul id="btnInfo3" class="list-unstyled zoom">
-                        <li id="press3"class="infoHeader headerRow rounded  text-light  txt-bold bg-press"><div class="row"><div class="col">3 PRESS </div><div class="col text-right press3"> <i class="fa fa-exclamation-triangle icon-altered blink"></i></div>  <div class="col press3"><span>(modified)</span></div></div></li>
-                        <li id="btn3PressType" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">TYPE: <span id="btn3PressTypeVal" class="badge infoType badge-pill"></span></li>
-                        <li id="btn3PressModifier" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">MODIFIER: <span id="btn3PressModVal" class="badge dataType badge-pill"></span> </li>
-                        <li id="btn3PressValue" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">VALUE: <span id="btn3PressValueVal" class="badge dataType badge-pill"></span> </li>
-                        <li class="infoHeader headerRow rounded  text-dark text-right txt-bold bg-hold"><div class="row"><div class="col hold3"><span>(modified)</span></div><div class="col hold3" style="text-align: left;"> <i class="fa fa-exclamation-triangle icon-altered blink"></i></div> <div class="col"> 5 HOLD </div></div></li>
-                        <li id="btn3HoldType" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">TYPE: <span id="btn3HoldTypeVal" class="badge infoType badge-pill"></span> </li>
-                        <li id="btn3HoldModifier" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">MODIFIER: <span id="btn3HoldModVal" class="badge dataType badge-pill"></span> </li>
-                        <li id="btn3HoldValue" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">VALUE: <span id="btn3HoldValueVal" class="badge dataType badge-pill"></span> </li>
+                        <li id="press3"class="infoHeader headerRow rounded  text-light  txt-bold bg-press"><div class="row"><div class="col">BUTTON 3 PRESSED </div><div class="col text-right press3"> <i class="fa fa-exclamation-triangle icon-altered blink"></i></div>  <div class="col press3"><span>(modified)</span></div></div></li>
+                        <li id="btn3PressType" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">CONFIG:<span id="btn3PressTypeVal" class="badge infoType badge-pill"></span></li>
+                        <!-- <li id="btn3PressModifier" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">MODIFIER: <span id="btn3PressModVal" class="badge dataType badge-pill"></span> </li>
+                        <li id="btn3PressValue" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">VALUE: <span id="btn3PressValueVal" class="badge dataType badge-pill"></span> </li> -->
+                        <li class="infoHeader headerRow rounded  text-dark text-right txt-bold bg-hold"><div class="row"><div class="col hold3"><span>(modified)</span></div><div class="col hold3" style="text-align: left;"> <i class="fa fa-exclamation-triangle icon-altered blink"></i></div> <div class="col">BUTTON 3 HOLD </div></div></li>
+                        <li id="btn3HoldType" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">CONFIG:<span id="btn3HoldTypeVal" class="badge infoType badge-pill"></span> </li>
+                        <!-- <li id="btn3HoldModifier" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">MODIFIER: <span id="btn3HoldModVal" class="badge dataType badge-pill"></span> </li>
+                        <li id="btn3HoldValue" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">VALUE: <span id="btn3HoldValueVal" class="badge dataType badge-pill"></span> </li> -->
                       </ul>
                     </div> <!-- NOTE: end of COLUMN in card block -->
                   </div>
@@ -256,41 +258,41 @@
                   <div class="row">
                     <div class="col">
                       <ul id="btnInfo4" class="list-unstyled zoom">
-                        <li id="press4"class="infoHeader headerRow rounded  text-light txt-bold  bg-press"><div class="row"><div class="col">4 PRESS </div><div class="col text-right press4"> <i class="fa fa-exclamation-triangle icon-altered blink"></i></div>  <div class="col press4"><span>(modified)</span></div></div></li>
-                        <li id="btn4PressType" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">TYPE: <span id="btn4PressTypeVal" class="badge infoType badge-pill"></span> </li>
-                        <li id="btn4PressModifier" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">MODIFIER: <span id="btn4PressModVal" class="badge dataType badge-pill"></span> </li>
-                        <li id="btn4PressValue" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">VALUE: <span id="btn4PressValueVal" class="badge dataType badge-pill"></span> </li>
+                        <li id="press4"class="infoHeader headerRow rounded  text-light txt-bold  bg-press"><div class="row"><div class="col">BUTTON 4 PRESSED </div><div class="col text-right press4"> <i class="fa fa-exclamation-triangle icon-altered blink"></i></div>  <div class="col press4"><span>(modified)</span></div></div></li>
+                        <li id="btn4PressType" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">CONFIG:<span id="btn4PressTypeVal" class="badge infoType badge-pill"></span> </li>
+                        <!-- <li id="btn4PressModifier" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">MODIFIER: <span id="btn4PressModVal" class="badge dataType badge-pill"></span> </li>
+                        <li id="btn4PressValue" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">VALUE: <span id="btn4PressValueVal" class="badge dataType badge-pill"></span> </li> -->
 
-                        <li class="infoHeader headerRow rounded  text-dark text-right txt-bold bg-hold"><div class="row"><div class="col hold4"><span>(modified)</span></div><div class="col hold4" style="text-align: left;"> <i class="fa fa-exclamation-triangle icon-altered blink"></i></div> <div class="col"> 5 HOLD </div></div></li>
-                        <li id="btn4HoldType" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">TYPE: <span id="btn4HoldTypeVal" class="badge infoType badge-pill"></span> </li>
-                        <li id="btn4HoldModifier" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">MODIFIER: <span id="btn4HoldModVal" class="badge dataType badge-pill"></span> </li>
-                        <li id="btn4HoldValue" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">VALUE: <span id="btn4HoldValueVal" class="badge dataType badge-pill"></span> </li>
+                        <li class="infoHeader headerRow rounded  text-dark text-right txt-bold bg-hold"><div class="row"><div class="col hold4"><span>(modified)</span></div><div class="col hold4" style="text-align: left;"> <i class="fa fa-exclamation-triangle icon-altered blink"></i></div> <div class="col">BUTTON 4 HOLD </div></div></li>
+                        <li id="btn4HoldType" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">CONFIG:<span id="btn4HoldTypeVal" class="badge infoType badge-pill"></span> </li>
+                        <!-- <li id="btn4HoldModifier" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">MODIFIER: <span id="btn4HoldModVal" class="badge dataType badge-pill"></span> </li>
+                        <li id="btn4HoldValue" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">VALUE: <span id="btn4HoldValueVal" class="badge dataType badge-pill"></span> </li> -->
                       </ul>
                     </div> <!-- NOTE: end of COLUMN in card block -->
                     <div class="col">
                       <ul id="btnInfo5" class="list-unstyled zoom">
-                        <li id="press5"class="infoHeader headerRow rounded  text-light txt-bold  bg-press"><div class="row"><div class="col">5 PRESS </div><div class="col text-right press5"> <i class="fa fa-exclamation-triangle icon-altered blink"></i></div>  <div class="col press5"><span>(modified)</span></div></div></li>
-                        <li id="btn5PressType" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">TYPE: <span id="btn5PressTypeVal" class="badge infoType badge-pill"></span></li>
-                        <li id="btn5PressModifier" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">MODIFIER: <span id="btn5PressModVal" class="badge dataType badge-pill"></span></li>
-                        <li id="btn5PressValue" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">VALUE: <span id="btn5PressValueVal" class="badge dataType badge-pill"></span> </li>
+                        <li id="press5"class="infoHeader headerRow rounded  text-light txt-bold  bg-press"><div class="row"><div class="col">BUTTON 5 PRESSED </div><div class="col text-right press5"> <i class="fa fa-exclamation-triangle icon-altered blink"></i></div>  <div class="col press5"><span>(modified)</span></div></div></li>
+                        <li id="btn5PressType" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">CONFIG:<span id="btn5PressTypeVal" class="badge infoType badge-pill"></span></li>
+                        <!-- <li id="btn5PressModifier" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">MODIFIER: <span id="btn5PressModVal" class="badge dataType badge-pill"></span></li>
+                        <li id="btn5PressValue" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">VALUE: <span id="btn5PressValueVal" class="badge dataType badge-pill"></span> </li> -->
 
-                        <li class="infoHeader headerRow rounded  text-dark text-right txt-bold bg-hold"><div class="row"><div class="col hold5"><span>(modified)</span></div><div class="col hold5" style="text-align: left;"> <i class="fa fa-exclamation-triangle icon-altered blink"></i></div> <div class="col"> 5 HOLD </div></div></li>
-                        <li id="btn5HoldType" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">TYPE: <span id="btn5HoldTypeVal" class="badge infoType badge-pill"></span> </li>
-                        <li id="btn5HoldModifier" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">MODIFIER: <span id="btn5HoldModVal" class="badge dataType badge-pill"></span> </li>
-                        <li id="btn5HoldValue" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">VALUE: <span id="btn5HoldValueVal" class="badge dataType badge-pill"></span> </li>
+                        <li class="infoHeader headerRow rounded  text-dark text-right txt-bold bg-hold"><div class="row"><div class="col hold5"><span>(modified)</span></div><div class="col hold5" style="text-align: left;"> <i class="fa fa-exclamation-triangle icon-altered blink"></i></div> <div class="col">BUTTON  5 HOLD </div></div></li>
+                        <li id="btn5HoldType" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">CONFIG:<span id="btn5HoldTypeVal" class="badge infoType badge-pill"></span> </li>
+                        <!-- <li id="btn5HoldModifier" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">MODIFIER: <span id="btn5HoldModVal" class="badge dataType badge-pill"></span> </li>
+                        <li id="btn5HoldValue" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">VALUE: <span id="btn5HoldValueVal" class="badge dataType badge-pill"></span> </li> -->
                         </ul>
                       </div>
 
                       <div class="col">
-                          <li id="press6"class="infoHeader headerRow rounded  text-light txt-bold  bg-press"><div class="row"><div class="col">EXTERNAL BTN PRESS </div><div class="col text-right press6"> <i class="fa fa-exclamation-triangle icon-altered blink"></i></div>  <div class="col press6"><span>(modified)</span></div></div></li>
-                          <li id=" btnExternalPressType" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">TYPE: <span id=" btnExternalPressTypeVal" class="badge infoType badge-pill"></span></li>
-                          <li id=" btnExternalPressModifier" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">MODIFIER: <span id=" btnExternalPressModVal" class="badge dataType badge-pill"></span></li>
-                          <li id=" btnExternalPressValue" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">VALUE: <span id=" btnExternalPressValueVal" class="badge dataType badge-pill"></span> </li>
+                          <li id="press6"class="infoHeader headerRow rounded  text-light txt-bold  bg-press"><div class="row"><div class="col-lg-6">EXT. PRESSED </div><div class="col-lg-1 text-right press6"> <i class="fa fa-exclamation-triangle icon-altered blink"></i></div>  <div class="col-lg-5 press6"><span>(modified)</span></div></div></li>
+                          <li id=" btnExternalPressType" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">CONFIG:<span id=" btnExternalPressTypeVal" class="badge infoType badge-pill"></span></li>
+                          <!-- <li id=" btnExternalPressModifier" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">MODIFIER: <span id=" btnExternalPressModVal" class="badge dataType badge-pill"></span></li>
+                          <li id=" btnExternalPressValue" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">VALUE: <span id=" btnExternalPressValueVal" class="badge dataType badge-pill"></span> </li> -->
 
-                          <li class="infoHeader headerRow rounded  text-dark text-right txt-bold bg-hold"><div class="row"><div class="col hold6"><span>(modified)</span></div><div class="col hold6" style="text-align: left;"> <i class="fa fa-exclamation-triangle icon-altered blink"></i></div> <div class="col">EXTERNAL HOLD </div></div></li>
-                          <li id=" btnExternalHoldType" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">TYPE: <span id=" btnExternalHoldTypeVal" class="badge infoType badge-pill"></span> </li>
-                          <li id=" btnExternalHoldModifier" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">MODIFIER: <span id=" btnExternalHoldModVal" class="badge dataType badge-pill"></span> </li>
-                          <li id=" btnExternalHoldValue" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">VALUE: <span id=" btnExternalHoldValueVal" class="badge dataType badge-pill"></span> </li>
+                          <li class="infoHeader headerRow rounded  text-dark text-right txt-bold bg-hold"><div class="row"><div class="col-lg-5 hold6"><span>(modified)</span></div><div class="col-lg-1 hold6" style="text-align: left;"> <i class="fa fa-exclamation-triangle icon-altered blink"></i></div> <div class="col-lg-6">EXT HOLD </div></div></li>
+                          <li id=" btnExternalHoldType" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">CONFIG:<span id=" btnExternalHoldTypeVal" class="badge infoType badge-pill"></span> </li>
+                          <!-- <li id=" btnExternalHoldModifier" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">MODIFIER: <span id=" btnExternalHoldModVal" class="badge dataType badge-pill"></span> </li>
+                          <li id=" btnExternalHoldValue" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">VALUE: <span id=" btnExternalHoldValueVal" class="badge dataType badge-pill"></span> </li> -->
                           </ul>
                         </div>
 
@@ -328,18 +330,20 @@
                               </div>
                             </div>
                           </div>
-                        </div>
-                        <div class="row">
-                          <div class="col">
-                            <div class="list-group">
-                              <a id="backToAll" href="#" class="list-group-item list-group-item-action">CANCEL</a>
-                              <a href="#" class="list-group-item list-group-item-action list-group-item-success">SAVE THIS BUTTON CONFIG</a>
-                              <a href="#" class="list-group-item list-group-item-action list-group-item-secondary">COPY CURRENT BUTTON CONFIG</a>
-                              <a href="#" class="list-group-item list-group-item-action list-group-item-info">RESTORE CURRENT BUTTON CONFIG</a>
+                          <div class="row">
+                            <div class="col">
+                              <div class="list-group">
+                                <a id="backToAll" href="#" class="list-group-item list-group-item-action">CANCEL</a>
+                                <a href="#" class="list-group-item list-group-item-action list-group-item-success">SAVE THIS BUTTON CONFIG</a>
+                                <a href="#" class="list-group-item list-group-item-action list-group-item-secondary">COPY CURRENT BUTTON CONFIG</a>
+                                <a href="#" class="list-group-item list-group-item-action list-group-item-info">RESTORE CURRENT BUTTON CONFIG</a>
+                              </div>
                             </div>
                           </div>
                         </div>
+
                       </div> <!-- NOTE: END OF CARD BLOCK -->
+
                     </div>
                   </div>
                   <div class="row">
@@ -378,7 +382,7 @@
           </div> <!-- NOTE: END OF MAIN CONTAINER -->
           <!-- NOTE: NODALS -->
           <div class="modal hide fade bd-example-modal-xl" id="editBtnModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 63vw !important;">
+            <div class="modal-dialog modal-dialog-centered" role="document" >
               <div class="modal-content">
                 <div id="editHeading" class="modal-header">
                   <h6 class="modal-title" id="btnConfigTitle"></h6>
@@ -386,142 +390,122 @@
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
-                <div class="modal-body">
-                  <div class="row">
-                    <div class="col-lg-3 bg-warning">
-                      <h6 id="currentConfig"></h6>
-                    </div>
-                    <div class="col-lg-9">
-                      <h6 id="selectedConfig bg-dark"></h6>
-                    </div>
-
-
-                  </div>
+                <div class="modal-body bg-warning">
+                    <h6 id="currentConfig"></h6>
                 </div>
-                <div id="modalbody" class="modal-body">
-                  <div class="row">
-                    <div class="col-lg-3 text-right">
-                      <p>TYPE:</p>
-                    </div>
-                    <div class="col">
-                      <div class="btn-group" role="group">
-                        <div class="btn-group btn-group-toggle" role="group" aria-label="Button group with nested dropdown">
-                          <button id="btnGroupType" type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> choose type.. </button>
-                          <div class="dropdown-menu" aria-labelledby="btnGroupType">
-                            <a class="dropdown-item" href="#" id="type1">Key</a>
-                            <a class="dropdown-item" href="#" id="type2">Multimedia Key</a>
-                            <a class="dropdown-item" href="#" id="type3">MIDI Note</a>
-                            <a class="dropdown-item" href="#" id="type4">MIDI Control Change</a>
-                            <a class="dropdown-item" href="#" id="type5">MIDI Program Change</a>
-                          </div>
-                        </div>
-                      </div>
-                      <a id="dropdownTypeComment"></a>
-                    </div>
-                  </div>
+                <div class="modal-body bg-dark selectedConfig">
+                    <h6 class="text-light">New Config</h6> <h6 id="selectedConfig"></h6>
+                    <p>
+                      <span><i class="fa fa-check-circle icon-confirm edit" style="display:none;"></i></span>
+                    </p>
                 </div>
-                <div id="modalKeyValue" class="modal-body collapse">
-                  <div class="row">
-                    <div class="col-lg-3 text-right">
-                      <p id="dropdownTypeName">KEY:</p>
-                    </div>
-                    <div class="col">
-                      <div class="dropdown">
-                        <button id="selectedKey" type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> choose type.. </button>
-                        <div class="dropdown-menu scrollable-menu keys" role="menu">
-                          <li>
-                            <a href="#" id="1" >example</a>
-                          </li>
-                        </div>
+                <div  class="modal-body">
+                  <p>TYPE:</p>
+                  <div class="btn-group" role="group">
+                    <div class="btn-group btn-group-toggle" role="group" aria-label="Button group with nested dropdown">
+                      <button id="btnGroupType" type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> choose type.. </button>
+                      <div class="dropdown-menu" aria-labelledby="btnGroupType">
+                        <a class="dropdown-item" href="#" id="type1">Keyboard Stroke</a>
+                        <a class="dropdown-item" href="#" id="type2">Multimedia command</a>
+                        <a class="dropdown-item" href="#" id="type3">MIDI Note</a>
+                        <a class="dropdown-item" href="#" id="type4">MIDI Control Change</a>
+                        <a class="dropdown-item" href="#" id="type5">MIDI Program Change</a>
                       </div>
                     </div>
                   </div>
+                  <p>
+                    <a id="dropdownTypeComment"></a>
+                  </p>
+
                 </div>
-                <div id="modalModifierValue" class="modal-body collapse">
-                  <div class="row">
-                    <div class="col-lg-3 text-right">
-                      <p>Modifier:</p>
-                    </div>
-                    <div class="col-lg-4">
-                      <div class="modal-header">
-                        <div class="form-check">
 
-                          <label class="form-check-label badge dataType" ><input class="form-check-input" type="checkbox" value="" id="leftShift"> Left SHIFT </label>
-                        </div>
-                        <div class="form-check">
 
-                          <label class="form-check-label badge dataType" > <input class="form-check-input" type="checkbox" value="" id="rightShift">Right SHIFT </label>
-                        </div>
-                      </div>
-                      <div class="modal-header">
-                        <div class="form-check">
-
-                          <label class="form-check-label badge dataType" > <input class="form-check-input" type="checkbox" value="" id="leftControl">Left CONTROL </label>
-                        </div>
-                        <div class="form-check">
-
-                          <label class="form-check-label badge dataType" ><input class="form-check-input" type="checkbox" value="" id="rightControl"> Right CONTROL </label>
-                        </div>
-                      </div>
-                      <div class="modal-header">
-                        <div class="form-check">
-
-                          <label class="form-check-label badge dataType" ><input class="form-check-input" type="checkbox" value="" id="leftAlt"> Left ALT </label>
-                        </div>
-                        <div class="form-check">
-
-                          <label class="form-check-label badge dataType" ><input class="form-check-input" type="checkbox" value="" id="rightAlt"> Right ALT </label>
-                        </div>
-                      </div>
-                      <div class="modal-header">
-                        <div class="form-check">
-
-                          <label class="form-check-label badge dataType" ><input class="form-check-input" type="checkbox" value="" id="leftGui"> Left GUI (Win key) </label>
-                        </div>
-                        <div class="form-check">
-
-                          <label class="form-check-label badge dataType" > <input class="form-check-input" type="checkbox" value="" id="rightGui">Right GUI (Win key) </label>
-                        </div>
-                      </div>
+                <div class="modal-body collapse" id="modalKeyValue" >
+                  <p id="dropdownTypeName">KEY:</p>
+                  <div class="dropdown">
+                    <button id="selectedKey" type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> choose type.. </button>
+                    <div class="dropdown-menu scrollable-menu keys" role="menu">
+                      <li>
+                        <a href="#" id="1" >example</a>
+                      </li>
                     </div>
                   </div>
                 </div>
 
-                <div id="modalChannelValue" class="modal-body collapse">
-                  <div class="row">
-                    <div class="col-lg-3 text-right">
-                      <p>Channel:</p>
+
+
+                <div class="modal-body collapse" id="modalModifierValue">
+                  <p>Modifier:</p>
+                  <div class="modal-header">
+                    <div class="form-check">
+                      <label class="form-check-label badge dataType">
+                        <input class="form-check-input" type="checkbox" value="" id="leftShift"> Left SHIFT </label>
                     </div>
-                    <div class="col">
-                      <div class="dropdown">
+                    <div class="form-check">
+                      <label class="form-check-label badge dataType">
+                        <input class="form-check-input" type="checkbox" value="" id="rightShift">Right SHIFT </label>
+                    </div>
+                  </div>
+                  <div class="modal-header">
+                    <div class="form-check">
+                      <label class="form-check-label badge dataType">
+                        <input class="form-check-input" type="checkbox" value="" id="leftControl">Left CONTROL </label>
+                    </div>
+                    <div class="form-check">
+                      <label class="form-check-label badge dataType">
+                        <input class="form-check-input" type="checkbox" value="" id="rightControl"> Right CONTROL </label>
+                    </div>
+                  </div>
+                  <div class="modal-header">
+                    <div class="form-check">
+                      <label class="form-check-label badge dataType">
+                        <input class="form-check-input" type="checkbox" value="" id="leftAlt"> Left ALT </label>
+                    </div>
+                    <div class="form-check">
+                      <label class="form-check-label badge dataType">
+                        <input class="form-check-input" type="checkbox" value="" id="rightAlt"> Right ALT </label>
+                    </div>
+                  </div>
+                  <div class="modal-header">
+                    <div class="form-check">
+                      <label class="form-check-label badge dataType">
+                        <input class="form-check-input" type="checkbox" value="" id="leftGui"> Left GUI (Win key) </label>
+                    </div>
+                    <div class="form-check">
+                      <label class="form-check-label badge dataType">
+                        <input class="form-check-input" type="checkbox" value="" id="rightGui">Right GUI (Win key) </label>
+                    </div>
+                  </div>
+                </div>
+
+                  <div  class="modal-body collapse" id="modalChannelValue">
+                    <p>Channel:</p>
+                    <div class="dropdown">
                       <button id="selectedChannel" type="button" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> choose channel.. </button>
-                      <div class="dropdown-menu scrollable-menu channel" role="menu">
-                        <li><a href="#" class="dropdown-item" id="1">Channel 1</a></li>
-                        <li><a href="#" class="dropdown-item" id="2">Channel 2</a></li>
-                        <li><a href="#" class="dropdown-item" id="3" >Channel 3</a></li>
-                        <li><a href="#" class="dropdown-item" id="4" >Channel 4</a></li>
-                        <li><a href="#" class="dropdown-item" id="5" >Channel 5</a></li>
-                        <li><a href="#" class="dropdown-item" id="6" >Channel 6</a></li>
-                        <li><a href="#" class="dropdown-item" id="7" >Channel 7</a></li>
-                        <li><a href="#" class="dropdown-item" id="8" >Channel 8</a></li>
-                        <li><a href="#" class="dropdown-item" id="9" >Channel 9</a></li>
-                        <li><a href="#" class="dropdown-item" id="10" >Channel 10</a></li>
-                        <li><a href="#" class="dropdown-item" id="11" >Channel 11</a></li>
-                        <li><a href="#" class="dropdown-item" id="12" >Channel 12</a></li>
-                        <li><a href="#" class="dropdown-item" id="13" >Channel 13</a></li>
-                        <li><a href="#" class="dropdown-item" id="14" >Channel 14</a></li>
-                        <li><a href="#" class="dropdown-item" id="15" >Channel 15</a></li>
-                        <li><a href="#" class="dropdown-item" id="16" >Channel 16</a></li>
-                      </div>
-                    </div>
-
+                    <div class="dropdown-menu scrollable-menu channel" role="menu">
+                      <li><a href="#" class="dropdown-item" id="1">Channel 1</a></li>
+                      <li><a href="#" class="dropdown-item" id="2">Channel 2</a></li>
+                      <li><a href="#" class="dropdown-item" id="3" >Channel 3</a></li>
+                      <li><a href="#" class="dropdown-item" id="4" >Channel 4</a></li>
+                      <li><a href="#" class="dropdown-item" id="5" >Channel 5</a></li>
+                      <li><a href="#" class="dropdown-item" id="6" >Channel 6</a></li>
+                      <li><a href="#" class="dropdown-item" id="7" >Channel 7</a></li>
+                      <li><a href="#" class="dropdown-item" id="8" >Channel 8</a></li>
+                      <li><a href="#" class="dropdown-item" id="9" >Channel 9</a></li>
+                      <li><a href="#" class="dropdown-item" id="10" >Channel 10</a></li>
+                      <li><a href="#" class="dropdown-item" id="11" >Channel 11</a></li>
+                      <li><a href="#" class="dropdown-item" id="12" >Channel 12</a></li>
+                      <li><a href="#" class="dropdown-item" id="13" >Channel 13</a></li>
+                      <li><a href="#" class="dropdown-item" id="14" >Channel 14</a></li>
+                      <li><a href="#" class="dropdown-item" id="15" >Channel 15</a></li>
+                      <li><a href="#" class="dropdown-item" id="16" >Channel 16</a></li>
                     </div>
                   </div>
-                </div>
+
+                  </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                   <button type="button" class="btn btn-primary" disabled="true" id="applyEditBtn">Apply</button>
-                  <span><i class="fa fa-check-circle icon-confirm edit" style="display:none;"></i></span>
 
                 </div>
               </div>
