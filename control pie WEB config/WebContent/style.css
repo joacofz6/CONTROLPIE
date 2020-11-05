@@ -148,23 +148,8 @@ button {
   padding: 6px 0px;
   border-radius: 15px;
   text-align: center;
-  font-size: 15px;
-  line-height: 0;
-}
-
-.btn-circle-selected {
-  background: #ffd700 !important;
-  color: #171717 !important;
-  font-weight: 900;
-}
-.btn-circle-not-selected {
-  background:#443700;
-  color: #8e8374;
-  font-weight: 900;
-}
-.vl {
-  border-left: 6px solid #6c757d;
-  /* height: 5px; */
+  font-size: 12px;
+  line-height: 1.42857;
 }
 
 .infoTabla {
@@ -191,12 +176,12 @@ button {
   left: 8%;
   background: #17a2b8d4 color: #f1f1f1;
   width: 83%;
-  /* height: 40%; */
+  height: 40%;
   transition: .7s ease;
   opacity: 0;
   font-size: 24px;
-  padding: 0;
-  /* text-align: center; */
+  padding: 20px;
+  text-align: center;
 }
 
 /* When you mouse over the container, fade in the overlay title */
@@ -273,10 +258,10 @@ font-size: 22px !important;
 }
 
 .btn-ripple {
-  /* display: inline-block; */
-  /* position: relative; */
-  /* overflow: hidden; */
-  /* transition: all ease-in-out .5s; */
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  transition: all ease-in-out .5s;
 }
 
 .btn-ripple::after {
@@ -304,7 +289,7 @@ font-size: 22px !important;
 }
 
 .zoom {
-  transition: transform 1s;
+  transition: transform .3s;
   margin: 0 auto;
 }
 
@@ -367,7 +352,4 @@ font-size: 22px !important;
     height: auto;
     max-height: 200px;
     overflow-x: hidden;
-}
-.toast {
-    opacity: 1 !important;
 }
