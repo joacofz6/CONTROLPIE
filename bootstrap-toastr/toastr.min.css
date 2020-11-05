@@ -78,8 +78,8 @@ button.toast-close-button {
 }
 
 .toast-top-right {
-  top: 12px;
-  right: 12px
+  top: 100px;
+  right: 10px;
 }
 
 .toast-bottom-right {
