@@ -158,6 +158,127 @@ var keys = {
     "101": "MENU"
 }
 
+var keyCodes = {
+    "65|0": "4",
+    "66|0": "5",
+    "67|0": "6",
+    "68|0": "7",
+    "69|0": "8",
+    "70|0": "9",
+    "71|0": "10",
+    "72|0": "11",
+    "73|0": "12",
+    "74|0": "13",
+    "75|0": "14",
+    "76|0": "15",
+    "77|0": "16",
+    "78|0": "17",
+    "79|0": "18",
+    "80|0": "19",
+    "81|0": "20",
+    "82|0": "21",
+    "83|0": "22",
+    "84|0": "23",
+    "85|0": "24",
+    "86|0": "25",
+    "87|0": "26",
+    "88|0": "27",
+    "89|0": "28",
+    "90|0": "29",
+    "49|0": "30",
+    "50|0": "31",
+    "51|0": "32",
+    "52|0": "33",
+    "53|0": "34",
+    "54|0": "35",
+    "55|0": "36",
+    "56|0": "37",
+    "57|0": "38",
+    "48|0": "39",
+    "13|0": "40",
+    "13|3": "40",
+    "27|0": "41",
+    "8|0": "42",
+    "9|0": "43",
+    "32|0": "44",
+    "219|0": "45",
+    "221|0": "46",
+    "186|0": "47",
+    "187|0": "48",
+    "191|0": "49",
+    "144|0": "50",
+    "192|0": "51",
+    "222|0": "53",
+    "188|0": "54",
+    "190|0": "55",
+    "189|0": "56",
+    "20|0": "57",
+    "112|0": "58",
+    "113|0": "59",
+    "114|0": "60",
+    "115|0": "61",
+    "116|0": "62",
+    "117|0": "63",
+    "118|0": "64",
+    "119|0": "65",
+    "120|0": "66",
+    "121|0": "67",
+    "122|0": "68",
+    "123|0": "69",
+    "145|0": "71",
+    "19|0": "72",
+    "45|0": "73",
+    "36|0": "74",
+    "33|0": "75",
+    "46|0": "76",
+    "36|0": "77",
+    "34|0": "78",
+    "39|0": "79",
+    "37|0": "80",
+    "40|0": "81",
+    "38|0": "82",
+    "39|0": "79",
+    "37|0": "80",
+    "40|0": "81",
+    "38|0": "82",
+    "144|0": "83",
+    "111|3": "84",
+    "106|3": "85",
+    "109|3": "86",
+    "107|3": "87",
+    "13|3": "88",
+    "97|3": "89",
+    "98|3": "90",
+    "99|3": "91",
+    "100|3": "92",
+    "101|3": "93",
+    "102|3": "94",
+    "103|3": "95",
+    "104|3": "96",
+    "105|3": "97",
+    "96|3": "98",
+    "110|3": "99",
+    "91|1": "101"
+
+}
+
+var mediaKeyCodes = {
+    "48|0": "48",
+    "50|0": "50",
+    "178|": "178",
+    "179|": "179",
+    "180|": "180",
+    "176|0": "181",
+    "177|0": "182",
+    "178|0": "183",
+    "179|0": "205",
+    "176|": "176",
+    "173|0": "226",
+    "175|0": "233",
+    "174|0": "234"
+
+}
+
 function onMIDISuccess(midiAccess) {
     // document.querySelector('body').innerHTML = 'Press any note to begin...';
     midi = midiAccess;
@@ -198,7 +319,7 @@ function onMIDISuccess(midiAccess) {
 
 function showCtrlPieConnected() {
     $('#alertConnect').hide();
-    $("#lowPanel").removeClass("invisible");
+    $(".lowPanel").removeClass("invisible");
     $('#infoAlertConnect').show();
     $('#infoSelPreset').collapse('show');
 }
@@ -335,6 +456,12 @@ function getCTRLPIEmsg(message) {
 }
 
 function bindButtons() {
+
+    $(".modal").on("shown.bs.modal", function () {
+    if ($(".modal-backdrop").length > 1) {
+        $(".modal-backdrop").not(':first').remove();
+    }
+    })
     $('[id^="showBtn"]').click(function() {
 
         resetSelectedConfig(true);
@@ -357,6 +484,8 @@ function bindButtons() {
         showBtnConfig("6");
     });
     $("[id^=preset]").click(function() {
+//         $('#collapsePresets').hide(100)
+        $('#lowPanel').fadeOut(50)
         $('.starting-title').text("Preset:");
         presetSelected = (($(this).prop('id')).slice(-1));
         var msg1 = [0xBF, 0x1C, presetSelected];
@@ -366,20 +495,32 @@ function bindButtons() {
         updatePresetCardTitle()
         showAllPresetData();
         console.log(presetSelected);
+//         $('#collapsePresets').show(100,function (e){showContent()})
+    $('#lowPanel').fadeIn(423)
     });
+
     $('#btnBank1').click(function() {
+        if($('#collapsePresets').is(":visible")){
+            
+            $('#collapsePresets').fadeOut(100,function (e){
+//                 hideContent()
+                ;})            
+        }
+
+//         hideContent()
+         
         $('#btnBank1').removeClass("btn-dark");
-        $('#btnBank1').addClass("btn-success");
+        $('#btnBank1').addClass("btn-info");
         $('#btnBank2').addClass("btn-dark");
-        $('#btnBank2').removeClass("btn-success");
+        $('#btnBank2').removeClass("btn-info");
         $('#bankInfo').text("EDITING BANK 1");
         currentBank = 0;
         // para bank 1
         currentBankName = "1";
         $("#imgPresetsTop").attr("src", "leds-presets-" + presetSelected + ".png");
         populateDashboard(presetSelected, currentBank);
-        $('#collapsePresets').addClass("show");
-        $('#infoSelPreset').collapse('hide');
+//         $('#collapsePresets').addClass("show");
+//         $('#infoSelPreset').collapse('hide');
         showAllPresetData();
         updatePresetCardTitle();
         //BF	1C	07 para bank 1
@@ -387,19 +528,34 @@ function bindButtons() {
         var msg1 = [0xBF, 0x1C, 6 + 1];
         //BF	1C	07 para bank 1
         sendMessageToCtrlPie(msg1);
+//         $('#collapsePresets').fadeIn(356)
+        $('#collapsePresets').fadeIn(100,function (e){showContent()})
+
+       
     });
+
+
     $('#btnBank2').click(function() {
+        if($('#collapsePresets').is(":visible")){
+           $('#collapsePresets').fadeOut(100,function (e){
+//                hideContent();
+               })                 
+
+        }
+//         $('#collapsePresets').fadeOut(100)
+//         hideContent()
+//         $('#collapsePresets').hide()
         $('#btnBank2').removeClass("btn-dark");
-        $('#btnBank2').addClass("btn-success");
+        $('#btnBank2').addClass("btn-info");
         $('#btnBank1').addClass("btn-dark");
-        $('#btnBank1').removeClass("btn-success");
+        $('#btnBank1').removeClass("btn-info");
         $('#bankInfo').text("EDITING BANK 2");
         currentBank = 240;
         //240 para bank 2
         currentBankName = "2";
         $("#imgPresetsTop").attr("src", "leds-presets-" + presetSelected + "b2.png");
         populateDashboard(presetSelected, currentBank);
-        $('#collapsePresets').addClass("show");
+//         $('#collapsePresets').addClass("show");
         showAllPresetData();
         updatePresetCardTitle();
         //BF	1C	07 para bank 1
@@ -407,9 +563,9 @@ function bindButtons() {
         var msg1 = [0xBF, 0x1C, 6 + 2];
         //BF	1C	08 para bank 2
         sendMessageToCtrlPie(msg1);
+        $('#collapsePresets').fadeIn(356,function (e){showContent();})
     });
 
-    
     $('#leftShift').click(function() {
         setModifiers()
     });
@@ -417,7 +573,7 @@ function bindButtons() {
         setModifiers()
     });
     $('#leftAlt').click(function() {
-       setModifiers()
+        setModifiers()
     });
     $('#rightAlt').click(function() {
         setModifiers()
@@ -435,23 +591,25 @@ function bindButtons() {
         setModifiers()
     });
     $('#editPress').click(function() {
-        updateCurrentConfig(false);
         //boolean indicates type of button (pulse or hold)
+        editingHold = false;
+        updateCurrentConfig(editingHold);
         $('#btnConfigTitle').html('Action for Button: <span class="text-danger">' + buttonPressed + '</span> | PRESET <span class="text-danger">' + presetSelected + '</span> | BANK <span class="text-danger">' + currentBank + '</span>  (when pushed shortly)');
         $('#editHeading').removeClass('bg-hold');
         $('#editHeading').addClass('bg-press');
         $('#editHeading').removeClass('text-dark');
         $('#editHeading').addClass('text-light');
-        editingHold = false;
+
     });
     $('#editHold').click(function() {
-        updateCurrentConfig(true);
+        editingHold = true;
+        updateCurrentConfig(editingHold);
         $('#btnConfigTitle').html('Action for Button: <span class="text-danger">' + buttonPressed + '</span> | PRESET <span class="text-danger">' + presetSelected + '</span> | BANK <span class="text-danger">' + currentBank + '</span>  (when push and hold)');
         $('#editHeading').removeClass('bg-press');
         $('#editHeading').addClass('bg-hold');
         $('#editHeading').removeClass('text-light');
         $('#editHeading').addClass('text-dark');
-        editingHold = true;
+
     });
     //TYPE SELECTOR IN EDIT BUTTON
     $("[id^=type]").click(function() {
@@ -482,12 +640,16 @@ function bindButtons() {
         // $('#btnGroupType').addClass("btn-success");
         // $('#modalModifierValue').collapse('hide');
         // $('#modalChannelValue').collapse('hide');
-        console.log(typeSelected);
+        console.log('type selected: ' + typeSelected);
         updateSelectedConfig();
     });
 
     $('#applyEditBtn').click(function() {
-        $('#editBtnModal').modal('hide');
+//         $('#editBtnModal').modal('hide');
+//         if ($('.modal-backdrop').is(':visible')) {
+//           $('body').removeClass('modal-open');
+//           $('.modal-backdrop').remove();
+//         };
         applyEditBtnData();
     });
     $('#btnSaveAllPresetsToFile').click(function() {
@@ -549,93 +711,259 @@ function bindButtons() {
     });
 
 }
+function hideContent(){
+    
+    $('.presetBtnActions').fadeOut();
+    $('.infoCard').fadeOut();
+    
+}
+function showContent(){
+    let timer = 1123
+    $('.presetBtnActions').fadeIn(timer,function (e){
+        
+            $('.infoCard').fadeIn(timer);
+        
+    });
+    
+    
+    
+}
 
-function setModifiers(){
-        if ($('#leftShift').is(':checked')) {
-            modifierSelected = modifierSelected | left_shift;
-        } else {
-            if (modifierSelected & left_shift){
-                modifierSelected = modifierSelected ^ left_shift;
-            }
-            
+function setModifiers() {
+    if ($('#leftShift').is(':checked')) {
+        modifierSelected = modifierSelected | left_shift;
+    } else {
+        if (modifierSelected & left_shift) {
+            modifierSelected = modifierSelected ^ left_shift;
         }
-        console.log(modifierSelected);
-        selectedModifierText = getModifierValue(1, modifierSelected);
-        updateSelectedConfig();
-        if ($('#rightShift').is(':checked')) {
-            modifierSelected = modifierSelected | right_shift;
-        } else {
-            if (modifierSelected & right_shift){
-                modifierSelected = modifierSelected ^ right_shift;
-            }
-            
-        }
-        console.log(modifierSelected);
-        selectedModifierText = getModifierValue(1, modifierSelected);
-        updateSelectedConfig();
-         if ($('#leftAlt').is(':checked')) {
-            modifierSelected = modifierSelected | left_alt;
-        } else {
-            if (modifierSelected & left_alt){
-                modifierSelected = modifierSelected ^ left_alt;
-            }
-           
-        }
-        console.log(modifierSelected);
-        selectedModifierText = getModifierValue(1, modifierSelected);
-        updateSelectedConfig();
-        if ($('#rightAlt').is(':checked')) {
-            modifierSelected = modifierSelected | right_alt;
-        } else {
-           if (modifierSelected & right_alt){
-                modifierSelected = modifierSelected ^ right_alt;
-            }
-        }
-        console.log(modifierSelected);
-        selectedModifierText = getModifierValue(1, modifierSelected);
-        updateSelectedConfig();
-        if ($('#leftControl').is(':checked')) {
-            modifierSelected = modifierSelected | left_ctrl;
-        } else {
-            if (modifierSelected & left_ctrl){
-                modifierSelected = modifierSelected ^ left_ctrl;
-            }
-        }
-        console.log(modifierSelected);
-        selectedModifierText = getModifierValue(1, modifierSelected);
-        updateSelectedConfig();
-        if ($('#rightControl').is(':checked')) {
-            modifierSelected = modifierSelected | right_ctrl;
-        } else {
-            if (modifierSelected & right_ctrl){
-                modifierSelected = modifierSelected ^ right_ctrl;
-            }
-        }
-        console.log(modifierSelected);
-        selectedModifierText = getModifierValue(1, modifierSelected);
-        updateSelectedConfig();
-        if ($('#leftGui').is(':checked')) {
-            modifierSelected = modifierSelected | left_gui;
-        } else {
-            if (modifierSelected & left_gui){
-                modifierSelected = modifierSelected ^ left_gui;
-            }
-        }
-        console.log(modifierSelected);
-        selectedModifierText = getModifierValue(1, modifierSelected);
-        updateSelectedConfig();
-        if ($('#rightGui').is(':checked')) {
-            modifierSelected = modifierSelected | right_gui;
-        } else {
-            if (modifierSelected & right_gui){
-                modifierSelected = modifierSelected ^ right_gui;
-            }
-        }
-        console.log(modifierSelected);
-        selectedModifierText = getModifierValue(1, modifierSelected);
-        updateSelectedConfig();
 
     }
+    console.log(modifierSelected);
+    selectedModifierText = getModifierValue(1, modifierSelected);
+    updateSelectedConfig();
+    if ($('#rightShift').is(':checked')) {
+        modifierSelected = modifierSelected | right_shift;
+    } else {
+        if (modifierSelected & right_shift) {
+            modifierSelected = modifierSelected ^ right_shift;
+        }
+
+    }
+    console.log(modifierSelected);
+    selectedModifierText = getModifierValue(1, modifierSelected);
+    updateSelectedConfig();
+    if ($('#leftAlt').is(':checked')) {
+        modifierSelected = modifierSelected | left_alt;
+    } else {
+        if (modifierSelected & left_alt) {
+            modifierSelected = modifierSelected ^ left_alt;
+        }
+
+    }
+    console.log(modifierSelected);
+    selectedModifierText = getModifierValue(1, modifierSelected);
+    updateSelectedConfig();
+    if ($('#rightAlt').is(':checked')) {
+        modifierSelected = modifierSelected | right_alt;
+    } else {
+        if (modifierSelected & right_alt) {
+            modifierSelected = modifierSelected ^ right_alt;
+        }
+    }
+    console.log(modifierSelected);
+    selectedModifierText = getModifierValue(1, modifierSelected);
+    updateSelectedConfig();
+    if ($('#leftControl').is(':checked')) {
+        modifierSelected = modifierSelected | left_ctrl;
+    } else {
+        if (modifierSelected & left_ctrl) {
+            modifierSelected = modifierSelected ^ left_ctrl;
+        }
+    }
+    console.log(modifierSelected);
+    selectedModifierText = getModifierValue(1, modifierSelected);
+    updateSelectedConfig();
+    if ($('#rightControl').is(':checked')) {
+        modifierSelected = modifierSelected | right_ctrl;
+    } else {
+        if (modifierSelected & right_ctrl) {
+            modifierSelected = modifierSelected ^ right_ctrl;
+        }
+    }
+    console.log(modifierSelected);
+    selectedModifierText = getModifierValue(1, modifierSelected);
+    updateSelectedConfig();
+    if ($('#leftGui').is(':checked')) {
+        modifierSelected = modifierSelected | left_gui;
+    } else {
+        if (modifierSelected & left_gui) {
+            modifierSelected = modifierSelected ^ left_gui;
+        }
+    }
+    console.log(modifierSelected);
+    selectedModifierText = getModifierValue(1, modifierSelected);
+    updateSelectedConfig();
+    if ($('#rightGui').is(':checked')) {
+        modifierSelected = modifierSelected | right_gui;
+    } else {
+        if (modifierSelected & right_gui) {
+            modifierSelected = modifierSelected ^ right_gui;
+        }
+    }
+    console.log(modifierSelected);
+    selectedModifierText = getModifierValue(1, modifierSelected);
+    updateSelectedConfig();
+
+}
+
+var keyIsPressed=false;
+var ShiftLeft = false;
+var ControlLeft= false;
+var AltLeft= false;
+var MetaLeft= false;
+var ShiftRight= false;
+var ControlRight= false;
+var AltRight= false;
+var MetaRight= false;
+
+function handleKeyUp(){
+    $("body").keyup(function(e) {
+        keyIsPressed=false;
+        if (e.originalEvent.code == 'ShiftLeft') {
+            ShiftLeft=false;
+        }
+        if (e.originalEvent.code == 'ControlLeft') {
+            ControlLeft=false;
+        }
+        if (e.originalEvent.code == 'AltLeft') {
+            AltLeft=false;
+        }
+        if (e.originalEvent.code == 'MetaLeft') {
+            MetaLeft=false;
+        }
+        if (e.originalEvent.code == 'ShiftRight') {
+            ShiftRight=false;
+        }
+        if (e.originalEvent.code == 'ControlRight') {
+            ControlRight=false;
+        }
+        if (e.originalEvent.code == 'AltRight') {
+            AltRight=false;
+        }
+        if (e.originalEvent.code == 'MetaRight') {
+            MetaRight=false;
+        }
+
+    });
+
+}
+function handleKeyPress(){
+    $("body").keydown(function(e) {
+        let keyCode = e.originalEvent.keyCode;
+
+        if ($('#editBtnModal').hasClass('show')) {
+            if(keyCode>= 173 && keyCode<=180){
+                if(typeSelected != 2){
+                    $('#type2').click();
+                }
+
+            }else if(keyCode!=16&&keyCode!=17&&keyCode!=18&&keyCode!=91&&keyCode!=93&&keyCode!=92){
+                if(typeSelected != 1){
+                    $('#type1').click();
+                }
+            }
+
+            if ((typeSelected == 1 || typeSelected == 2)) {
+                if (e.originalEvent.code == 'ShiftLeft' && !ShiftLeft) {
+                    ShiftLeft = true;
+                    if ($('#leftShift').is(":checked")) {
+                        $('#leftShift').prop("checked", false)
+                    } else {
+                        $('#leftShift').prop("checked", true)
+                    }
+                }
+                if (e.originalEvent.code == 'ControlLeft' && !ControlLeft) {
+                    ControlLeft = true;
+                    if ($('#leftControl').is(":checked")) {
+                        $('#leftControl').prop("checked", false)
+                    } else {
+                        $('#leftControl').prop("checked", true)
+                    }
+                }
+                if (e.originalEvent.code == 'AltLeft' && !AltLeft) {
+                    AltLeft = true;
+                    if ($('#leftAlt').is(":checked")) {
+                        $('#leftAlt').prop("checked", false)
+                    } else {
+                        $('#leftAlt').prop("checked", true)
+                    }
+                }
+                if (e.originalEvent.code == 'MetaLeft' && !MetaLeft) {
+                    MetaLeft = true;
+                    if ($('#leftGui').is(":checked")) {
+                        $('#leftGui').prop("checked", false)
+                    } else {
+                        $('#leftGui').prop("checked", true)
+                    }
+                }
+
+                if (e.originalEvent.code == 'ShiftRight' && !ShiftRight) {
+                    ShiftRight = true;
+                    if ($('#rightShift').is(":checked")) {
+                        $('#rightShift').prop("checked", false)
+                    } else {
+                        $('#rightShift').prop("checked", true)
+                    }
+                }
+                if (e.originalEvent.code == 'ControlRight' && !ControlRight) {
+                    ControlRight = true;
+                    if ($('#rightControl').is(":checked")) {
+                        $('#rightControl').prop("checked", false)
+                    } else {
+                        $('#rightControl').prop("checked", true)
+                    }
+                }
+                if (e.originalEvent.code == 'AltRight' && !AltRight) {
+                    AltRight = true;
+                    if ($('#rightAlt').is(":checked")) {
+                        $('#rightAlt').prop("checked", false)
+                    } else {
+                        $('#rightAlt').prop("checked", true)
+                    }
+                }
+                if (e.originalEvent.code == 'MetaRight' && !MetaRight) {
+                    MetaRight = true;
+                    if ($('#rightGui').is(":checked")) {
+                        $('#rightGui').prop("checked", false)
+                    } else {
+                        $('#rightGui').prop("checked", true)
+                    }
+                }
+
+                setModifiers()
+                e.preventDefault();
+
+                e.stopPropagation();
+                //             return false;
+
+                if (typeSelected == 1) {
+                    let idSelector = keyCodes[e.originalEvent.keyCode + '|' + e.originalEvent.location];
+                    $('#' + idSelector).click();
+                }
+                if (typeSelected == 2) {
+                    let idSelector = mediaKeyCodes[e.originalEvent.keyCode + '|' + e.originalEvent.location];
+                    $('#' + idSelector).click();
+                }
+
+                console.log("location: " + e.originalEvent.location);
+                console.log("keycode: " + e.originalEvent.keyCode);
+                console.log("keydown: " + e.originalEvent.code);
+                console.log()
+            }
+        }
+    keyIsPressed = true;
+    });
+}
 
 $(document).ready(function() {
     // ESTO PREVIENE QUE SE EJECUTEN ESTOS JQUERY ANTES DE QUE CARGUE LA PAGINA
@@ -657,52 +985,11 @@ $(document).ready(function() {
     //         console.log("keydown: " +e.originalEvent.code);
     //     });
 
-    $("#editBtnModal").keydown(function(e) {
-        //     if (e.which > 90 || (e.which > 48 && e.which < 65)) {
-            if (e.originalEvent.code == 'ShiftLeft') {
-            if ($('#leftShift').is(":checked")) {
-                $('#leftShift').prop("checked", false)
-            } else {
-                $('#leftShift').prop("checked", true)
-            }
-        } 
-        if (e.originalEvent.code == 'ControlLeft') {
-            if ($('#leftControl').is(":checked")) {
-                $('#leftControl').prop("checked", false)
-            } else {
-                $('#leftControl').prop("checked", true)
-            }
-        }
-        if (e.originalEvent.code == 'AltLeft') {
-            if ($('#leftAlt').is(":checked")) {
-                $('#leftAlt').prop("checked", false)
-            } else {
-                $('#leftAlt').prop("checked", true)
-            }
-        }
-        if (e.originalEvent.code == 'MetaLeft') {
-            if ($('#leftGui').is(":checked")) {
-                $('#leftGui').prop("checked", false)
-            } else {
-                $('#leftGui').prop("checked", true)
-            }
-        }
-        setModifiers()
-        e.preventDefault();
-
-        e.stopPropagation();
-        //             return false;
-        
-
-        console.log("location: " + e.originalEvent.location);
-        console.log("keydown: " + e.originalEvent.keyCode);
-        console.log("keydown: " + e.originalEvent.code);
-
-        //     }
-
-    });
+    handleKeyPress();
+    handleKeyUp();
 
     bindButtons();
+//     $('#lowPanel').hide()
 
     toastr.options = {
         positionClass: "toast-top-right",

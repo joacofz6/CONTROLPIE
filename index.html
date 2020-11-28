@@ -22,39 +22,48 @@
   </head>
 
   <body>
-    <div style="background:transparent !important" class="text-center">
-      <!-- <h3 style="color: antiquewhite" ;>CONTROL PIE CONFIGURATOR</h3> -->
-      <img alt="CONTROL PIE" src="TITLE.png" class="img-fluid" ;>
-      <!-- <img alt="CONTROL PIE" src="pedal.jpg" class="rounded img-fluid" ;> -->
-    </div>
-    <!-- NOTE: IMAGEN Y TITULO -->
-    <div id="demo" class="carousel slide" data-ride="carousel">
-      <!-- Indicators -->
-      <!-- The slideshow -->
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img src="img/fnd1.jpg" alt="1">
-        </div>
-        <div class="carousel-item">
-          <img src="img/fnd2.jpg" alt="2">
-        </div>
-        <div class="carousel-item">
-          <img src="img/fnd3.jpg" alt="3">
-        </div>
-        <div class="carousel-item">
-          <img src="img/fnd4.jpg" alt="4">
-        </div>
-        <div class="carousel-item">
-          <img src="img/fnd5.jpg" alt="5">
+    <div class="row">
+      <div class="col-md-12">
+        <div style="background:transparent !important" class="text-center">
+          <!-- <h3 style="color: antiquewhite" ;>CONTROL PIE CONFIGURATOR</h3> -->
+          <img alt="CONTROL PIE" src="TITLE.png" class="img-fluid" ;>
+          <!-- <img alt="CONTROL PIE" src="pedal.jpg" class="rounded img-fluid" ;> -->
         </div>
       </div>
-      <!-- Left and right controls -->
     </div>
+    <div class="row">
+      <div class="rom-md-12">
+        <div id="demo" class="carousel slide" data-ride="carousel">
+          <!-- Indicators -->
+          <!-- The slideshow -->
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="img/fnd1.jpg" alt="1">
+            </div>
+            <div class="carousel-item">
+              <img src="img/fnd2.jpg" alt="2">
+            </div>
+            <div class="carousel-item">
+              <img src="img/fnd3.jpg" alt="3">
+            </div>
+            <div class="carousel-item">
+              <img src="img/fnd4.jpg" alt="4">
+            </div>
+            <div class="carousel-item">
+              <img src="img/fnd5.jpg" alt="5">
+            </div>
+          </div>
+          <!-- Left and right controls -->
+        </div>
+      </div>
+    </div>
+
+    <!-- NOTE: IMAGEN Y TITULO -->
+
     <!-- NOTE: END CAROUSEL -->
-    <div class="container-fluid">
-      <!-- NOTE: MAIN PANEL after image -->
-      <div class="text-center">
-        <div id="alertConnect">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="text-center" id="alertConnect">
           <div class="row ">
             <div class="col-lg-12">
               <h4 style="color: #faebd7">Please connect your CONTROL PIE to USB PORT.</h4>
@@ -71,7 +80,10 @@
           </div>
         </div>
       </div>
-      <div class="invisible" id="lowPanel">
+    </div>
+
+    <div class="row invisible lowPanel">
+      <div class="col-md-12">
         <div class="card-block">
           <div class="row rounded">
             <div class="col-lg-6 bg-secondary">
@@ -98,7 +110,7 @@
                   </div>
                    -->
                    <div class="row">
-                     <h4 class="starting-title text-light">  <span class="badge badge-secondary">Start by choosing preset and bank </span><i class="fa fa-arrow-right"></i></h4>
+                     <h4 class="starting-title text-light" style="padding-right:10px;">  <span class="badge badge-secondary">Start by choosing preset and bank </span><i class="fa fa-arrow-right"></i></h4>
                      <button id="preset1" class=" btn  btn-circle btn-lg btn-circle-not-selected " type="button" aria-expanded="false" > 1 </button>
                      <button id="preset2" class=" btn  btn-circle btn-lg btn-circle-not-selected " type="button" aria-expanded="false" > 2 </button>
                      <button id="preset3" class=" btn  btn-circle btn-lg btn-circle-not-selected " type="button" aria-expanded="false" > 3 </button>
@@ -130,9 +142,22 @@
             </div>
           </div>
         </div> <!-- NOTE: END OF MAIN BUTTONS CARD -->
+      </div>
+    </div> <!-- NOTE: end of ROR for preset buttons and indicators -->
+
+
+
+    <div class="container-fluid">
+      <!-- NOTE: MAIN PANEL after image -->
+
+      <div class="invisible lowPanel" id="lowPanel">
+
+        <div class="col-12">
+
+
         <div class="collapse" id="collapsePresets">
           <div class="card-group">
-              <div class="card bg-dark col-lg-4">
+              <div class="card bg-dark col-lg-4 presetBtnActions">
                 <div class="card-body text-center">
                   <!-- NOTE: content of button picker starts here -->
                   <h5 id="presetSelected" class="card-title bg-info rounded"></h5>
@@ -182,7 +207,7 @@
               </div>
               <div id="btnPressed" class="overlay text-dark align-middle" style="padding:0;!important"></div>
             </div>
-            <div class="btn-group flex-wrap btn-group-justified">
+            <div class="btn-group flex-wrap btn-group-justified btnbtn">
               <a class="btn btn-light btn-ripple btn-xs zoom" href="#" id="showBtn1">Button 1</a>
               <a class="btn btn-light btn-ripple btn-xs zoom" href="#" id="showBtn2">Button 2</a>
               <a class="btn btn-light btn-ripple btn-xs zoom" href="#" id="showBtn3">Button 3</a>
@@ -195,7 +220,7 @@
             </div>
           </div>
 
-          <div class="card-body text-center">
+          <div class="card-body text-center ">
             <div class="col">
               <div class="list-unstyled group">
                 <a href="#" class="list-group-item list-group-item-action zoom">SAVE AND LOAD PRESETS</a>
@@ -218,10 +243,10 @@
                 <h5 id="overallPresetInfo" class="card-title text-center bg-info rounded">OVERALL PRESET INFO</h5>
                 <!-- NOTE: begin of button contents -->
                 <div class="card-block">
-                  <div class="row">
+                  <div class="row infoCard">
                     <div class="col">
                       <ul id="btnInfo1" class="list-unstyled zoom">
-                        <li class="infoHeader headerRow rounded  text-light txt-bold bg-press"><div class="row"><div class="col">BUTTON <span class="text-danger">1</span>  PRESSED  - <i class="fa fa-arrow-down" aria-hidden="true"></i> <i class="fa fa-arrow-up" aria-hidden="true"></i> </div><div class="col text-right press1"> <i class="fa fa-exclamation-triangle icon-altered blink"></i></div>  <div class="col press1"><span>(modified)</span></div></div></li>
+                        <li class="infoHeader headerRow rounded  text-light txt-bold bg-press"><div class="row"><div class="col">BUTTON <span class="text-danger">1</span>  PRESSED  - <i class="fa fa-arrow-down" aria-hidden="true"></i> <i class="fa fa-arrow-up" aria-hidden="true"></i> <span> <i class="text-right press1 fa fa-exclamation-triangle icon-altered blink"></i> </span> </div>   </li>
                         <li id="btn1PressType" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">CONFIG:<span id="btn1PressTypeVal" class="badge infoType badge-pill"></span></li>
                         <!-- <li id="btn1PressType" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">TYPE: <span id="btn1PressTypeVal" class="badge infoType badge-pill"></span></li>
                         <li id="btn1PressModifier" class="infoTabla d-flex justify-content-between align-items-center rowInfo ">MODIFIER: <span id="btn1PressModVal" class="badge dataType badge-pill"></span> </li>
@@ -253,7 +278,7 @@
                   <div class="row">
                     <br>
                   </div>
-                  <div class="row">
+                  <div class="row infoCard">
                   <div class="col">
                       <ul id="btnInfo3" class="list-unstyled zoom">
                         <li id="press3"class="infoHeader headerRow rounded  text-light  txt-bold bg-press"><div class="row"><div class="col">BUTTON <span class="text-danger">3</span> PRESSED </div><div class="col text-right press3"> <i class="fa fa-exclamation-triangle icon-altered blink"></i></div>  <div class="col press3"><span>(modified)</span></div></div></li>
@@ -285,7 +310,7 @@
                   <div class="row">
                     <br>
                   </div>
-                  <div class="row">
+                  <div class="row infoCard">
                   <div class="col">
                       <ul id="btnInfo5" class="list-unstyled zoom">
                         <li id="press5"class="infoHeader headerRow rounded  text-light txt-bold  bg-press"><div class="row"><div class="col">BUTTON <span class="text-danger">5</span> PRESSED  - <i class="fa fa-arrow-down" aria-hidden="true"></i> <i class="fa fa-arrow-up" aria-hidden="true"></i> </div><div class="col text-right press5"> <i class="fa fa-exclamation-triangle icon-altered blink"></i></div>  <div class="col press5"><span>(modified)</span></div></div></li>
@@ -329,9 +354,9 @@
                                 <div class="card-body bg-press">
                                   <h5 class="card-title press">...</h5>
                                   <h6 class="card-subtitle mb-2 text-muted configPress">MOD:</h6>
-                                  <p class="text-dark">...</p>
-                                  <a data-toggle="modal" data-target="#editBtnModal" href="#" class="btn btn-light btn-xs" id="editPress">EDIT</a>
-                                  <a href="#" class="btn btn-light btn-xs">ASSIGN MIDI LEARN</a>
+                                  <!-- <p class="text-dark">...</p> -->
+                                  <a data-toggle="modal" data-target="#editBtnModal" href="#" class="btn btn-info btn-xs" id="editPress">EDIT</a>
+                                  <a href="#" class="btn btn-info btn-xs">ASSIGN MIDI LEARN</a>
                                 </div>
                               </div>
                             </div>
@@ -340,21 +365,39 @@
                                 <div class="card-body bg-hold">
                                   <h5 class="card-title hold">...</h5>
                                   <h6 class="card-subtitle mb-2 text-muted configHold">MOD:</h6>
-                                  <p class="text-dark">...</p>
+                                  <!-- <p class="text-dark">...</p> -->
                                   <a data-toggle="modal" data-target="#editBtnModal" href="#" class="btn btn-dark btn-xs" id="editHold">EDIT</a>
                                   <a href="#" class="btn btn-dark btn-xs">ASSIGN MIDI LEARN</a>
                                 </div>
                               </div>
                             </div>
                           </div>
-                          <div class="row">
-                            <div class="col">
-                              <div class="list-group">
+                          <div class="row" style="justify-content: space-evenly;  text-align: center;">
+                            <div class="col-12" style="padding-top: 5px; ">
+<!--                               <div class="list-group">
                                 <a id="backToAll" href="#" class="list-group-item list-group-item-action">CANCEL</a>
                                 <a href="#" class="list-group-item list-group-item-action list-group-item-success">SAVE THIS BUTTON CONFIG</a>
                                 <a href="#" class="list-group-item list-group-item-action list-group-item-secondary">COPY CURRENT BUTTON CONFIG</a>
                                 <a href="#" class="list-group-item list-group-item-action list-group-item-info">RESTORE CURRENT BUTTON CONFIG</a>
+                              </div> -->
+                              <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups" style="justify-content: center;">
+                              <div class="btn-group mr-1" role="group" aria-label="First group">                                
+                                <button type="button" class="btn btn-success">UPLOAD BUTTON</button>
                               </div>
+                              <div class="btn-group mr-1" role="group" aria-label="First group">
+                                <button type="button" class="btn btn-light">COPY SHORT </button>
+                              </div>
+                              <div class="btn-group mr-1" role="group" aria-label="First group">
+                                <button type="button" class="btn btn-light">COPY LONG </button>
+                              </div>
+                              <div class="btn-group mr-3" role="group" aria-label="First group">
+                                <button type="button" class="btn btn-warning">REVERT BUTTON </button>
+                              </div>
+                              <div class="btn-group mr-1" role="group" aria-label="Second group">
+                                <button type="button" class="btn btn-secondary">CANCEL</button>                                
+                              </div>
+                             
+                            </div>
                             </div>
                           </div>
                         </div>
@@ -392,13 +435,18 @@
                   </div>
                 </div> <!-- NOTE: END OF DOUBLE MAIN CARD GROUP -->
                 <div class="row">
-                  <h5 id="infoSelPreset" class="card-title bg-outline-dark rounded collapse">SELECT PRESET AND BANK TO EDIT</h5>
+                <div class="bg-dark" style="padding-left:150px;padding-right:150px">
+                <h5 id="infoSelPreset" class="bg-outline-dark ">SELECT PRESET AND BANK TO EDIT</h5>
+                </div>
+
+
                 </div>
               </div>
-            </div> <!-- NOTE: END Of lowPanel -->
+            </div> <!-- NOTE: END Of lowPanel Collapse presets-->
+            </div>
           </div> <!-- NOTE: END OF MAIN CONTAINER -->
           <!-- NOTE: NODALS -->
-          <div class="modal hide fade bd-example-modal-xl" id="editBtnModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
+          <div class="modal fade bd-example-modal-xl " id="editBtnModal" aria-hidden="true" >
             <div class="modal-dialog modal-dialog-centered modal-xl" role="document" >
               <div class="modal-content">
                 <div id="editHeading" class="modal-header">
@@ -530,7 +578,7 @@
 
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                      <button type="button" class="btn btn-primary" disabled="true" id="applyEditBtn">Apply</button>
+                      <button type="button" class="btn btn-primary" data-dismiss="modal" disabled="true" id="applyEditBtn">Apply</button>
 
                     </div>
                   </div> <!-- NOTE: END of modal row config -->

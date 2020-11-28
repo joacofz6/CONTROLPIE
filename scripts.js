@@ -369,6 +369,11 @@ function showBtnConfig() {
     udpateCurrentBtnTitle();
     $('.card-title.press').html('Button <span class="text-info">' + buttonPressed + ' short </span>press');
     $('.card-title.hold').html('Button <span class="text-info">' + buttonPressed + ' long </span>press')
+    $('.card-title').remove('bg-dark blink')
+    $('.card-title.press').removeClass('bg-dark')
+    $('.card-title.press').removeClass('blink')
+    $('.card-title.hold').removeClass('bg-dark')
+    $('.card-title.hold').removeClass('blink')
 
     $('#showBtn' + buttonPressed).removeClass("btn-light")
     $('#showBtn' + buttonPressed).addClass("btn-dark")
@@ -380,11 +385,15 @@ function showBtnConfig() {
 
     if (compareData(address, behave, false)) {
         //false  means this button was edited for short
-        $('.card-title.press').html('WHEN BUTTON ' + buttonPressed + ' IS PRESSED -edited- <div class="spinner-grow text-danger"></div>');
+//         $('.card-title.press').html('Button ' + buttonPressed + ' press (*) <div class="spinner-grow text-danger"></div>');
+        $('.card-title.press').html('Button <span class="text-info">' + buttonPressed + ' short </span>press (<span class="text-warning">*</span>) </div>');
+        $('.card-title.press').addClass('bg-dark blink')
     }
     if (compareData(address, behave, true)) {
         //true means this button was edited for hod
-        $('.card-title.hold').html('WHEN BUTTON ' + buttonPressed + ' IS HOLD -edited- <div class="spinner-grow text-danger"></div>')
+//         $('.card-title.hold').html('Button ' + buttonPressed + ' long press (*) <div class="spinner-grow text-danger"></div>')
+        $('.card-title.hold').html('Button <span class="text-info">' + buttonPressed + ' long </span>press (<span class="text-warning">*</span>) </div>')
+        $('.card-title.hold').addClass('bg-dark blink')
     }
     // $('.card-subtitle.typePress').text(getType(typePress));
     // $('.card-subtitle.typeHold').text(getType(typeHold));
@@ -686,7 +695,7 @@ function applyEditBtnData() {
     $('#modalChannelValue').collapse('hide');
 }
 function fillKeyDropdown(keys) {
-    $('#modalModifierValue').collapse('show');
+    $('#modalModifierValue').modal('show');
     $('#dropdownTypeName').html("KEY:");
     if (typeSelected == 1) {
     $('#dropdownTypeComment').html('will send a keyboard stroke </br> <i class="fa fa-keyboard-o fa-3x text-dark" aria-hidden="true"></i>');
@@ -713,11 +722,11 @@ function fillKeyDropdown(keys) {
 }
 
 function updateModifierSelector() {
-    $('#modalModifierValue').collapse('show');
+    $('#modalModifierValue').modal('show');
 }
 
 function updateChannelSelector() {
-    $('#modalChannelValue').collapse('show');
+    $('#modalChannelValue').modal('show');
 }
 
 function updateBtnTitle() {
@@ -727,24 +736,25 @@ function updateBtnTitle() {
 function updatePresetCardTitle() {
     updateBtnTitle();
     if (presetSelected == 1 && currentBank == 0) {
-        $('#overallPresetInfo').text("YouTube CONTROLLER CONFIG (preset is not editable)");
+        $('#overallPresetInfo').text("YouTube CONTROLLER (preset is not editable)");
     } else {
         if (presetSelected == 2 && currentBank == 0) {
-            $('#presetSelected').html("PRESET " + presetSelected + " SELECTED | BANK 1");
+            $('#presetSelected').html("PRESET " + presetSelected + " | BANK 1");
             let modeHUI = ""
             if (allConfigData[482] > 127) {
                 modeHUI = "HUI CONTROLLER"
             } else {
                 modeHUI = "UNIVERSAL CONTROLLER"
             }
-            $('#overallPresetInfo').text("MACKIE " + modeHUI + " CONFIG (preset is not editable)");
+            $('#overallPresetInfo').text("MACKIE " + modeHUI + " (preset is not editable)");
         } else {
-            if (currentBank == 0) {
-                $('#overallPresetInfo').text("PRESET " + presetSelected + " BANK 1 CURRENT CONFIG");
-            }
-            if (currentBank == 240) {
-                $('#overallPresetInfo').text("PRESET " + presetSelected + " BANK 2 CURRENT CONFIG");
-            }
+//             if (currentBank == 0) {
+//                 $('#overallPresetInfo').text("Config for PRESET " + presetSelected + " | BANK 1");
+//             }
+//             if (currentBank == 240) {
+//                 $('#overallPresetInfo').text("Config for PRESET " + presetSelected + " | BANK 2 ");
+//             }
+            $('#overallPresetInfo').html("<span>ALL BUTTON CONFIGURATION</span>")
         }
     }
 }
@@ -765,7 +775,7 @@ function showAllPresetData() {
 ;function resetSelectedConfig(fullReset) {
     $('#selectedKey').text("choose...");
     $('#selectedChannel').text("choose...");
-    $('#modalModifierValue').collapse('hide');
+    $('#modalModifierValue').modal('hide');
     $('#modalChannelValue').collapse('hide');
     if (fullReset) {
         $('#modalKeyValue').collapse('hide');
@@ -796,7 +806,7 @@ function updateSelectedConfig() {
     }
     let addr = ((presetSelected - 1) * 30) + ((buttonPressed - 1) * 6) + 1 + currentBank;
     let beh = ((presetSelected - 1) * 10) + ((buttonPressed - 1) * 2) + 181 + currentBank
-    console.log("modifier byte: " + modifierSelected + " | value byte: " + valueSelected + " | type byte:" + typeSelected + " | hold Edit? " + editingHold + " | init address: " + addr + " | behave addres: " + beh);
+//     console.log("modifier byte: " + modifierSelected + " | value byte: " + valueSelected + " | type byte:" + typeSelected + " | hold Edit? " + editingHold + " | init address: " + addr + " | behave addres: " + beh);
     validateSelectedConfig();
 }
 
@@ -924,6 +934,7 @@ function updatePresetBtn(preset) {
   }
 }
 window.onunload = function() {
+    toastr.remove();
     //APP DISCONNECT message cuando se cierra
     var msg1 = [0xBE, 0x1F, 0x7F];
     //BE	1F	7F
